@@ -1,0 +1,27 @@
+plugins {
+  id 'application'
+  id 'org.openjfx.javafxplugin' version '0.1.0'
+  }
+
+test {
+  useJUnit()
+
+  include '**/*Suite.class'
+}
+
+javafx {
+    version = "17.0.8"
+    modules = [ 'javafx.controls' ]
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+

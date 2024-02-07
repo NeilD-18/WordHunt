@@ -3,6 +3,10 @@ plugins {
   id 'org.openjfx.javafxplugin' version '0.1.0'
   }
 
+application {
+    mainClassName = 'FancyDisplay'
+}
+
 test {
   useJUnit()
 

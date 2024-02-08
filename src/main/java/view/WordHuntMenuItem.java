@@ -18,9 +18,9 @@ public class WordHuntMenuItem extends Pane {
     public WordHuntMenuItem(String menuItemName) { 
         Polygon bg = new Polygon(
             0,0,
-            200,0,
-            200, 15, 
-            200, 30,
+            210,0,
+            230, 10, 
+            210, 30,
             0, 30 
         ); 
 
@@ -36,8 +36,8 @@ public class WordHuntMenuItem extends Pane {
         text = new Text(menuItemName);
         text.setTranslateX(5); 
         text.setTranslateY(20);     
-        text.setFont(Font.loadFont(WordHuntMenu.class.getResourceAsStream("/res/NotoSansJP-Regular.ttf"), 14));
-        text.setFill(Color.BLACK); 
+        text.setFont(Font.loadFont(this.getClass().getResource("/fonts/LilitaOne-Regular.ttf").toExternalForm(), 14));
+        text.setFill(Color.GOLD); 
 
         text.effectProperty().bind(
             Bindings.when(hoverProperty())

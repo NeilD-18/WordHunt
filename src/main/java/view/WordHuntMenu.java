@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.nio.*;
 import java.nio.file.Files;
 import java.nio.file.Paths; 
+import java.net.URL; 
 
 
 public class WordHuntMenu extends Application {
@@ -42,9 +43,9 @@ public class WordHuntMenu extends Application {
     private Line line;
 
     private Parent createContent(){ 
-        //addBackground(); -> Fix
-        //addTitle(); -> Implement
+        addTitle();
 
+        root.setId("pane"); 
         double lineX = WIDTH / 2 - 100; 
         double lineY = HEIGHT / 3 + 50; 
 
@@ -56,19 +57,6 @@ public class WordHuntMenu extends Application {
         return root; 
     }
 
-    private void addBackground(){ 
-        
-        String imagePath = "/res/Background.jpg";
-        InputStream inputStream = getClass().getResourceAsStream(imagePath);
-        Image backgroundImage = new Image(inputStream);
-        
-        
-        ImageView imgView = new ImageView(backgroundImage);
-        imgView.setFitWidth(WIDTH); 
-        imgView.setFitHeight(HEIGHT); 
-
-        root.getChildren().add(imgView); 
-    }
 
     private void addLine(double x, double y) { 
         line = new Line(x, y, x, y + 155); 
@@ -118,6 +106,13 @@ public class WordHuntMenu extends Application {
         root.getChildren().add(menuBox);
     }
 
+    public void addTitle() { 
+        WordHuntMenuTitle title = new WordHuntMenuTitle("Word Hunt"); 
+        title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2); 
+        title.setTranslateY(HEIGHT / 3); 
+        root.getChildren().add(title); 
+    }
+
 
     
     public static void main(String[] args) {
@@ -128,6 +123,14 @@ public class WordHuntMenu extends Application {
     public void start(Stage primaryStage) throws Exception { 
         
         Scene scene = new Scene(createContent());
+        
+        URL cssResource = getClass().getResource("css/styles.css");
+        if (cssResource != null) {
+            scene.getStylesheets().add(cssResource.toExternalForm());
+        } else {
+            //System.out.println("Error: CSS resource 'styles.css' not found!");
+        }
+
         primaryStage.setTitle("WordHunt Menu");
         primaryStage.setScene(scene); 
         primaryStage.setWidth(WIDTH);

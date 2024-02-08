@@ -4,7 +4,7 @@ plugins {
   }
 
 application {
-    mainClassName = 'FancyDisplay'
+    mainClassName = 'WordHuntMenu'
 }
 
 test {
@@ -15,7 +15,7 @@ test {
 
 javafx {
     version = "17.0.8"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 dependencies {

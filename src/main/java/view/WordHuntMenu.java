@@ -82,7 +82,6 @@ public class WordHuntMenu extends Application {
                 tt.play(); 
             }
 
-
         }); 
         st.play(); 
     }
@@ -106,7 +105,7 @@ public class WordHuntMenu extends Application {
         root.getChildren().add(menuBox);
     }
 
-    public void addTitle() { 
+    private void addTitle() { 
         WordHuntMenuTitle title = new WordHuntMenuTitle("Word Hunt"); 
         title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2); 
         title.setTranslateY(HEIGHT / 3); 
@@ -128,7 +127,7 @@ public class WordHuntMenu extends Application {
         if (cssResource != null) {
             scene.getStylesheets().add(cssResource.toExternalForm());
         } else {
-            //System.out.println("Error: CSS resource 'styles.css' not found!");
+            System.out.println("Error: CSS resource 'styles.css' not found!");
         }
 
         primaryStage.setTitle("WordHunt Menu");

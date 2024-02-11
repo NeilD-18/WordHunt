@@ -43,8 +43,11 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class FancyDisplay extends Application {
+    private static final int WIDTH = 1280; 
+    private static final int HEIGHT = 720; 
+   
     private static final int GRID_SIZE = 4;
-    private Button[][] buttons;
+    private Tile[][] tiles;
     private Label scoreLabel;
     private ArrayList<String> guessedWords;
     private int startRow = -1;
@@ -63,10 +66,12 @@ public class FancyDisplay extends Application {
         setupLayout(primaryStage);
 
         primaryStage.show();
+        primaryStage.setWidth(WIDTH);
+        primaryStage.setHeight(HEIGHT);
     }
 
     private void initializeComponents() {
-        buttons = new Button[GRID_SIZE][GRID_SIZE];
+        tiles = new Tile[GRID_SIZE][GRID_SIZE];
         scoreLabel = new Label("Words Found: 0");
         scoreLabel.setStyle("-fx-font-size: 16;");
 
@@ -74,11 +79,11 @@ public class FancyDisplay extends Application {
             for (int j = 0; j < GRID_SIZE; j++) {
                 final int row = i;
                 final int col = j;
-                buttons[i][j] = new Button("Button " + (i * GRID_SIZE + j + 1));
-                buttons[i][j].setMinSize(80, 80);
-                buttons[i][j].setOnMousePressed(event -> handleMousePressed(row, col));
-                buttons[i][j].addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener());
-                buttons[i][j].setOnMouseReleased(event -> handleMouseReleased(row, col));
+                tiles[i][j] = new Tile("" + (i * GRID_SIZE + j + 1));
+                tiles[i][j].setMinSize(80, 80);
+                tiles[i][j].setOnMousePressed(event -> handleMousePressed(row, col));
+                tiles[i][j].addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener());
+                tiles[i][j].setOnMouseReleased(event -> handleMouseReleased(row, col));
             }
         }
     }
@@ -86,21 +91,24 @@ public class FancyDisplay extends Application {
     private void setupLayout(Stage primaryStage) {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
 
         // Add buttons to the grid
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
-                gridPane.add(buttons[i][j], j, i);
+                gridPane.add(tiles[i][j], j, i);
             }
         }
 
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
+        vBox.setId("game-root");
         vBox.getChildren().addAll(scoreLabel, gridPane, createGuessedWordsBank());
 
         Scene scene = new Scene(vBox, 400, 400);
+        scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+
         primaryStage.setScene(scene);
     }
 
@@ -117,7 +125,7 @@ public class FancyDisplay extends Application {
         guessedWords.add("Word3");
 
         for (String word : guessedWords) {
-            Button wordButton = new Button(word);
+            Tile wordButton = new Tile(word);
             wordButton.setDisable(true);
             flowPane.getChildren().add(wordButton);
         }
@@ -126,19 +134,19 @@ public class FancyDisplay extends Application {
     }
 
     private void handleMousePressed(int row, int col) {
-        buttons[row][col].setStyle("-fx-background-color: lightblue;");
+        tiles[row][col].setGreenState();
     }
 
     private void handleMouseDragged(int row, int col) {
-        buttons[row][col].setStyle("-fx-background-color: lightblue;");
+        tiles[row][col].setGreenState();
     }
 
     private void handleMouseReleased(int row, int col) {
         startRow = -1;
         startCol = -1;
-        for (Button[] buttonRow : buttons) {
-            for (Button button : buttonRow) {
-                button.setStyle("");
+        for (Tile[] buttonRow : tiles) {
+            for (Tile button : buttonRow) {
+                button.setYellowState();
             }
         }
     }
@@ -153,14 +161,16 @@ public class FancyDisplay extends Application {
 
         private int getButtonRow(MouseEvent event) {
             double y = event.getY();
-            double buttonHeight = buttons[0][0].getHeight();
-            return (int) (y / buttonHeight);
+            double gridHeight = tiles.length * tiles[0][0].getHeight();
+            double relativeY = y / gridHeight * GRID_SIZE;
+            return (int) Math.min(Math.max(relativeY, 0), GRID_SIZE - 1);
         }
-
+        
         private int getButtonColumn(MouseEvent event) {
             double x = event.getX();
-            double buttonWidth = buttons[0][0].getWidth();
-            return (int) (x / buttonWidth);
+            double gridWidth = tiles[0].length * tiles[0][0].getWidth();
+            double relativeX = x / gridWidth * GRID_SIZE;
+            return (int) Math.min(Math.max(relativeX, 0), GRID_SIZE - 1);
         }
     }
 }

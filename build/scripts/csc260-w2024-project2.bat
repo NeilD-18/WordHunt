@@ -26,7 +26,6 @@ if "%OS%"=="Windows_NT" setlocal
 
 set DIRNAME=%~dp0
 if "%DIRNAME%"=="" set DIRNAME=.
-@rem This is normally unused
 set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%..
 
@@ -68,11 +67,11 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\csc260-w2024-project2.jar;%APP_HOME%\lib\javafx-controls-17.0.8-mac-aarch64.jar;%APP_HOME%\lib\javafx-graphics-17.0.8-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-17.0.8-mac-aarch64.jar
+set CLASSPATH=%APP_HOME%\lib\csc260-w2024-project2.jar;%APP_HOME%\lib\javafx-controls-17.0.8-linux.jar;%APP_HOME%\lib\javafx-graphics-17.0.8-linux.jar;%APP_HOME%\lib\javafx-base-17.0.8-linux.jar
 
 
 @rem Execute csc260-w2024-project2
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %CSC260_W2024_PROJECT2_OPTS%  -classpath "%CLASSPATH%"  %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %CSC260_W2024_PROJECT2_OPTS%  -classpath "%CLASSPATH%" FancyDisplay %*
 
 :end
 @rem End local scope for the variables with windows NT shell

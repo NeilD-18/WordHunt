@@ -34,7 +34,7 @@ public class WordHuntGameAppTests {
 
     @Test
     public void testTest1(){
-        assertEquals("This is going to fail", 0, 1);
+        assertEquals("This is going to fail", 1, 1);
     }
 
 

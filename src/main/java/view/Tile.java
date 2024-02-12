@@ -1,29 +1,53 @@
+
+
 import javafx.scene.control.Button; 
 import javafx.scene.layout.StackPane; 
 
-public class Tile extends StackPane{
+public class Tile extends Button{
     
-    private Button tile; 
+    private int row; 
+    private int col; 
+    private String data;
+    private String currentState; 
 
-    public Tile(String letter) {
-        tile = new Button(letter); 
-        getChildren().add(tile); 
+    public Tile(String letter, int row, int col) {
+        super(letter);
+        data = letter; 
+        this.row = row;
+        this.col = col;
         setYellowState(); 
 
     } 
 
     public void setNeutralState() { 
-        tile.getStyleClass().clear(); 
-        tile.getStyleClass().add("button-neutral-state");
+        getStyleClass().clear(); 
+        getStyleClass().add("button-neutral-state");
+        currentState = "neutral-state";
     }
 
     public void setGreenState() { 
-        tile.getStyleClass().clear(); 
-        tile.getStyleClass().add("button-green-state");
+        getStyleClass().clear(); 
+        getStyleClass().add("button-green-state");
+        currentState = "green-state";
     }
 
     public void setYellowState() { 
-        tile.getStyleClass().clear(); 
-        tile.getStyleClass().add("button-yellow-state");
+        getStyleClass().clear(); 
+        getStyleClass().add("button-yellow-state");
+        currentState = "yellow-state";
     }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public String getData(){
+        return data; 
+    }
+
+    public String getCurrentState() { return currentState; }
 }

@@ -1,104 +1,72 @@
-import javafx.scene.control.Label;
+
+
 import javafx.scene.layout.GridPane;
-import javafx.scene.input.MouseEvent;
 
 public class WordHuntBoard extends GridPane {
+    
+    private Tile[][] buttons;
     private static final int GRID_SIZE = 4;
-    private Tile[][] tiles;
+    private String[] myArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
 
-    public WordHuntBoard() {
-        initializeBoard();
+    public WordHuntBoard() { 
+        initializeDefaultBoard();
     }
 
-    public WordHuntBoard(String[][] letters) {
-        initializeBoardWithLetters(letters);
+    /** 
+    public WordHuntBoard(String[][] givenBoard) { 
+        initializeBoard(givenBoard); 
     }
 
-    private void initializeBoard() {
-        tiles = new Tile[GRID_SIZE][GRID_SIZE];
+    */
 
+
+    private void initializeDefaultBoard() {
+        setHgap(10);
+        setVgap(10);
+        buttons = new Tile[GRID_SIZE][GRID_SIZE];
+        
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
                 final int row = i;
                 final int col = j;
-                tiles[i][j] = new Tile("" + (i * GRID_SIZE + j + 1));
-                tiles[i][j].setMinSize(80, 80);
-                tiles[i][j].setOnMousePressed(event -> handleMousePressed(row, col));
-                tiles[i][j].setOnMouseDragged(event -> handleMouseDragged(row, col));
-                tiles[i][j].setOnMouseReleased(event -> handleMouseReleased(row, col));
+                Tile tile = new Tile(myArray[(i * GRID_SIZE + j + 1)-1], i ,j); 
+                tile.setYellowState();
+                tile.setMinSize(80, 80);
+                tile.setOnMousePressed(event -> handleMousePressed(row, col));
+                buttons[i][j] = tile; 
+                add(tile, j, i); 
             }
         }
 
-        // Add buttons to the grid
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
-                this.add(tiles[i][j], j, i);
-            }
-        }
     }
 
-    private void initializeBoardWithLetters(String[][] letters) {
-        tiles = new Tile[GRID_SIZE][GRID_SIZE];
-
+    private void initializeBoard(String[][] givenBoard) {
+        setHgap(10);
+        setVgap(10);
+        buttons = new Tile[GRID_SIZE][GRID_SIZE];
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
                 final int row = i;
                 final int col = j;
-                tiles[i][j] = new Tile(letters[i][j]);
-                tiles[i][j].setMinSize(80, 80);
-                tiles[i][j].setOnMousePressed(event -> handleMousePressed(row, col));
-                tiles[i][j].setOnMouseDragged(event -> handleMouseDragged(row, col));
-                tiles[i][j].setOnMouseReleased(event -> handleMouseReleased(row, col));
+                Tile tile = new Tile(givenBoard[i][j], i ,j); 
+                tile.setYellowState();
+                tile.setMinSize(80, 80);
+                tile.setOnMousePressed(event -> handleMousePressed(row, col));
+                buttons[i][j] = tile; 
+                add(tile, j, i); 
+            
+        
             }
-        }
-
-        // Add buttons to the grid
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
-                this.add(tiles[i][j], j, i);
-            }
-        }
+        }   
     }
+
 
     private void handleMousePressed(int row, int col) {
-        tiles[row][col].setGreenState();
-    }
-
-    private void handleMouseDragged(int row, int col) {
-        tiles[row][col].setGreenState();
-    }
-
-    private void handleMouseReleased(int row, int col) {
-        int startRow = -1;
-        int startCol = -1;
-        for (Tile[] buttonRow : tiles) {
-            for (Tile button : buttonRow) {
-                button.setYellowState();
-            }
+        Tile tile = buttons[row][col];
+        if (tile.getCurrentState().equals("yellow-state")) {
+            tile.setNeutralState();
+        }    else {
+            tile.setYellowState();
         }
-    }
-
-
-    private class ButtonDragListener implements javafx.event.EventHandler<MouseEvent> {
-        @Override
-        public void handle(MouseEvent event) {
-            int row = getButtonRow(event);
-            int col = getButtonColumn(event);
-            handleMouseDragged(row, col);
-        }
-
-        private int getButtonRow(MouseEvent event) {
-            double y = event.getY();
-            double buttonHeight = tiles[0][0].getHeight();
-            return (int) (y / buttonHeight);
-        }
-
-        private int getButtonColumn(MouseEvent event) {
-            double x = event.getX();
-            double buttonWidth = tiles[0][0].getWidth();
-            return (int) (x / buttonWidth);
-        }
-   
-
     }
 }

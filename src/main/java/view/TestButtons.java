@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -32,9 +33,11 @@ public class TestButtons extends Application {
             wordList.add("New Word");
         });
 
-        VBox root = new VBox(listView, addButton);
+        WordHuntBoard wordHuntBoard = new WordHuntBoard(); // Assuming you have this class already
+        
+        HBox root = new HBox(wordHuntBoard, new VBox(listView, addButton));
 
-        Scene scene = new Scene(root, 300, 200);
+        Scene scene = new Scene(root, 500, 200);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Word List Example");
         primaryStage.show();

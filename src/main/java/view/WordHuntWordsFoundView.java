@@ -23,6 +23,7 @@ public class WordHuntWordsFoundView extends VBox {
         addButton.setOnAction(event -> {
             // Add a new word to the Model
             wordList.add("New Word1");
+            
         });
 
         getChildren().addAll(listView, addButton);

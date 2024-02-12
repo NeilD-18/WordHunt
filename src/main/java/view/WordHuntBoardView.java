@@ -2,23 +2,21 @@
 
 import javafx.scene.layout.GridPane;
 
-public class WordHuntBoard extends GridPane {
+public class WordHuntBoardView extends GridPane {
     
     private Tile[][] buttons;
     private static final int GRID_SIZE = 4;
     private String[] myArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
 
-    public WordHuntBoard() { 
+    public WordHuntBoardView() { 
         initializeDefaultBoard();
     }
 
-    /** 
-    public WordHuntBoard(String[][] givenBoard) { 
+
+    public WordHuntBoardView(String[][] givenBoard) { 
         initializeBoard(givenBoard); 
     }
-
-    */
-
+    
 
     private void initializeDefaultBoard() {
         setHgap(10);

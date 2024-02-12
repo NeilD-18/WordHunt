@@ -19,10 +19,15 @@ import java.util.ArrayList;
 public class FancyDisplay extends Application {
     private static final int WIDTH = 1280; 
     private static final int HEIGHT = 720;
-    
+    private String[][] testList = {
+        {"N", "E", "I", "L"},
+        {"I", "S", "S", "O"},
+        {"C", "O", "O", "L"},
+        {"L", "O", "O", "L"}
+    };
     private WordHuntScoreView scoreLabel;
     private WordHuntWordsFoundView foundWords;
-    private WordHuntBoard gameBoard; 
+    private WordHuntBoardView gameBoard; 
 
    
 
@@ -44,7 +49,7 @@ public class FancyDisplay extends Application {
         
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView(); 
-        gameBoard = new WordHuntBoard();
+        gameBoard = new WordHuntBoardView(testList);
 
         
     }

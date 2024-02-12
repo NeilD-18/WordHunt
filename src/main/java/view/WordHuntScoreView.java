@@ -8,7 +8,10 @@ public class WordHuntScoreView extends VBox {
     private Label totalWordsFoundLabel;
     private Label totalPossibleWordsLabel;
 
+    private int totalWordsFoundCount;
+
     public WordHuntScoreView() {
+        totalWordsFoundCount = 0; 
         totalWordsFoundLabel = new Label();
         totalWordsFoundLabel.setStyle("-fx-text-fill: rgba(171, 82, 54, 1);");
         totalPossibleWordsLabel = new Label();
@@ -33,5 +36,10 @@ public class WordHuntScoreView extends VBox {
 
     public void setTotalPossibleWords(int totalPossibleWords) {
         totalPossibleWordsLabel.setText("Total Possible Words: " + totalPossibleWords);
+    }
+
+    public void incrementTotalWordsFound() {
+        totalWordsFoundCount++;
+        totalWordsFoundLabel.setText("Total Words Found: " + totalWordsFoundCount);
     }
 }

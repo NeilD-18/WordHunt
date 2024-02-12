@@ -33,7 +33,7 @@ public class TestButtons extends Application {
             wordList.add("New Word");
         });
 
-        WordHuntBoard wordHuntBoard = new WordHuntBoard(); // Assuming you have this class already
+        WordHuntBoardView wordHuntBoard = new WordHuntBoardView(); // Assuming you have this class already
         
         HBox root = new HBox(wordHuntBoard, new VBox(listView, addButton));
 

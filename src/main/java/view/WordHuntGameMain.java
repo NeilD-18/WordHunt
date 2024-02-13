@@ -14,6 +14,7 @@ public class WordHuntGameMain extends Application {
     private WordHuntMenuViewModel menuViewModel;
     private WordHuntMenu wordHuntMenu;
     
+    
 
     public static void main(String[] args) {
         launch(args);

@@ -17,60 +17,55 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class WordHuntNewGame extends Pane{
-    private static final int WIDTH = 1280; 
-    private static final int HEIGHT = 720;
-    private String[][] testList = {
-        {"N", "E", "I", "L"},
-        {"I", "S", "S", "O"},
-        {"C", "O", "O", "L"},
-        {"L", "O", "O", "L"}
-    };
+public class WordHuntNewGame extends Pane {
     private WordHuntScoreView scoreLabel;
     private WordHuntWordsFoundView foundWords;
-    private WordHuntBoardView gameBoard; 
+    private WordHuntBoardView gameBoard;
 
-   public WordHuntNewGame() { 
+    public WordHuntNewGame() {
         initializeComponents();
         setupLayout();
+    }
 
-   }
-
-    
-
- 
     private void initializeComponents() {
-        
         scoreLabel = new WordHuntScoreView();
-        foundWords = new WordHuntWordsFoundView(); 
-        gameBoard = new WordHuntBoardView(testList);
+        foundWords = new WordHuntWordsFoundView();
 
-        
+        String[][] randomGrid = generateRandomGrid(4, 4);
+        gameBoard = new WordHuntBoardView(randomGrid);
     }
 
     private void setupLayout() {
-        
         scoreLabel.setAlignment(Pos.CENTER);
         foundWords.setAlignment(Pos.CENTER);
         gameBoard.setAlignment(Pos.CENTER);
         scoreLabel.setTotalWordsFound(0);
-        scoreLabel.setTotalPossibleWords(100); 
+        scoreLabel.setTotalPossibleWords(100);
 
-
-        VBox vBox = new VBox(10);        
+        VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(scoreLabel, gameBoard);
 
         HBox hBox = new HBox(50);
         hBox.setTranslateX(435);
         hBox.setTranslateY(150);
-        hBox.getChildren().addAll(vBox, foundWords); 
+        hBox.getChildren().addAll(vBox, foundWords);
 
-        getChildren().add(hBox); 
-        
+        getChildren().add(hBox);
     }
 
+    private String[][] generateRandomGrid(int rows, int columns) {
+        String[][] randomGrid = new String[rows][columns];
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                int randomIndex = (int) (Math.random() * alphabet.length());
+                randomGrid[i][j] = String.valueOf(alphabet.charAt(randomIndex));
+            }
+        }
 
+        return randomGrid;
+    }
 }
 

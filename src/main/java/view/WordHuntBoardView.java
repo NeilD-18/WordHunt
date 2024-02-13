@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.layout.GridPane;
+import model.WordHuntBoardModel;
 
 import java.util.Stack;
 
@@ -70,18 +71,8 @@ public class WordHuntBoardView extends GridPane {
         } else if (lastClickedTile != null && tile == selectedTilesStack.peek()) {
             selectedTilesStack.pop();
             toggleTileState(tile);
-            lastClickedTile = selectedTilesStack.peek();
-        } 
-    }
-    
-    
-    
-    private void clearStackAndDeselect() {
-        while (!selectedTilesStack.isEmpty()) {
-            Tile tile = selectedTilesStack.pop();
-            toggleTileState(tile);
+            lastClickedTile = selectedTilesStack.isEmpty() ? null : selectedTilesStack.peek();
         }
-        lastClickedTile = null;
     }
 
 
@@ -94,20 +85,8 @@ public class WordHuntBoardView extends GridPane {
     }
 
     private boolean isAdjacent(Tile tile1, Tile tile2) {
-        int row1 = tile1.getRow();
-        int col1 = tile1.getCol();
-        int row2 = tile2.getRow();
-        int col2 = tile2.getCol();
+        boolean adjacent = WordHuntBoardModel.isAdjacent(tile1, tile2, selectedTilesStack);
+        return adjacent;
 
-        if (!selectedTilesStack.isEmpty()) {
-            Tile topOfStack = selectedTilesStack.peek();
-            int topRow = topOfStack.getRow();
-            int topCol = topOfStack.getCol();
-
-            return (Math.abs(row1 - row2) <= 1 && Math.abs(col1 - col2) <= 1) &&
-                    (Math.abs(row1 - topRow) <= 1 && Math.abs(col1 - topCol) <= 1);
-        } else {
-            return Math.abs(row1 - row2) <= 1 && Math.abs(col1 - col2) <= 1;
-        }
     }
 }

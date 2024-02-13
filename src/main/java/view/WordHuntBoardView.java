@@ -1,4 +1,4 @@
-
+package view;
 
 import javafx.scene.layout.GridPane;
 

@@ -1,3 +1,4 @@
+package view;
 
 
 import javafx.application.Application;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class FancyDisplay extends Application {
+public class WordHuntNewGame extends Pane{
     private static final int WIDTH = 1280; 
     private static final int HEIGHT = 720;
     private String[][] testList = {
@@ -29,22 +30,15 @@ public class FancyDisplay extends Application {
     private WordHuntWordsFoundView foundWords;
     private WordHuntBoardView gameBoard; 
 
-   
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Word Hunt");
-
+   public WordHuntNewGame() { 
         initializeComponents();
-        setupLayout(primaryStage);
+        setupLayout();
 
-        primaryStage.show();
-    }
+   }
 
+    
+
+ 
     private void initializeComponents() {
         
         scoreLabel = new WordHuntScoreView();
@@ -54,28 +48,26 @@ public class FancyDisplay extends Application {
         
     }
 
-    private void setupLayout(Stage primaryStage) {
+    private void setupLayout() {
         
         scoreLabel.setAlignment(Pos.CENTER);
         foundWords.setAlignment(Pos.CENTER);
         gameBoard.setAlignment(Pos.CENTER);
         scoreLabel.setTotalWordsFound(0);
         scoreLabel.setTotalPossibleWords(100); 
-    
+
+
         VBox vBox = new VBox(10);        
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(scoreLabel, gameBoard);
 
         HBox hBox = new HBox(50);
-        hBox.setId("game-root"); 
-        hBox.setAlignment(Pos.CENTER);
+        hBox.setTranslateX(435);
+        hBox.setTranslateY(150);
         hBox.getChildren().addAll(vBox, foundWords); 
 
-        Scene scene = new Scene(hBox, 400, 400);
-        scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
-        primaryStage.setWidth(WIDTH);
-        primaryStage.setHeight(HEIGHT);
-        primaryStage.setScene(scene);
+        getChildren().add(hBox); 
+        
     }
 
 

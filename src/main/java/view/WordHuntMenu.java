@@ -1,7 +1,9 @@
+package view;
 
 import java.util.List;
 import java.util.Arrays;
 import javafx.util.Pair;
+import viewmodel.WordHuntMenuViewModel;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -27,26 +29,29 @@ import java.nio.file.Paths;
 import java.net.URL; 
 
 
-public class WordHuntMenu extends Application {
+public class WordHuntMenu extends Pane {
     
+    private WordHuntMenuViewModel menuViewModel;
     private static final int WIDTH = 1280; 
     private static final int HEIGHT = 720; 
 
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
-        new Pair<String, Runnable>("New Game", () -> {}),
+        new Pair<String, Runnable>("New Game", () -> { menuViewModel.requestStartNewGame(); }),
         new Pair<String, Runnable>("Load Game", () -> {}),
         new Pair<String, Runnable>("Create Game", () -> {}),
         new Pair<String, Runnable>("Exit to Desktop", Platform::exit)
     );
 
-    private Pane root = new Pane(); 
+    
     private VBox menuBox = new VBox(-5); 
     private Line line;
 
-    private Parent createContent(){ 
+    public WordHuntMenu(WordHuntMenuViewModel menuViewModel){ 
+        this.menuViewModel = menuViewModel;
+        
         addTitle();
 
-        root.setId("pane"); 
+        setId("pane"); 
         double lineX = WIDTH / 2 - 100; 
         double lineY = HEIGHT / 3 + 50; 
 
@@ -54,8 +59,6 @@ public class WordHuntMenu extends Application {
         addMenu(lineX + 5, lineY + 5); 
 
         startAnimation(); 
-
-        return root; 
     }
 
 
@@ -65,7 +68,7 @@ public class WordHuntMenu extends Application {
         line.setStroke(Color.BLACK);
         line.setEffect(new DropShadow(5, Color.BLACK)); 
         line.setScaleY(0);
-        root.getChildren().add(line); 
+        getChildren().add(line); 
 
     }
 
@@ -103,39 +106,19 @@ public class WordHuntMenu extends Application {
             menuBox.getChildren().addAll(item); 
 
         }); 
-        root.getChildren().add(menuBox);
+        getChildren().add(menuBox);
     }
 
     private void addTitle() { 
         WordHuntMenuTitle title = new WordHuntMenuTitle("Word Hunt"); 
         title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2); 
         title.setTranslateY(HEIGHT / 3); 
-        root.getChildren().add(title); 
+        getChildren().add(title); 
     }
 
 
     
-    public static void main(String[] args) {
-        launch(args);
-    }
+  
 
-    @Override 
-    public void start(Stage primaryStage) throws Exception { 
-        
-        Scene scene = new Scene(createContent());
-        
-        URL cssResource = getClass().getResource("css/styles.css");
-        if (cssResource != null) {
-            scene.getStylesheets().add(cssResource.toExternalForm());
-        } else {
-            System.out.println("Error: CSS resource 'styles.css' not found!");
-        }
-
-        primaryStage.setTitle("WordHunt Menu");
-        primaryStage.setScene(scene); 
-        primaryStage.setWidth(WIDTH);
-        primaryStage.setHeight(HEIGHT);
-        primaryStage.show(); 
-    }
-
+   
 }

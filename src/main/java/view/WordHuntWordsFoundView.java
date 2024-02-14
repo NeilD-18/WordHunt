@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import viewmodel.WordHuntBoardViewModel;
 
 public class WordHuntWordsFoundView extends VBox {
 
@@ -26,6 +27,8 @@ public class WordHuntWordsFoundView extends VBox {
     protected ObservableList<Text> wordList; 
     protected ListProperty<Text> wordListProperty;
     protected ListView<Text> listView;
+    private WordHuntBoardViewModel boardViewModel;
+
 
     public WordHuntWordsFoundView() {
         wordList = FXCollections.observableArrayList();
@@ -46,7 +49,7 @@ public class WordHuntWordsFoundView extends VBox {
         title.setFill(Color.WHITE);
 
         // Layout
-        HBox buttonBox = new HBox(new WordHuntAddButtonView(this)); 
+        HBox buttonBox = new HBox(new WordHuntAddButtonView(this, boardViewModel));
         buttonBox.setAlignment(Pos.CENTER);
 
         // Add components to the view

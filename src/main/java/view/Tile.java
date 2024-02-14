@@ -36,7 +36,11 @@ public class Tile extends Button {
     public int getCol() {
         return col;
     }
-    
+
+    public String getLetter() {
+        return data;
+    }
+
     public String getCurrentState() {
         return currentState;
     }

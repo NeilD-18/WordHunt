@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordHuntGameAppTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-02-13T21:38:18" hostname="BAIBHAV" time="0.004">
+<testsuite name="WordHuntGameAppTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-02-14T05:16:49" hostname="rigatoni" time="0.001">
   <properties/>
-  <testcase name="testTest1" classname="WordHuntGameAppTests" time="0.003"/>
-  <testcase name="testTest" classname="WordHuntGameAppTests" time="0.001"/>
+  <testcase name="testTest1" classname="WordHuntGameAppTests" time="0.001"/>
+  <testcase name="testTest" classname="WordHuntGameAppTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

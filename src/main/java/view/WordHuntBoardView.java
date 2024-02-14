@@ -1,16 +1,15 @@
 package view;
 
 import javafx.scene.layout.GridPane;
-import model.WordHuntBoardModel;
+import viewmodel.WordHuntBoardViewModel;
 
-import java.util.Stack;
 
 public class WordHuntBoardView extends GridPane {
 
     private Tile[][] buttons;
     private static final int GRID_SIZE = 4;
     private Tile lastClickedTile;
-    private Stack<Tile> selectedTilesStack;
+    private WordHuntBoardViewModel viewModel;
 
     public WordHuntBoardView() {
         initializeBoard();
@@ -24,7 +23,7 @@ public class WordHuntBoardView extends GridPane {
         setHgap(10);
         setVgap(10);
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
-        selectedTilesStack = new Stack<>();
+        viewModel = new WordHuntBoardViewModel();
 
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
@@ -39,7 +38,7 @@ public class WordHuntBoardView extends GridPane {
         setHgap(10);
         setVgap(10);
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
-        selectedTilesStack = new Stack<>();
+        viewModel = new WordHuntBoardViewModel();
 
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
@@ -60,21 +59,20 @@ public class WordHuntBoardView extends GridPane {
     }
 
     private void handleMouseClick(Tile tile) {
-        if (selectedTilesStack.isEmpty()) {
+        if (viewModel.getSelectedTilesStack().isEmpty()) {
             toggleTileState(tile);
             lastClickedTile = tile;
-            selectedTilesStack.push(tile);
-        } else if (!selectedTilesStack.contains(tile) && lastClickedTile != null && tile != lastClickedTile && isAdjacent(tile, selectedTilesStack.peek())) {
+            viewModel.addToSelectedTilesStack(tile);
+        } else if (!viewModel.getSelectedTilesStack().contains(tile) && lastClickedTile != null && tile != lastClickedTile && viewModel.isAdjacent(tile)) {
             toggleTileState(tile);
             lastClickedTile = tile;
-            selectedTilesStack.push(tile);
-        } else if (lastClickedTile != null && tile == selectedTilesStack.peek()) {
-            selectedTilesStack.pop();
+            viewModel.addToSelectedTilesStack(tile);
+        } else if (lastClickedTile != null && tile == viewModel.getSelectedTilesStack().peek()) {
+            viewModel.removeFromSelectedTilesStack(tile);
             toggleTileState(tile);
-            lastClickedTile = selectedTilesStack.isEmpty() ? null : selectedTilesStack.peek();
+            lastClickedTile = viewModel.getSelectedTilesStack().isEmpty() ? null : viewModel.getSelectedTilesStack().peek();
         }
     }
-
 
     private void toggleTileState(Tile tile) {
         if (tile.getCurrentState().equals("yellow-state")) {
@@ -82,11 +80,5 @@ public class WordHuntBoardView extends GridPane {
         } else {
             tile.setYellowState();
         }
-    }
-
-    private boolean isAdjacent(Tile tile1, Tile tile2) {
-        boolean adjacent = WordHuntBoardModel.isAdjacent(tile1, tile2, selectedTilesStack);
-        return adjacent;
-
     }
 }

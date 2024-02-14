@@ -1,11 +1,11 @@
-package model;
+package viewmodel;
 
 import java.util.Stack;
 
 // Import the Tile class
 import view.Tile;
 
-public class WordHuntBoardModel {
+public class WordHuntBoardViewModel {
 
     public static boolean isAdjacent(Tile tile1, Tile tile2, Stack<Tile> selectedTilesStack) {
         int row1 = tile1.getRow();

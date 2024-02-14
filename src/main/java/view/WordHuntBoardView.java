@@ -2,7 +2,7 @@ package view;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import model.WordHuntBoardModel;
+import viewmodel.WordHuntBoardViewModel;
 
 import java.util.Stack;
 
@@ -87,6 +87,26 @@ public class WordHuntBoardView extends GridPane {
             s = selectedTilesStack.pop().getText() + s;
         }
         System.out.println(s);
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        // PASS STRING TO VIEWFINDER
+        // PASS STRING TO VIEWFINDER
+        // PASS STRING TO VIEWFINDER
+        // PASS STRING TO VIEWFINDER
+        // PASS STRING TO VIEWFINDER
+        // PASS STRING TO VIEWFINDER
+        //
+        //
+        //
+        //
+        //
+        //
+        //
         this.wipeTiles();
     }
 
@@ -112,9 +132,8 @@ public class WordHuntBoardView extends GridPane {
     }
 
     private boolean isAdjacent(Tile tile1, Tile tile2) {
-        boolean adjacent = WordHuntBoardModel.isAdjacent(tile1, tile2, selectedTilesStack);
+        boolean adjacent = WordHuntBoardViewModel.isAdjacent(tile1, tile2, selectedTilesStack);
         return adjacent;
-
     }
 
     private class ButtonDragListener implements javafx.event.EventHandler<MouseEvent> {

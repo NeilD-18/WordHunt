@@ -6,9 +6,11 @@ import view.Tile;
 public class WordHuntBoardViewModel {
 
     private Stack<Tile> selectedTilesStack;
+    private WordHuntCurrentWordViewModel currentWordBuilder; 
 
     public WordHuntBoardViewModel() {
         selectedTilesStack = new Stack<>();
+        currentWordBuilder = new WordHuntCurrentWordViewModel(selectedTilesStack); 
     }
 
     public boolean isAdjacent(Tile tile) {
@@ -18,6 +20,10 @@ public class WordHuntBoardViewModel {
         } else {
             return true;
         }
+    }
+
+    private void notifyObserver() { 
+        currentWordBuilder.updateStack(selectedTilesStack);
     }
 
     private boolean areAdjacent(Tile tile1, Tile tile2) {
@@ -32,16 +38,19 @@ public class WordHuntBoardViewModel {
     public void addToSelectedTilesStack(Tile tile) {
         selectedTilesStack.push(tile);
         printSelectedTilesStack();
+        notifyObserver();
     }
 
     public void removeFromSelectedTilesStack(Tile tile) {
         selectedTilesStack.remove(tile);
         printSelectedTilesStack();
+        notifyObserver();
     }
 
     public void clearSelectedTilesStack() {
         selectedTilesStack.clear();
         printSelectedTilesStack();
+        notifyObserver();
     }
 
     public Stack<Tile> getSelectedTilesStack() {

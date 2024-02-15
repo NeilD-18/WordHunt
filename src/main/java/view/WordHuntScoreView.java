@@ -1,3 +1,6 @@
+package view;
+
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Label;

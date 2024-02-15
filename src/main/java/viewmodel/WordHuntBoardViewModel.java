@@ -12,12 +12,12 @@ public class WordHuntBoardViewModel {
     private Tile[][] buttons;
     private static final int GRID_SIZE = 4;
     private Tile lastClickedTile;
+    private ArrayList<String> foundWords;
 
     public WordHuntBoardViewModel(){
         this.game = new WordHuntGame();
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
     }
-
 
     public ArrayList<ArrayList<String>> initializeBoard(Boolean load, String txtFile){
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
@@ -33,8 +33,6 @@ public class WordHuntBoardViewModel {
     public Tile getLastClicked(){
         return lastClickedTile;
     }
-
-    
 
     public void wipeTiles(){
         for (int i = 0; i < GRID_SIZE; i++){
@@ -82,16 +80,43 @@ public class WordHuntBoardViewModel {
         }
     }
 
-    public void handleWord(String word) {
-        int validity = this.game.isValidWord(word.toLowerCase());
-        System.out.println("Pre-executing handleWord");
-        System.out.println(validity);
-        if (validity == 1) {
-            this.game.addFoundWord(false, word);
-        } else if (validity == 2) {
-            this.game.addFoundWord(true, word);
+    public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
+        foundWords = game.getFoundWords();
+        String word = "";
+        while (stack.isEmpty() == false){
+            word = stack.pop().getData() + word;
         }
-        System.out.println("Received string in WordHuntBoardViewModel: " + word);
+        word = word.toLowerCase();
+        int validity = this.game.isValidWord(word);
+        if (!foundWords.contains(word)){
+            if (validity == 1) {
+                this.game.addFoundWord(false, word);
+                wordsFound.wordList.add(wordsFound.createStyledText(word));
+                wordsFound.animateWordAddition();
+                scoreView.incrementTotalWordsFound();
+            } else if (validity == 2) {
+                this.game.addFoundWord(true, word);
+                wordsFound.wordList.add(wordsFound.bonusStyledText(word));
+                wordsFound.animateWordAddition();
+            }
+        }
+        this.wipeTiles();
     }
 
+    public Boolean checkWin(WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
+        return scoreView.getTotalWordsFound() == scoreView.getPossibleWords();
+    }
+
+    public int getNumPossibleWords(){
+        System.out.println(game.getPossibleWords().size());
+        return game.getPossibleWords().size();
+    }
+
+    public void setWin(){
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++){
+                buttons[i][j].setGreenState();
+            }
+        }
+    }
 }

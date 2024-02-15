@@ -32,18 +32,18 @@
     
 }
 
-.button-green-state { 
-    -fx-background-color: linear-gradient(to bottom , #DAEFAA,#78D998, #15C285 );
+.button-green-state {
+    -fx-background-color: linear-gradient(to bottom, #DAEFAA, #78D998, #15C285);
     -fx-text-fill: rgba(5, 84, 89, 1);
     -fx-font-size: 50px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow( gaussian , rgba(218, 239, 170, 1) , 0, 3 , 0 , 0 );
-    -fx-background-radius: 12px; 
-    -fx-alignment: center; 
+    -fx-effect: dropshadow(gaussian, rgba(218, 239, 170, 1), 0, 3, 0, 0);
+    -fx-background-radius: 12px;
+    -fx-alignment: center;
     -fx-border-color: #15C285;
     -fx-border-width: 3px;
     -fx-border-radius: 12px;
-    -fx-pref-height: 65px; 
+    -fx-pref-height: 65px;
     -fx-pref-width: 65px;
 }
 

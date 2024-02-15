@@ -6,21 +6,22 @@ import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.util.*;
+
+import viewmodel.*;
+import view.*;
+import model.*;
+
 public class WordHuntScoreView extends VBox {
+
+    private WordHuntScoreViewModel WordHuntScoreVM;
 
     private Label totalWordsFoundLabel;
     private Label totalPossibleWordsLabel;
 
-    private int totalWordsFoundCount;
-
     public WordHuntScoreView() {
-        totalWordsFoundCount = 0; 
-        totalWordsFoundLabel = new Label();
-        totalWordsFoundLabel.setStyle("-fx-text-fill: rgba(171, 82, 54, 1);");
-        totalPossibleWordsLabel = new Label();
-        totalPossibleWordsLabel.setStyle("-fx-text-fill: rgba(171, 82, 54, 1);");
-
-        getChildren().addAll(totalWordsFoundLabel, totalPossibleWordsLabel);
+        WordHuntScoreVM = new WordHuntScoreViewModel();
+        getChildren().addAll(WordHuntScoreVM.getTotalWordsFoundLabel(), WordHuntScoreVM.getPossibleWordsLabel());
     }
 
     public void bindTotalWordsFound(IntegerProperty totalWordsFoundProperty) {
@@ -33,16 +34,21 @@ public class WordHuntScoreView extends VBox {
                 "Total Possible Words: " + totalPossibleWordsProperty.get(), totalPossibleWordsProperty));
     }
 
-    public void setTotalWordsFound(int totalWordsFound) {
-        totalWordsFoundLabel.setText("Total Words Found: " + totalWordsFound);
-    }
-
-    public void setTotalPossibleWords(int totalPossibleWords) {
-        totalPossibleWordsLabel.setText("Total Possible Words: " + totalPossibleWords);
-    }
-
     public void incrementTotalWordsFound() {
-        totalWordsFoundCount++;
-        totalWordsFoundLabel.setText("Total Words Found: " + totalWordsFoundCount);
+        WordHuntScoreVM.incrementTotalWordsFound();
     }
+
+    public void initilaizeScores(int possibleWords){
+        WordHuntScoreVM.setTotalWordsFound(0);
+        WordHuntScoreVM.setTotalPossibleWords(possibleWords);
+    }
+
+    public int getTotalWordsFound(){
+        return WordHuntScoreVM.getTotalWordsFound();
+    }
+
+    public int getPossibleWords(){
+        return WordHuntScoreVM.getPossibleWords();
+    }
+
 }

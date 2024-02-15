@@ -30,17 +30,15 @@ public class WordHuntNewGame extends Pane {
     private void initializeComponents() {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-
-        String[][] randomGrid = generateRandomGrid(4, 4);
-        gameBoard = new WordHuntBoardView();
+        gameBoard = new WordHuntBoardView("testBoard.txt", scoreLabel, foundWords);
     }
 
     private void setupLayout() {
         scoreLabel.setAlignment(Pos.CENTER);
         foundWords.setAlignment(Pos.CENTER);
         gameBoard.setAlignment(Pos.CENTER);
-        scoreLabel.setTotalWordsFound(0);
-        scoreLabel.setTotalPossibleWords(100);
+        int possibleWords = gameBoard.getNumPossibleWords();
+        scoreLabel.initilaizeScores(possibleWords);
 
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
@@ -52,33 +50,6 @@ public class WordHuntNewGame extends Pane {
         hBox.getChildren().addAll(vBox, foundWords);
 
         getChildren().add(hBox);
-    }
-
-    /**
-    private String[][] generateRandomGrid(int rows, int columns) {
-        String[][] randomGrid = new String[rows][columns];
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                int randomIndex = (int) (Math.random() * alphabet.length());
-                randomGrid[i][j] = String.valueOf(alphabet.charAt(randomIndex));
-            }
-        }
-
-        return randomGrid;
-    }
-    */
-
-    private String[][] generateRandomGrid(int rows, int columns) {
-        String[][] fixedGrid = {
-                {"B", "A", "N", "K"},
-                {"B", "E", "E", "R"},
-                {"A", "B", "A", "N"},
-                {"A", "N", "O", "D"}
-        };
-    
-        return fixedGrid;
     }
     
 }

@@ -13,13 +13,22 @@ public class WordHuntBoardView extends GridPane {
     public Stack<Tile> selectedTilesStack;
     private static final int GRID_X_OFFSET = 435;
     private static final int GRID_Y_OFFSET = 196;
+    public WordHuntScoreView scoreView;
+    public WordHuntWordsFoundView wordsFound;
 
     public WordHuntBoardView() {
         initializeBoard();
     }
 
-    public WordHuntBoardView(String file) {
-        initializeBoard(file);
+    public WordHuntBoardView(String file, WordHuntScoreView scoreview, WordHuntWordsFoundView wordsfound) {
+        scoreView = scoreview;
+        wordsFound = wordsfound;
+        if (file != "null"){
+            initializeBoard(file);
+        }
+        else{
+            initializeBoard();
+        }
     }
 
     private void initializeBoard() {
@@ -50,6 +59,10 @@ public class WordHuntBoardView extends GridPane {
         wordHuntBoardVM.setLastClickedTile(null);
     }
 
+    public int getNumPossibleWords(){
+        return wordHuntBoardVM.getNumPossibleWords();
+    }
+
     private void createAndAddTile(String letter, int row, int col) {
         Tile tile = new Tile(letter, row, col);
         tile.setYellowState();
@@ -78,16 +91,18 @@ public class WordHuntBoardView extends GridPane {
     }
 
     private void handleMouseReleased(Tile tile) {
-        String s = "";
-        while (selectedTilesStack.isEmpty() == false){
-            s = selectedTilesStack.pop().getData() + s;
+        wordHuntBoardVM.handleWord(selectedTilesStack, scoreView, wordsFound);
+        if (checkWin()){
+            wordHuntBoardVM.setWin();
         }
-        wordHuntBoardVM.handleWord(s);
-        wordHuntBoardVM.wipeTiles();
     }
 
     private void handleMouseUndragged(Tile tile) {
         wordHuntBoardVM.toggleTileState(tile);
+    }
+
+    public Boolean checkWin(){
+        return wordHuntBoardVM.checkWin(scoreView, wordsFound);
     }
     
 
@@ -117,7 +132,7 @@ public class WordHuntBoardView extends GridPane {
                     handleMouseClick(wordHuntBoardVM.getButton(row, col));
                 }
             }
-            System.out.println(selectedTilesStack.toString());
+            // System.out.println(selectedTilesStack.toString());
         }
 
         private int getButtonRow(MouseEvent event){
@@ -173,12 +188,5 @@ public class WordHuntBoardView extends GridPane {
         }
 
     }
-
-
-    
-
-    
-
-    
 
 }

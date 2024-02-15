@@ -19,6 +19,7 @@ public class WordHuntGame {
     private ArrayList<String> POSSIBLE_4_LETTER_WORDS;
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
+    
 
     public WordHuntGame(){
         this.initializeWordLists();
@@ -44,6 +45,7 @@ public class WordHuntGame {
         }
         this.findWords();
     }
+
 
     public void tearDown(){
         board = new ArrayList<ArrayList<String>>();
@@ -150,7 +152,7 @@ public class WordHuntGame {
     private void initializeWordLists(){
         FOUR_LETTER_WORDS = new ArrayList<String>();
         BONUS_WORDS = new ArrayList<String>();
-        try (BufferedReader br = new BufferedReader(new FileReader("4LetterWordList.txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/WordLists/4LetterWordList.txt"))){
             String line = br.readLine();
             while (line != null){
                 FOUR_LETTER_WORDS.add(line);
@@ -160,7 +162,7 @@ public class WordHuntGame {
         catch (IOException exception){
             exception.printStackTrace();
         }
-        try (BufferedReader br = new BufferedReader(new FileReader("BonusWordListFinal.txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/WordLists/BonusWordListFinal.txt"))){
             String line = br.readLine();
             while (line != null){
                 BONUS_WORDS.add(line);
@@ -199,12 +201,18 @@ public class WordHuntGame {
     }
 
     public void addFoundWord(Boolean bonus, String word){
+        System.out.println("Pre-executing addFoundWord method");
         if (bonus){
             FOUND_BONUS_WORDS.add(word);
         }
         else{
             FOUND_4_LETTER_WORDS.add(word);
         }
+        System.out.println(FOUND_BONUS_WORDS.size() + " IS THE FOUND BONUS WORD SIZE");
+        System.out.println(FOUND_4_LETTER_WORDS.size() + " IS THE FOUND 4 LETTER WORD SIZE");
+
     }
+
+
 
 }

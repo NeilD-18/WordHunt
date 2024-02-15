@@ -86,27 +86,9 @@ public class WordHuntBoardView extends GridPane {
         while (selectedTilesStack.isEmpty() == false){
             s = selectedTilesStack.pop().getText() + s;
         }
-        System.out.println(s);
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        // PASS STRING TO VIEWFINDER
-        // PASS STRING TO VIEWFINDER
-        // PASS STRING TO VIEWFINDER
-        // PASS STRING TO VIEWFINDER
-        // PASS STRING TO VIEWFINDER
-        // PASS STRING TO VIEWFINDER
-        //
-        //
-        //
-        //
-        //
-        //
-        //
+        
+        WordHuntBoardViewModel wordHuntBoardVM = new WordHuntBoardViewModel();
+        wordHuntBoardVM.handleWord(s);
         this.wipeTiles();
     }
 

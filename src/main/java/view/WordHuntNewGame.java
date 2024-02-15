@@ -54,6 +54,7 @@ public class WordHuntNewGame extends Pane {
         getChildren().add(hBox);
     }
 
+    /**
     private String[][] generateRandomGrid(int rows, int columns) {
         String[][] randomGrid = new String[rows][columns];
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -67,5 +68,18 @@ public class WordHuntNewGame extends Pane {
 
         return randomGrid;
     }
+    */
+
+    private String[][] generateRandomGrid(int rows, int columns) {
+        String[][] fixedGrid = {
+                {"B", "A", "N", "K"},
+                {"B", "E", "E", "R"},
+                {"A", "B", "A", "N"},
+                {"A", "N", "O", "D"}
+        };
+    
+        return fixedGrid;
+    }
+    
 }
 

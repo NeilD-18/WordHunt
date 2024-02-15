@@ -8,6 +8,9 @@ import viewmodel.WordHuntCurrentWordViewModel;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * WordHuntBoardView class.
+ */
 public class WordHuntBoardView extends GridPane {
 
     WordHuntBoardViewModel wordHuntBoardVM;
@@ -18,10 +21,15 @@ public class WordHuntBoardView extends GridPane {
     public WordHuntScoreView scoreView;
     public WordHuntWordsFoundView wordsFound;
 
-    public WordHuntBoardView() {
-        initializeBoard();
-    }
+    
+    
 
+    /**
+     * Constructs a new WordHuntBoardView object with the specified file, score view, and words found view.
+     * @param file The file to initialize the board from.
+     * @param scoreview The score view associated with the game.
+     * @param wordsfound The view for displaying found words.
+     */
     public WordHuntBoardView(String file, WordHuntScoreView scoreview, WordHuntWordsFoundView wordsfound) {
         scoreView = scoreview;
         wordsFound = wordsfound;
@@ -33,6 +41,9 @@ public class WordHuntBoardView extends GridPane {
         }
     }
 
+    /**
+     * Initializes the game board.
+     */
     private void initializeBoard() {
         wordHuntBoardVM = new WordHuntBoardViewModel();
         wordHuntCurrentWordVM = new WordHuntCurrentWordViewModel();
@@ -48,6 +59,10 @@ public class WordHuntBoardView extends GridPane {
         wordHuntBoardVM.setLastClickedTile(null);
     }
 
+    /**
+     * Initializes the game board with the specified file.
+     * @param file The file to initialize the board from.
+     */
     private void initializeBoard(String file) {
         wordHuntBoardVM = new WordHuntBoardViewModel();
         wordHuntCurrentWordVM = new WordHuntCurrentWordViewModel();
@@ -63,10 +78,20 @@ public class WordHuntBoardView extends GridPane {
         wordHuntBoardVM.setLastClickedTile(null);
     }
 
+    /**
+     * Gets the number of possible words in the game.
+     * @return The number of possible words.
+     */
     public int getNumPossibleWords(){
         return wordHuntBoardVM.getNumPossibleWords();
     }
 
+    /**
+     * Creates and adds a tile to the game board.
+     * @param letter The letter to be displayed on the tile.
+     * @param row The row index of the tile.
+     * @param col The column index of the tile.
+     */
     private void createAndAddTile(String letter, int row, int col) {
         Tile tile = new Tile(letter, row, col);
         tile.setYellowState();
@@ -78,6 +103,11 @@ public class WordHuntBoardView extends GridPane {
         add(tile, col, row);
     }
 
+    
+    /**
+     * Handles mouse click events on tiles.
+     * @param tile The tile that was clicked.
+     */
     private void handleMouseClick(Tile tile) {
         if (selectedTilesStack.isEmpty()) {
             wordHuntBoardVM.toggleTileState(tile);
@@ -94,6 +124,10 @@ public class WordHuntBoardView extends GridPane {
         }
     }
 
+    /**
+     * Handles mouse released events on tiles.
+     * @param tile The tile that was released.
+     */
     private void handleMouseReleased(Tile tile) {
         wordHuntBoardVM.handleWord(selectedTilesStack, scoreView, wordsFound);
         if (checkWin()){
@@ -102,15 +136,25 @@ public class WordHuntBoardView extends GridPane {
         wordHuntCurrentWordVM.updateCurrentWord("");
     }
 
+    /**
+     * Handle the mouse undrag.
+     * @param tile the tile that was undragged
+     */
     private void handleMouseUndragged(Tile tile) {
         wordHuntBoardVM.toggleTileState(tile);
     }
 
+    /**
+     * Checks if the game has been won.
+     * @return True if the game is won, false otherwise.
+     */
     public Boolean checkWin(){
         return wordHuntBoardVM.checkWin(scoreView, wordsFound);
     }
     
-
+    /**
+     * A class implementing the button drag listener for tile dragging functionality.
+     */
     private class ButtonDragListener implements javafx.event.EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event){
@@ -146,6 +190,10 @@ public class WordHuntBoardView extends GridPane {
             wordHuntCurrentWordVM.updateCurrentWord(word);
         }
 
+        /**
+         * Get button row
+         * @param MouseEvent event
+         */
         private int getButtonRow(MouseEvent event){
             double y = event.getSceneY() - GRID_Y_OFFSET;
             double buttonHeight = wordHuntBoardVM.getButton(0, 0).getHeight();
@@ -172,6 +220,10 @@ public class WordHuntBoardView extends GridPane {
             return -1;
         }
         
+        /**
+         * Get button col
+         * @param MouseEvent event
+         */
         private int getButtonCol(MouseEvent event){
             double x = event.getSceneX() - GRID_X_OFFSET;
             double buttonWidth = wordHuntBoardVM.getButton(0, 0).getWidth();

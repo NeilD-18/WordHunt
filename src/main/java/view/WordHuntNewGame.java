@@ -2,30 +2,55 @@ package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
+import viewmodel.WordHuntInGameMenuViewModel; 
 
+/**
+ * WordHuntNewGame view class
+ */
 public class WordHuntNewGame extends Pane {
     private WordHuntScoreView scoreLabel;
     private WordHuntWordsFoundView foundWords;
     private WordHuntBoardView gameBoard;
     private WordHuntCurrentWordView currentWord; 
-
-    public WordHuntNewGame() {
-        initializeComponents();
+    private WordHuntInGameMenuView inGameMenu; 
+    private WordHuntInGameMenuViewModel inGameMenuVM; 
+    
+    /**
+     * Initialize a new game given a filepath
+     * @param String filePath
+     */
+    public WordHuntNewGame(String filePath) {
+        initializeComponents(filePath);
         setupLayout();
     }
 
-    private void initializeComponents() {
+    /**
+     * Initialize componenets given a filePath
+     * @param String filePath
+     */
+    public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        gameBoard = new WordHuntBoardView("testBoard.txt", scoreLabel, foundWords);
+        gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
+        inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
+        inGameMenu = new WordHuntInGameMenuView(inGameMenuVM, this);
+
     }
 
-    private void setupLayout() {
+    /**
+     * setupLayout
+     */
+    public void setupLayout() {
+        getChildren().clear();
         scoreLabel.setAlignment(Pos.CENTER);
         foundWords.setAlignment(Pos.CENTER);
         gameBoard.setAlignment(Pos.CENTER);
         int possibleWords = gameBoard.getNumPossibleWords();
+        while (possibleWords == 0){
+            this.initializeComponents("null");
+            possibleWords = gameBoard.getNumPossibleWords();
+        }
         scoreLabel.initilaizeScores(possibleWords);
 
         
@@ -41,7 +66,7 @@ public class WordHuntNewGame extends Pane {
         hBox.setTranslateY(150);
         hBox.getChildren().addAll(vBox, foundWords);
 
-        getChildren().add(hBox);
+        getChildren().addAll(hBox, inGameMenu);
     }
     
 }

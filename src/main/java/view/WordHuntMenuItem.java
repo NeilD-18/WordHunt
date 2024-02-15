@@ -11,11 +11,18 @@ import javafx.scene.text.Font;
 import javafx.beans.binding.Bindings;
 import javafx.scene.layout.Pane;
 
+/**
+ * Class for Menu Items
+ */
 public class WordHuntMenuItem extends Pane {
     private Text text; 
     private Effect shadow = new DropShadow(5, Color.BLACK); 
     private Effect blur = new BoxBlur(1,1,3); 
 
+    /**
+     * Constructor, creates menu item with a given name
+     * @param String menuItemName
+     */
     public WordHuntMenuItem(String menuItemName) { 
         Polygon bg = new Polygon(
             0,0,
@@ -50,6 +57,9 @@ public class WordHuntMenuItem extends Pane {
 
 
     }
+    /**
+     * Binds click to an action
+     */
     public void setOnAction(Runnable action) { 
         setOnMouseClicked(e -> action.run()); 
     }

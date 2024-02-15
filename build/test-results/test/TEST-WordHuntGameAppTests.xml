@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordHuntGameAppTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-02-13T21:38:18" hostname="BAIBHAV" time="0.004">
+<testsuite name="WordHuntGameAppTests" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-02-15T10:57:35" hostname="Neils-MacBook-Pro.local" time="0.092">
   <properties/>
-  <testcase name="testTest1" classname="WordHuntGameAppTests" time="0.003"/>
-  <testcase name="testTest" classname="WordHuntGameAppTests" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testGetFoundBonusWords" classname="WordHuntGameAppTests" time="0.007"/>
+  <testcase name="testFoundWordBonusFlag" classname="WordHuntGameAppTests" time="0.002"/>
+  <testcase name="testTearDown" classname="WordHuntGameAppTests" time="0.036"/>
+  <testcase name="testIsValidMove" classname="WordHuntGameAppTests" time="0.003"/>
+  <testcase name="testIsValidWord" classname="WordHuntGameAppTests" time="0.002"/>
+  <testcase name="testGetFoundWords" classname="WordHuntGameAppTests" time="0.001"/>
+  <testcase name="testGetBoardAfterGenerateRandomBoard" classname="WordHuntGameAppTests" time="0.019"/>
+  <testcase name="testAddFoundWord" classname="WordHuntGameAppTests" time="0.0"/>
+  <testcase name="testGetPossibleWords" classname="WordHuntGameAppTests" time="0.001"/>
+  <testcase name="testGenerateRandomBoard" classname="WordHuntGameAppTests" time="0.019"/>
+  <system-out><![CDATA[[tour, worm, auto, more, iowa, rome, euro, time, true, trim, trio, wear, ware]
+[]
+[june, hung, huge]
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

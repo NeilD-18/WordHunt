@@ -8,10 +8,16 @@ import javafx.geometry.Pos;
 import viewmodel.*; 
 
 
+/**
+ * WordHuntCurrentWordView class
+ */
 public class WordHuntCurrentWordView extends BorderPane {
     private HBox buttonContainer; 
     private WordHuntCurrentWordViewModel vm; 
 
+    /**
+     * Constructor, binds view to viewmodel 
+     */
     public WordHuntCurrentWordView(WordHuntCurrentWordViewModel viewmodel) { 
         vm = viewmodel;
         buttonContainer = new HBox(); 
@@ -24,8 +30,15 @@ public class WordHuntCurrentWordView extends BorderPane {
         getChildren().add(buttonContainer);
     }
 
+    /**
+     * Return Hbox which shows the buttons
+     */
     public HBox getCurrentWordView() { return buttonContainer; }
 
+    /**
+     * Update button container
+     * @param String newWord which the buttons will show
+     */
     private void updateButtons(String newWord) { 
         buttonContainer.getChildren().clear();
         for(char letter : newWord.toCharArray()) { 

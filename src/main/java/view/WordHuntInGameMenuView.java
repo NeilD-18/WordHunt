@@ -39,10 +39,12 @@ public class WordHuntInGameMenuView extends VBox {
     protected ListProperty<Button> menuOptionsProperty;
     private ToggleButton menuToggleButton;
     private WordHuntInGameMenuViewModel vm;
+    private WordHuntNewGame ng;
 
 
-    public WordHuntInGameMenuView(WordHuntInGameMenuViewModel viewmodel) {
+    public WordHuntInGameMenuView(WordHuntInGameMenuViewModel viewmodel, WordHuntNewGame newGame) {
         vm = viewmodel; 
+        ng = newGame;
         menuOptions = FXCollections.observableArrayList();
         menuOptionsProperty = new SimpleListProperty<>(menuOptions);
 
@@ -133,25 +135,17 @@ public class WordHuntInGameMenuView extends VBox {
 
 
     private void handleNewGame(ActionEvent event) {
-        System.out.println("New Game Clicked");
+       vm.newGame(ng); 
+       
+        
     }
 
 
     private void handleSaveGame(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Save File");
-        dialog.setHeaderText("Enter Save File Name:");
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait(); 
-
-        result.ifPresent(name -> {
-            vm.saveGame(name);
-    });
-
+        
+        vm.saveGame();
 
     }
-
 
     private void handleQuitGame(ActionEvent event) {
         vm.quitGame();

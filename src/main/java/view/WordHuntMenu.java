@@ -24,7 +24,7 @@ public class WordHuntMenu extends Pane {
 
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
         new Pair<String, Runnable>("New Game", () -> { menuViewModel.requestStartNewGame(); }),
-        new Pair<String, Runnable>("Load Game", () -> {}),
+        new Pair<String, Runnable>("Load Game", () -> { menuViewModel.requestLoadGame(); }),
         new Pair<String, Runnable>("Exit to Desktop", Platform::exit)
     );
 

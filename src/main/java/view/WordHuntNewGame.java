@@ -11,23 +11,24 @@ public class WordHuntNewGame extends Pane {
     private WordHuntCurrentWordView currentWord; 
     private WordHuntInGameMenuView inGameMenu; 
     private WordHuntInGameMenuViewModel inGameMenuVM; 
-
-    public WordHuntNewGame() {
-        initializeComponents();
+    
+    public WordHuntNewGame(String filePath) {
+        initializeComponents(filePath);
         setupLayout();
     }
 
-    private void initializeComponents() {
+    public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        gameBoard = new WordHuntBoardView("testBoard.txt", scoreLabel, foundWords);
+        gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
-        inGameMenu = new WordHuntInGameMenuView(inGameMenuVM);
+        inGameMenu = new WordHuntInGameMenuView(inGameMenuVM, this);
 
     }
 
-    private void setupLayout() {
+    public void setupLayout() {
+        getChildren().clear();
         scoreLabel.setAlignment(Pos.CENTER);
         foundWords.setAlignment(Pos.CENTER);
         gameBoard.setAlignment(Pos.CENTER);

@@ -117,6 +117,7 @@ public class WordHuntBoardViewModel {
         for (int i = 0; i < GRID_SIZE; i++){
             for (int j = 0; j < GRID_SIZE; j++){
                 buttons[i][j].setGreenState();
+                buttons[i][j].setDisable(true); 
             }
         }
     }

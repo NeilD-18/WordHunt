@@ -46,11 +46,10 @@ public class WordHuntWordsFoundView extends VBox {
         title.setFill(Color.WHITE);
 
         // Layout
-        HBox buttonBox = new HBox(new WordHuntAddButtonView(this)); 
-        buttonBox.setAlignment(Pos.CENTER);
+       
 
         // Add components to the view
-        getChildren().addAll(title, listView, buttonBox);
+        getChildren().addAll(title, listView);
     }
 
     public void animateWordAddition() {

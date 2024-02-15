@@ -3,6 +3,7 @@ package view;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import viewmodel.WordHuntBoardViewModel;
+import viewmodel.WordHuntCurrentWordViewModel;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -10,6 +11,7 @@ import java.util.Stack;
 public class WordHuntBoardView extends GridPane {
 
     WordHuntBoardViewModel wordHuntBoardVM;
+    WordHuntCurrentWordViewModel wordHuntCurrentWordVM; 
     public Stack<Tile> selectedTilesStack;
     private static final int GRID_X_OFFSET = 435;
     private static final int GRID_Y_OFFSET = 196;
@@ -24,6 +26,7 @@ public class WordHuntBoardView extends GridPane {
 
     private void initializeBoard() {
         wordHuntBoardVM = new WordHuntBoardViewModel();
+        wordHuntCurrentWordVM = new WordHuntCurrentWordViewModel();
         selectedTilesStack = new Stack<>();
         setHgap(10);
         setVgap(10);
@@ -81,9 +84,11 @@ public class WordHuntBoardView extends GridPane {
         String s = "";
         while (selectedTilesStack.isEmpty() == false){
             s = selectedTilesStack.pop().getData() + s;
+            
         }
         wordHuntBoardVM.handleWord(s);
         wordHuntBoardVM.wipeTiles();
+        wordHuntCurrentWordVM.updateCurrentWord("");
     }
 
     private void handleMouseUndragged(Tile tile) {
@@ -117,7 +122,13 @@ public class WordHuntBoardView extends GridPane {
                     handleMouseClick(wordHuntBoardVM.getButton(row, col));
                 }
             }
-            System.out.println(selectedTilesStack.toString());
+           
+            String word = "";
+            // System.out.println(selectedTilesStack.toString());
+            for (int i = 0; i< selectedTilesStack.size(); i++){
+                word += selectedTilesStack.get(i).getData();
+            }
+            wordHuntCurrentWordVM.updateCurrentWord(word);
         }
 
         private int getButtonRow(MouseEvent event){

@@ -5,6 +5,9 @@ import java.util.*;
 import view.*;
 import model.*;
 
+/**
+ * WordHuntBoard ViewModel
+ */
 public class WordHuntBoardViewModel {
 
     private WordHuntGame game;
@@ -14,11 +17,20 @@ public class WordHuntBoardViewModel {
     private ArrayList<String> foundWords;
     private ArrayList<String> foundBonusWords;
 
+    /**
+     * Constructor, initializes viewmodel
+     */
     public WordHuntBoardViewModel(){
         this.game = new WordHuntGame();
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
     }
 
+    /**
+     * initialize board
+     * @param Boolean load, true if loading, false if not
+     * @param String txt file to load
+     * @return ArrayList<ArrayList<String>> as board
+     */
     public ArrayList<ArrayList<String>> initializeBoard(Boolean load, String txtFile){
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
         if(load){
@@ -30,10 +42,16 @@ public class WordHuntBoardViewModel {
         return game.getBoard();
     }
 
+    /**
+     * @return Tile last clicked
+     */
     public Tile getLastClicked(){
         return lastClickedTile;
     }
 
+    /**
+     * Reset state of all tiles
+     */
     public void wipeTiles(){
         for (int i = 0; i < GRID_SIZE; i++){
             for (int j = 0; j < GRID_SIZE; j++){
@@ -42,6 +60,10 @@ public class WordHuntBoardViewModel {
         }
     }
 
+    /**
+     * Toggle the tile state
+     * @param Tile
+     */
     public void toggleTileState(Tile tile) {
         if (tile.getCurrentState().equals("yellow-state")) {
             tile.setNeutralState();
@@ -50,18 +72,38 @@ public class WordHuntBoardViewModel {
         }
     }
 
+    /**
+     * Getter for tile
+     * @return Tile
+     */
     public Tile getButton(int row, int col){
         return buttons[row][col];
     }
 
+    /**
+     * Add tile
+     * @param Tile to be added
+     * @param int row
+     * @param int col
+     */
     public void addButton(Tile tile, int row, int col){
         buttons[row][col] = tile;
     }
 
+    /**
+     * Setter for last clicked tile
+     * @param Tile
+     */
     public void setLastClickedTile(Tile tile){
         lastClickedTile = tile;
     }
 
+    /**
+     * Check adjacency between two tiles
+     * @param Tile 1
+     * @param Tile 2
+     * @param Stack<Tile>
+     */
     public boolean isAdjacent(Tile tile1, Tile tile2, Stack<Tile> selectedTilesStack) {
         int row1 = tile1.getRow();
         int col1 = tile1.getCol();
@@ -80,6 +122,12 @@ public class WordHuntBoardViewModel {
         }
     }
 
+    /**
+     * Handle Word from view
+     * @param Stack<Tile>
+     * @param WordHuntScoreView
+     * @param WordHuntWordsFoundView
+     */
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
         foundWords = game.getFoundWords();
         foundBonusWords = game.getFoundBonusWords();
@@ -104,15 +152,28 @@ public class WordHuntBoardViewModel {
         this.wipeTiles();
     }
 
+    /**
+     * Check win
+     * @param WordHuntScoreView
+     * @param WordHuntWordsFoundView
+     * @return Boolean 
+     */
     public Boolean checkWin(WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
         return scoreView.getTotalWordsFound() == scoreView.getPossibleWords();
     }
 
+    /**
+     * get number of possible words
+     * @return int
+     */
     public int getNumPossibleWords(){
         System.out.println(game.getPossibleWords().size());
         return game.getPossibleWords().size();
     }
 
+    /**
+     * set win state
+     */
     public void setWin(){
         for (int i = 0; i < GRID_SIZE; i++){
             for (int j = 0; j < GRID_SIZE; j++){
@@ -122,6 +183,10 @@ public class WordHuntBoardViewModel {
         }
     }
 
+    /**
+     * Save the board in a txt file
+     * @param String file
+     */
     public void saveGame(String file) { 
         game.saveBoard(file); 
     }

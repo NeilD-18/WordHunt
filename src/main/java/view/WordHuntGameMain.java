@@ -10,7 +10,9 @@ import java.util.*;
 import javafx.stage.FileChooser;
 import java.io.File;
 
-
+/**
+ * Main Application class, launches application
+ */
 public class WordHuntGameMain extends Application {
     private final int WIDTH = 1280;
     private final int HEIGHT = 720; 
@@ -19,10 +21,17 @@ public class WordHuntGameMain extends Application {
     public WordHuntBoardViewModel boardViewModel;
     
 
+    /**
+     * main method
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * start method
+     * @param Stage stage to start
+     */
     @Override
     public void start(Stage primaryStage) {
         menuViewModel = new WordHuntMenuViewModel();
@@ -48,7 +57,9 @@ public class WordHuntGameMain extends Application {
         primaryStage.setTitle("WordHunt Game");
         primaryStage.show();
     }
-
+    /**
+     * Start a new game
+     */
     private void startNewGame() {
        
         WordHuntNewGame wordHuntNewGame = new WordHuntNewGame("null");
@@ -63,6 +74,9 @@ public class WordHuntGameMain extends Application {
         primaryStage.setScene(newGameScene);
     }
 
+    /**
+     * Load a game
+     */
     private void loadGame() { 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");

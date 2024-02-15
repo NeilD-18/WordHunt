@@ -4,7 +4,7 @@ plugins {
   }
 
 application {
-    mainClassName = 'view.WordHuntGameMain'
+    mainClassName = 'WordHuntGameApp'
 }
 
 test {

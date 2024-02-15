@@ -16,6 +16,9 @@ import javafx.util.Duration;
 import javafx.application.Platform;
 import javafx.scene.effect.DropShadow;
 
+/**
+ * Main menu view class
+ */
 public class WordHuntMenu extends Pane {
     
     private WordHuntMenuViewModel menuViewModel;
@@ -32,6 +35,10 @@ public class WordHuntMenu extends Pane {
     private VBox menuBox = new VBox(-5); 
     private Line line;
 
+    /**
+     * Constructor, binds view to viewmodel
+     * @param WordHuntMenuViewModel
+     */
     public WordHuntMenu(WordHuntMenuViewModel menuViewModel){ 
         this.menuViewModel = menuViewModel;
         
@@ -48,6 +55,11 @@ public class WordHuntMenu extends Pane {
     }
 
 
+    /**
+     * Add line for transition/animation
+     * @param Double x coord
+     * @param Double y coord
+     */
     private void addLine(double x, double y) { 
         line = new Line(x, y, x, y + 120); 
         line.setStrokeWidth(3);
@@ -58,6 +70,9 @@ public class WordHuntMenu extends Pane {
 
     }
 
+    /**
+     * Start animation
+     */
     private void startAnimation() { 
         ScaleTransition st = new ScaleTransition(Duration.seconds(1), line);
         st.setToY(1);
@@ -76,6 +91,11 @@ public class WordHuntMenu extends Pane {
         st.play(); 
     }
 
+    /**
+     * Add menu at specified pos
+     * @param Double x coord
+     * @param Double y coord
+     */
     private void addMenu(double x, double y) { 
         menuBox.setTranslateX(x);
         menuBox.setTranslateY(y);
@@ -95,6 +115,9 @@ public class WordHuntMenu extends Pane {
         getChildren().add(menuBox);
     }
 
+    /**
+     * Add menu title
+     */
     private void addTitle() { 
         WordHuntMenuTitle title = new WordHuntMenuTitle("Word Hunt"); 
         title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2); 

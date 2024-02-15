@@ -4,6 +4,9 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import viewmodel.WordHuntInGameMenuViewModel; 
 
+/**
+ * WordHuntNewGame view class
+ */
 public class WordHuntNewGame extends Pane {
     private WordHuntScoreView scoreLabel;
     private WordHuntWordsFoundView foundWords;
@@ -12,11 +15,19 @@ public class WordHuntNewGame extends Pane {
     private WordHuntInGameMenuView inGameMenu; 
     private WordHuntInGameMenuViewModel inGameMenuVM; 
     
+    /**
+     * Initialize a new game given a filepath
+     * @param String filePath
+     */
     public WordHuntNewGame(String filePath) {
         initializeComponents(filePath);
         setupLayout();
     }
 
+    /**
+     * Initialize componenets given a filePath
+     * @param String filePath
+     */
     public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
@@ -27,6 +38,9 @@ public class WordHuntNewGame extends Pane {
 
     }
 
+    /**
+     * setupLayout
+     */
     public void setupLayout() {
         getChildren().clear();
         scoreLabel.setAlignment(Pos.CENTER);

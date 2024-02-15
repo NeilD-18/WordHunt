@@ -31,7 +31,9 @@ import java.util.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-
+/**
+ * InGameMenu View class
+ */
 public class WordHuntInGameMenuView extends VBox {
 
 
@@ -42,26 +44,29 @@ public class WordHuntInGameMenuView extends VBox {
     private WordHuntNewGame ng;
 
 
+    /**
+     * Constructor that binds view to viewmodel
+     * @param WordHuntInGameMenuViewModel 
+     * @param WordHuntNewGame 
+     */
     public WordHuntInGameMenuView(WordHuntInGameMenuViewModel viewmodel, WordHuntNewGame newGame) {
         vm = viewmodel; 
         ng = newGame;
         menuOptions = FXCollections.observableArrayList();
         menuOptionsProperty = new SimpleListProperty<>(menuOptions);
-
-
-        // Styling
         setSpacing(10);
         setAlignment(Pos.TOP_LEFT);
         setPadding(new Insets(10));
-        setBackground(Background.EMPTY); // Remove background color
-
-
-        // Create a simple "Menu" toggle button with an image
+        setBackground(Background.EMPTY);
         menuToggleButton = createMenuToggleButton("src/main/resources/images/InGameMenuButton.png");
         getChildren().add(menuToggleButton);
     }
 
 
+    /**
+     * Create the menu button
+     * @param String imagepath for image of button
+     */
     private ToggleButton createMenuToggleButton(String imagePath) {
         ToggleButton button = new ToggleButton();
         Image image;
@@ -85,6 +90,9 @@ public class WordHuntInGameMenuView extends VBox {
     }
 
 
+    /**
+     * Handle the click of the menu button
+     */
     private void handleMenuButtonClicked() {
         if (menuToggleButton.isSelected()) {
             // Add menu options dynamically with fade-in effect
@@ -101,7 +109,11 @@ public class WordHuntInGameMenuView extends VBox {
     }
    
 
-
+    /**
+     * Method to add button with a transition
+     * @param String text
+     * @param EventHandler<ActionEvent>
+     */
     private void addButtonWithTransition(String text, EventHandler<ActionEvent> eventHandler) {
         Button button = new Button(text);
         button.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -110,8 +122,6 @@ public class WordHuntInGameMenuView extends VBox {
         DropShadow shadow = new DropShadow();
         button.setEffect(shadow);
 
-
-        // Add hover effect with color transition
         button.setOnMouseEntered(e -> {
             button.setStyle("-fx-background-color: #388E3C; -fx-background-radius: 10;");
             shadow.setColor(Color.BLACK);
@@ -124,8 +134,6 @@ public class WordHuntInGameMenuView extends VBox {
 
         button.setOnAction(eventHandler);
 
-
-        // Add menu option with fade-in effect
         getChildren().add(button);
         button.setOpacity(0);
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.3), button);
@@ -134,25 +142,36 @@ public class WordHuntInGameMenuView extends VBox {
     }
 
 
+    /**
+     * Handle new game 
+     */
     private void handleNewGame(ActionEvent event) {
        vm.newGame(ng); 
-       
-        
+              
     }
 
 
+    /**
+     * Handle save game
+     */
     private void handleSaveGame(ActionEvent event) {
         
-        vm.saveGame();
+        vm.getSavePath();
 
     }
 
+    /**
+     * Handle quit game
+     */
     private void handleQuitGame(ActionEvent event) {
         vm.quitGame();
     }
     
 
 
+    /**
+     * Set background
+     */
     private Background getCoolColorPattern() {
         LinearGradient gradient = new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.web("#7EC8E3")),

@@ -50,6 +50,7 @@ public class WordHuntBoardView extends GridPane {
 
     private void initializeBoard(String file) {
         wordHuntBoardVM = new WordHuntBoardViewModel();
+        wordHuntCurrentWordVM = new WordHuntCurrentWordViewModel();
         selectedTilesStack = new Stack<>();
         setHgap(10);
         setVgap(10);
@@ -136,9 +137,6 @@ public class WordHuntBoardView extends GridPane {
                     handleMouseClick(wordHuntBoardVM.getButton(row, col));
                 }
             }
-<<<<<<< HEAD
-            // System.out.println(selectedTilesStack.toString());
-=======
            
             String word = "";
             // System.out.println(selectedTilesStack.toString());
@@ -146,7 +144,6 @@ public class WordHuntBoardView extends GridPane {
                 word += selectedTilesStack.get(i).getData();
             }
             wordHuntCurrentWordVM.updateCurrentWord(word);
->>>>>>> develop
         }
 
         private int getButtonRow(MouseEvent event){

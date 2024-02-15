@@ -33,6 +33,7 @@ public class WordHuntNewGame extends Pane {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
         gameBoard = new WordHuntBoardView("testBoard.txt", scoreLabel, foundWords);
+        currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
     }
 
     private void setupLayout() {
@@ -47,7 +48,7 @@ public class WordHuntNewGame extends Pane {
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(scoreLabel, gameBoard);
-        //vBox.setMargin(currentWord, new Insets(10));
+        
         vBox.getChildren().add(currentWord); 
 
         HBox hBox = new HBox(50);

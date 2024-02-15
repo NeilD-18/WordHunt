@@ -37,7 +37,7 @@ public class Tile extends Button {
         getStyleClass().clear();
         getStyleClass().add("button-green-state");
         currentState = "green-state";
-    
+    }
     public void setBlueState() {
         getStyleClass().clear();
         getStyleClass().add("button-blue-state");

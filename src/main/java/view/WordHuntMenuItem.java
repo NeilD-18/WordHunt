@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.beans.binding.Bindings;
 import javafx.scene.layout.Pane;
-import javafx.scene.Parent;
 
 public class WordHuntMenuItem extends Pane {
     private Text text; 

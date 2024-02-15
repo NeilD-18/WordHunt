@@ -1,10 +1,6 @@
 package viewmodel;
 
-import java.util.*;
-
 import javafx.scene.control.Label;
-import view.*;
-import model.*;
 
 public class WordHuntScoreViewModel {
 

@@ -2,7 +2,6 @@ package viewmodel;
 
 import java.util.*;
 
-import javafx.scene.input.MouseEvent;
 import view.*;
 import model.*;
 

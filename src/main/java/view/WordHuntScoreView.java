@@ -1,16 +1,11 @@
 package view;
 
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import java.util.*;
-
 import viewmodel.*;
-import view.*;
-import model.*;
 
 public class WordHuntScoreView extends VBox {
 

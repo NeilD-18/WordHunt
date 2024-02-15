@@ -2,7 +2,6 @@ package viewmodel;
 
 import java.util.*;
 
-import javafx.scene.input.MouseEvent;
 import view.*;
 import model.*;
 
@@ -13,6 +12,7 @@ public class WordHuntBoardViewModel {
     private static final int GRID_SIZE = 4;
     private Tile lastClickedTile;
     private ArrayList<String> foundWords;
+    private ArrayList<String> foundBonusWords;
 
     public WordHuntBoardViewModel(){
         this.game = new WordHuntGame();
@@ -82,13 +82,14 @@ public class WordHuntBoardViewModel {
 
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
         foundWords = game.getFoundWords();
+        foundBonusWords = game.getFoundBonusWords();
         String word = "";
         while (stack.isEmpty() == false){
             word = stack.pop().getData() + word;
         }
         word = word.toLowerCase();
         int validity = this.game.isValidWord(word);
-        if (!foundWords.contains(word)){
+        if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
             if (validity == 1) {
                 this.game.addFoundWord(false, word);
                 wordsFound.wordList.add(wordsFound.createStyledText(word));

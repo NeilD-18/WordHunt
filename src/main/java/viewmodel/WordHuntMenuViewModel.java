@@ -16,4 +16,5 @@ public class WordHuntMenuViewModel {
     public void resetStartNewGameRequest() {
         startNewGameRequested.set(false);
     }
+
 }

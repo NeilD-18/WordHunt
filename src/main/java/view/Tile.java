@@ -29,12 +29,22 @@ public class Tile extends Button {
         currentState = "yellow-state";
     }
 
+    public void setGreenState() {
+        getStyleClass().clear();
+        getStyleClass().add("button-green-state");
+        currentState = "green-state";
+    }
+
     public int getRow() {
         return row;
     }
 
     public int getCol() {
         return col;
+    }
+
+    public String getData(){
+        return data;
     }
     
     public String getCurrentState() {

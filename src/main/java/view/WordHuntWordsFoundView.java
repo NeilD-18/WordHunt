@@ -22,8 +22,7 @@ import javafx.util.Duration;
 
 public class WordHuntWordsFoundView extends VBox {
 
-    // Change access modifier to protected
-    protected ObservableList<Text> wordList; 
+    public ObservableList<Text> wordList; 
     protected ListProperty<Text> wordListProperty;
     protected ListView<Text> listView;
 
@@ -35,7 +34,6 @@ public class WordHuntWordsFoundView extends VBox {
         listView.setPrefWidth(200);
         listView.setPrefHeight(300);
 
-        // Styling
         setSpacing(10);
         setAlignment(Pos.CENTER);
         setPadding(new Insets(10));
@@ -45,12 +43,7 @@ public class WordHuntWordsFoundView extends VBox {
         title.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         title.setFill(Color.WHITE);
 
-        // Layout
-        HBox buttonBox = new HBox(new WordHuntAddButtonView(this)); 
-        buttonBox.setAlignment(Pos.CENTER);
-
-        // Add components to the view
-        getChildren().addAll(title, listView, buttonBox);
+        getChildren().addAll(title, listView);
     }
 
     public void animateWordAddition() {
@@ -81,12 +74,18 @@ public class WordHuntWordsFoundView extends VBox {
         animateWordList();
     }
 
-    protected Text createStyledText(String text) {
+    public Text createStyledText(String text) {
         Text styledText = new Text(text);
         styledText.setFill(Color.BLACK); 
         return styledText;
     }
 
+    public Text bonusStyledText(String text) {
+        Text styledText = new Text(text);
+        LinearGradient rainbowGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, new Stop(0, Color.RED), new Stop(0.25, Color.ORANGE), new Stop(0.5, Color.YELLOW), new Stop(0.75, Color.GREEN), new Stop(1, Color.BLUE));
+        styledText.setFill(rainbowGradient);
+        return styledText;
+    }
     private Background getCoolColorPattern() {
         LinearGradient gradient = new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.web("#7EC8E3")),

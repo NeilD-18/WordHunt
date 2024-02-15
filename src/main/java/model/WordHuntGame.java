@@ -19,7 +19,6 @@ public class WordHuntGame {
     private ArrayList<String> POSSIBLE_4_LETTER_WORDS;
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
-    
 
     public WordHuntGame(){
         this.initializeWordLists();
@@ -46,7 +45,6 @@ public class WordHuntGame {
         this.findWords();
     }
 
-
     public void tearDown(){
         board = new ArrayList<ArrayList<String>>();
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
@@ -56,12 +54,13 @@ public class WordHuntGame {
 
     private void findWords(){
         ArrayList<ArrayList<String>> tmpBoard = this.getBoard();
-        ArrayList<Pair<Integer, Integer>> visited = new ArrayList<Pair<Integer, Integer>>();
         for (int i = 0; i < ROWS; i++){
             for (int j = 0; j < COLUMNS; j++){
+                ArrayList<Pair<Integer, Integer>> visited = new ArrayList<Pair<Integer, Integer>>();
                 this.findWordsHelper(i, j, "", 0, tmpBoard, visited);
             }
         }
+        System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
     private void findWordsHelper(int row, int col, String word, int length, ArrayList<ArrayList<String>> grid, ArrayList<Pair<Integer, Integer>> visited){
@@ -80,7 +79,11 @@ public class WordHuntGame {
                     if (this.isValidMove(row, col, row + i, col+ j)){
                         Pair<Integer, Integer> p = new Pair<> (row + i, col + j);
                         if (!visited.contains(p)){
-                            this.findWordsHelper(row + i, col + j, word, length, grid, visited);
+                            ArrayList<Pair<Integer, Integer>> newVisited = new ArrayList<Pair<Integer, Integer>>();
+                            for (int k = 0; k < visited.size(); k++){
+                                newVisited.add(visited.get(k));
+                            }
+                            this.findWordsHelper(row + i, col + j, word, length, grid, newVisited);
                         }
                     }
                 }
@@ -134,6 +137,7 @@ public class WordHuntGame {
             e.printStackTrace();
         }
         this.findWords();
+        System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
     public void saveBoard(String filePath) {
@@ -201,18 +205,19 @@ public class WordHuntGame {
     }
 
     public void addFoundWord(Boolean bonus, String word){
-        System.out.println("Pre-executing addFoundWord method");
         if (bonus){
             FOUND_BONUS_WORDS.add(word);
         }
         else{
             FOUND_4_LETTER_WORDS.add(word);
         }
-        System.out.println(FOUND_BONUS_WORDS.size() + " IS THE FOUND BONUS WORD SIZE");
-        System.out.println(FOUND_4_LETTER_WORDS.size() + " IS THE FOUND 4 LETTER WORD SIZE");
-
     }
 
+    public int getNumFoundWords(){
+        return FOUND_4_LETTER_WORDS.size();
+    }
 
-
+    public ArrayList<String> getFoundWords(){
+        return FOUND_4_LETTER_WORDS;
+    }
 }

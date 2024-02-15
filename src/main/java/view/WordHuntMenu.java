@@ -38,7 +38,6 @@ public class WordHuntMenu extends Pane {
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
         new Pair<String, Runnable>("New Game", () -> { menuViewModel.requestStartNewGame(); }),
         new Pair<String, Runnable>("Load Game", () -> {}),
-        new Pair<String, Runnable>("Create Game", () -> {}),
         new Pair<String, Runnable>("Exit to Desktop", Platform::exit)
     );
 
@@ -63,7 +62,7 @@ public class WordHuntMenu extends Pane {
 
 
     private void addLine(double x, double y) { 
-        line = new Line(x, y, x, y + 155); 
+        line = new Line(x, y, x, y + 120); 
         line.setStrokeWidth(3);
         line.setStroke(Color.BLACK);
         line.setEffect(new DropShadow(5, Color.BLACK)); 

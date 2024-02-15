@@ -68,11 +68,11 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\csc260-w2024-project2.jar;%APP_HOME%\lib\javafx-controls-17.0.8-win.jar;%APP_HOME%\lib\javafx-graphics-17.0.8-win.jar;%APP_HOME%\lib\javafx-base-17.0.8-win.jar
+set CLASSPATH=%APP_HOME%\lib\csc260-w2024-project2.jar;%APP_HOME%\lib\javafx-controls-17.0.8-mac-aarch64.jar;%APP_HOME%\lib\javafx-graphics-17.0.8-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-17.0.8-mac-aarch64.jar
 
 
 @rem Execute csc260-w2024-project2
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %CSC260_W2024_PROJECT2_OPTS%  -classpath "%CLASSPATH%" view.WordHuntGameMain %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %CSC260_W2024_PROJECT2_OPTS%  -classpath "%CLASSPATH%" WordHuntGameApp %*
 
 :end
 @rem End local scope for the variables with windows NT shell

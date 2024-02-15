@@ -120,4 +120,8 @@ public class WordHuntBoardViewModel {
             }
         }
     }
+
+    public void saveGame(String file) { 
+        game.saveBoard(file); 
+    }
 }

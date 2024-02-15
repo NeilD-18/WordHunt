@@ -33,6 +33,10 @@ public class WordHuntNewGame extends Pane {
         foundWords.setAlignment(Pos.CENTER);
         gameBoard.setAlignment(Pos.CENTER);
         int possibleWords = gameBoard.getNumPossibleWords();
+        while (possibleWords == 0){
+            this.initializeComponents("null");
+            possibleWords = gameBoard.getNumPossibleWords();
+        }
         scoreLabel.initilaizeScores(possibleWords);
 
         

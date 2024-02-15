@@ -1,22 +1,7 @@
 package view;
 
-
-import javafx.application.Application;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.geometry.Insets; 
-
-import java.util.ArrayList;
 
 public class WordHuntNewGame extends Pane {
     private WordHuntScoreView scoreLabel;

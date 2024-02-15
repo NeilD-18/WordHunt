@@ -4,30 +4,17 @@ import java.util.List;
 import java.util.Arrays;
 import javafx.util.Pair;
 import viewmodel.WordHuntMenuViewModel;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Node;
 import javafx.util.Duration;
 import javafx.application.Platform;
-import javafx.scene.Parent;
 import javafx.scene.effect.DropShadow;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.*;
-import java.nio.file.Files;
-import java.nio.file.Paths; 
-import java.net.URL; 
-
 
 public class WordHuntMenu extends Pane {
     

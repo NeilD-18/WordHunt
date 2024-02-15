@@ -32,7 +32,7 @@ public class WordHuntNewGame extends Pane {
         foundWords = new WordHuntWordsFoundView();
 
         String[][] randomGrid = generateRandomGrid(4, 4);
-        gameBoard = new WordHuntBoardView(randomGrid);
+        gameBoard = new WordHuntBoardView();
     }
 
     private void setupLayout() {

@@ -13,6 +13,7 @@ public class WordHuntGameMain extends Application {
     private final int HEIGHT = 720; 
     private WordHuntMenuViewModel menuViewModel;
     private WordHuntMenu wordHuntMenu;
+    public WordHuntBoardViewModel boardViewModel;
     
 
     public static void main(String[] args) {
@@ -23,13 +24,9 @@ public class WordHuntGameMain extends Application {
     public void start(Stage primaryStage) {
         menuViewModel = new WordHuntMenuViewModel();
         wordHuntMenu = new WordHuntMenu(menuViewModel);
-        
-
-        // Listen for changes in the view model
         menuViewModel.startNewGameRequestedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 startNewGame();
-                // Reset the request flag
                 menuViewModel.resetStartNewGameRequest();
             }
         });
@@ -43,7 +40,7 @@ public class WordHuntGameMain extends Application {
     }
 
     private void startNewGame() {
-
+        boardViewModel = new WordHuntBoardViewModel();
         WordHuntNewGame wordHuntNewGame = new WordHuntNewGame();
         StackPane root = new StackPane(wordHuntNewGame);
         StackPane.setAlignment(wordHuntNewGame, Pos.CENTER);

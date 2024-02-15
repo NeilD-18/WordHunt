@@ -1,21 +1,70 @@
 package viewmodel;
 
-import java.util.Stack;
+import java.util.*;
 
-// Import the Tile class
+import javafx.scene.input.MouseEvent;
 import view.*;
 import model.*;
 
 public class WordHuntBoardViewModel {
 
     private WordHuntGame game;
+    private Tile[][] buttons;
+    private static final int GRID_SIZE = 4;
+    private Tile lastClickedTile;
 
-    public WordHuntBoardViewModel()
-    {
+    public WordHuntBoardViewModel(){
         this.game = new WordHuntGame();
+        buttons = new Tile[GRID_SIZE][GRID_SIZE];
     }
 
-    public static boolean isAdjacent(Tile tile1, Tile tile2, Stack<Tile> selectedTilesStack) {
+
+    public ArrayList<ArrayList<String>> initializeBoard(Boolean load, String txtFile){
+        buttons = new Tile[GRID_SIZE][GRID_SIZE];
+        if(load){
+            game.loadBoard(txtFile);
+        }
+        else{
+            game.generateRandomBoard();
+        }
+        return game.getBoard();
+    }
+
+    public Tile getLastClicked(){
+        return lastClickedTile;
+    }
+
+    
+
+    public void wipeTiles(){
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++){
+                buttons[i][j].setYellowState();
+            }
+        }
+    }
+
+    public void toggleTileState(Tile tile) {
+        if (tile.getCurrentState().equals("yellow-state")) {
+            tile.setNeutralState();
+        } else {
+            tile.setYellowState();
+        }
+    }
+
+    public Tile getButton(int row, int col){
+        return buttons[row][col];
+    }
+
+    public void addButton(Tile tile, int row, int col){
+        buttons[row][col] = tile;
+    }
+
+    public void setLastClickedTile(Tile tile){
+        lastClickedTile = tile;
+    }
+
+    public boolean isAdjacent(Tile tile1, Tile tile2, Stack<Tile> selectedTilesStack) {
         int row1 = tile1.getRow();
         int col1 = tile1.getCol();
         int row2 = tile2.getRow();
@@ -33,20 +82,16 @@ public class WordHuntBoardViewModel {
         }
     }
 
-public void handleWord(String word) {
-    int validity = this.game.isValidWord(word.toLowerCase());
-    System.out.println("Pre-executing handleWord");
-    System.out.println(validity);
-    if (validity == 1) {
-        // add in a wordFound tile with no effect
-        this.game.addFoundWord(false, word);
-    } else if (validity == 2) {
-        // add in the word found tile with a special word found effect
-        this.game.addFoundWord(true, word);
-    } else {
-        // don't do anything or show it's an invalid word
+    public void handleWord(String word) {
+        int validity = this.game.isValidWord(word.toLowerCase());
+        System.out.println("Pre-executing handleWord");
+        System.out.println(validity);
+        if (validity == 1) {
+            this.game.addFoundWord(false, word);
+        } else if (validity == 2) {
+            this.game.addFoundWord(true, word);
+        }
+        System.out.println("Received string in WordHuntBoardViewModel: " + word);
     }
-    System.out.println("Received string in WordHuntBoardViewModel: " + word);
-}
 
 }

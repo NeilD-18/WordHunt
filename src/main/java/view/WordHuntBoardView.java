@@ -4,54 +4,50 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import viewmodel.WordHuntBoardViewModel;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class WordHuntBoardView extends GridPane {
 
-    private Tile[][] buttons;
-    private static final int GRID_SIZE = 4;
+    WordHuntBoardViewModel wordHuntBoardVM;
+    public Stack<Tile> selectedTilesStack;
     private static final int GRID_X_OFFSET = 435;
     private static final int GRID_Y_OFFSET = 196;
-    private static final int GRID_GAP = 10;
-    private Tile lastClickedTile;
-    private Stack<Tile> selectedTilesStack;
 
     public WordHuntBoardView() {
         initializeBoard();
     }
 
-    public WordHuntBoardView(String[][] givenBoard) {
-        initializeBoard(givenBoard);
+    public WordHuntBoardView(String file) {
+        initializeBoard(file);
     }
 
     private void initializeBoard() {
+        wordHuntBoardVM = new WordHuntBoardViewModel();
+        selectedTilesStack = new Stack<>();
         setHgap(10);
         setVgap(10);
-        buttons = new Tile[GRID_SIZE][GRID_SIZE];
-        selectedTilesStack = new Stack<>();
-
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
-                createAndAddTile("A", i, j);
+        ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(false, "");    
+        for (int i = 0; i < tmp.size(); i++){
+            for (int j = 0; j < tmp.get(i).size(); j++){
+                createAndAddTile(tmp.get(i).get(j), i, j);
             }
         }
-
-        lastClickedTile = null;
+        wordHuntBoardVM.setLastClickedTile(null);
     }
 
-    private void initializeBoard(String[][] givenBoard) {
+    private void initializeBoard(String file) {
+        wordHuntBoardVM = new WordHuntBoardViewModel();
+        selectedTilesStack = new Stack<>();
         setHgap(10);
         setVgap(10);
-        buttons = new Tile[GRID_SIZE][GRID_SIZE];
-        selectedTilesStack = new Stack<>();
-
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int j = 0; j < GRID_SIZE; j++) {
-                createAndAddTile(givenBoard[i][j], i, j);
+        ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(true, file);
+        for (int i = 0; i < tmp.size(); i++){
+            for (int j = 0; j < tmp.get(i).size(); j++){
+                createAndAddTile(tmp.get(i).get(j), i, j);
             }
         }
-
-        lastClickedTile = null;
+        wordHuntBoardVM.setLastClickedTile(null);
     }
 
     private void createAndAddTile(String letter, int row, int col) {
@@ -61,62 +57,39 @@ public class WordHuntBoardView extends GridPane {
         tile.setOnMousePressed(event -> handleMouseClick(tile));
         tile.addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener());
         tile.setOnMouseReleased(event -> handleMouseReleased(tile));
-        buttons[row][col] = tile;
+        wordHuntBoardVM.addButton(tile, row, col);
         add(tile, col, row);
     }
 
     private void handleMouseClick(Tile tile) {
         if (selectedTilesStack.isEmpty()) {
-            toggleTileState(tile);
-            lastClickedTile = tile;
+            wordHuntBoardVM.toggleTileState(tile);
+            wordHuntBoardVM.setLastClickedTile(tile);
             selectedTilesStack.push(tile);
-        } else if (!selectedTilesStack.contains(tile) && lastClickedTile != null && tile != lastClickedTile && isAdjacent(tile, selectedTilesStack.peek())) {
-            toggleTileState(tile);
-            lastClickedTile = tile;
+        } else if (!selectedTilesStack.contains(tile) && wordHuntBoardVM.getLastClicked() != null && tile != wordHuntBoardVM.getLastClicked() && wordHuntBoardVM.isAdjacent(tile, selectedTilesStack.peek(), selectedTilesStack)) {
+            wordHuntBoardVM.toggleTileState(tile);
+            wordHuntBoardVM.setLastClickedTile(tile);
             selectedTilesStack.push(tile);
-        } else if (lastClickedTile != null && tile == selectedTilesStack.peek()) {
+        } else if (wordHuntBoardVM.getLastClicked() != null && tile == selectedTilesStack.peek()) {
             selectedTilesStack.pop();
-            toggleTileState(tile);
-            lastClickedTile = selectedTilesStack.isEmpty() ? null : selectedTilesStack.peek();
+            wordHuntBoardVM.toggleTileState(tile);
+            wordHuntBoardVM.setLastClickedTile(selectedTilesStack.isEmpty() ? null : selectedTilesStack.peek());
         }
     }
 
     private void handleMouseReleased(Tile tile) {
         String s = "";
         while (selectedTilesStack.isEmpty() == false){
-            s = selectedTilesStack.pop().getText() + s;
+            s = selectedTilesStack.pop().getData() + s;
         }
-        
-        WordHuntBoardViewModel wordHuntBoardVM = new WordHuntBoardViewModel();
         wordHuntBoardVM.handleWord(s);
-        this.wipeTiles();
+        wordHuntBoardVM.wipeTiles();
     }
 
     private void handleMouseUndragged(Tile tile) {
-        toggleTileState(tile);
+        wordHuntBoardVM.toggleTileState(tile);
     }
-
-    private void wipeTiles(){
-        for (int i = 0; i < GRID_SIZE; i++){
-            for (int j = 0; j < GRID_SIZE; j++){
-                buttons[i][j].setYellowState();
-            }
-        }
-    }
-
-
-    private void toggleTileState(Tile tile) {
-        if (tile.getCurrentState().equals("yellow-state")) {
-            tile.setNeutralState();
-        } else {
-            tile.setYellowState();
-        }
-    }
-
-    private boolean isAdjacent(Tile tile1, Tile tile2) {
-        boolean adjacent = WordHuntBoardViewModel.isAdjacent(tile1, tile2, selectedTilesStack);
-        return adjacent;
-    }
+    
 
     private class ButtonDragListener implements javafx.event.EventHandler<MouseEvent> {
         @Override
@@ -126,13 +99,13 @@ public class WordHuntBoardView extends GridPane {
             // System.out.println("Row: " + row);
             // System.out.println("Column: " + col);
             if (row >= 0 && col >=0){
-                if (selectedTilesStack.contains(buttons[row][col])){
-                    if (buttons[row][col] != selectedTilesStack.peek()){
-                        handleMouseClick(buttons[row][col]);
+                if (selectedTilesStack.contains(wordHuntBoardVM.getButton(row, col))){
+                    if (wordHuntBoardVM.getButton(row, col) != selectedTilesStack.peek()){
+                        handleMouseClick(wordHuntBoardVM.getButton(row, col));
                     }
                     if (selectedTilesStack.size() > 1){
                         Tile tmp = selectedTilesStack.pop();
-                        if (buttons[row][col] == selectedTilesStack.peek()){
+                        if (wordHuntBoardVM.getButton(row, col) == selectedTilesStack.peek()){
                             handleMouseUndragged(tmp);
                         }
                         else{
@@ -141,7 +114,7 @@ public class WordHuntBoardView extends GridPane {
                     }
                 }
                 else{
-                    handleMouseClick(buttons[row][col]);
+                    handleMouseClick(wordHuntBoardVM.getButton(row, col));
                 }
             }
             System.out.println(selectedTilesStack.toString());
@@ -149,11 +122,11 @@ public class WordHuntBoardView extends GridPane {
 
         private int getButtonRow(MouseEvent event){
             double y = event.getSceneY() - GRID_Y_OFFSET;
-            double buttonHeight = buttons[0][0].getHeight();
-            double row0 = buttons[0][0].getLayoutY();
-            double row1 = buttons[1][0].getLayoutY();
-            double row2 = buttons[2][0].getLayoutY();
-            double row3 = buttons[3][0].getLayoutY();
+            double buttonHeight = wordHuntBoardVM.getButton(0, 0).getHeight();
+            double row0 = wordHuntBoardVM.getButton(0, 0).getLayoutY();
+            double row1 = wordHuntBoardVM.getButton(1, 0).getLayoutY();
+            double row2 = wordHuntBoardVM.getButton(2, 0).getLayoutY();
+            double row3 = wordHuntBoardVM.getButton(3, 0).getLayoutY();
             // System.out.println("Y Location: " + y);
             if (y <= row3 + buttonHeight && y >= row0){
                 if (y >= row0 && y <= row0 + buttonHeight){
@@ -175,11 +148,11 @@ public class WordHuntBoardView extends GridPane {
         
         private int getButtonCol(MouseEvent event){
             double x = event.getSceneX() - GRID_X_OFFSET;
-            double buttonWidth = buttons[0][0].getWidth();
-            double col0 = buttons[0][0].getLayoutX();
-            double col1 = buttons[0][1].getLayoutX();
-            double col2 = buttons[0][2].getLayoutX();
-            double col3 = buttons[0][3].getLayoutX();
+            double buttonWidth = wordHuntBoardVM.getButton(0, 0).getWidth();
+            double col0 = wordHuntBoardVM.getButton(0, 0).getLayoutX();
+            double col1 = wordHuntBoardVM.getButton(0, 1).getLayoutX();
+            double col2 = wordHuntBoardVM.getButton(0, 2).getLayoutX();
+            double col3 = wordHuntBoardVM.getButton(0, 3).getLayoutX();
             // System.out.println("X Location: " + x);
             if (x <= col3 + buttonWidth && x >= col0){
                 if (x >= col0 && x <= col0 + buttonWidth){
@@ -200,5 +173,12 @@ public class WordHuntBoardView extends GridPane {
         }
 
     }
+
+
+    
+
+    
+
+    
 
 }

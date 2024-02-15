@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+
+/**
+ * WordHuntGame model class. 
+ * 
+ */
 public class WordHuntGame {
 
     private ArrayList<ArrayList<String>> board;
@@ -14,6 +19,9 @@ public class WordHuntGame {
     private WordHuntScore score;
     private WordHuntWords words;
 
+    /**
+     * Default constructor
+     */
     public WordHuntGame(){
         words = new WordHuntWords(this);
         score = new WordHuntScore(words);
@@ -21,6 +29,12 @@ public class WordHuntGame {
         board = new ArrayList<ArrayList<String>>();
     }
 
+    
+    /**
+     *  
+     * Generates a random game board filled with letters and finds words on the board.
+     */
+     
     public void generateRandomBoard(){
         Random r = new Random();
         for (int i = 0; i < ROWS; i++){
@@ -38,16 +52,29 @@ public class WordHuntGame {
         words.findWords();
     }
 
+     /**
+     * Clears the game board and tears down associated objects.
+     */
     public void tearDown(){
         board = new ArrayList<ArrayList<String>>();
         words.tearDown();
         score.tearDown();
     }
 
+    
+     /**
+     * Gets the current game board.
+     * @return The game board as a 2D ArrayList of strings.
+     */
     public ArrayList<ArrayList<String>> getBoard(){
         return board;
     }
 
+
+    /**
+     * Loads a game board from a file.
+     * @param filePath The path to the file containing the game board.
+     */
     public void loadBoard(String filePath){
         this.tearDown();
         try (Scanner scanner = new Scanner(new File(filePath))) {
@@ -83,6 +110,10 @@ public class WordHuntGame {
         // System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
+     /**
+     * Saves the current game board to a file.
+     * @param filePath The path to save the game board.
+     */
     public void saveBoard(String filePath) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (ArrayList<String> row : board) {
@@ -96,6 +127,15 @@ public class WordHuntGame {
         }
     }
 
+
+     /**
+     * Checks if a move is valid on the game board.
+     * @param prevRow The previous row index.
+     * @param prevCol The previous column index.
+     * @param nextRow The next row index.
+     * @param nextCol The next column index.
+     * @return True if the move is valid, false otherwise.
+     */
     public boolean isValidMove (int prevRow, int prevCol, int nextRow, int nextCol){
         if (nextRow >= 0 && nextRow <= 3 && nextCol >= 0 && nextCol <= 3){
             int vCheck = prevRow - nextRow;
@@ -112,22 +152,44 @@ public class WordHuntGame {
         return false;
     }
 
+    /**
+     * Gets the list of found words.
+     * @return The list of found words.
+     */
     public ArrayList<String> getFoundWords(){
         return words.getFoundWords();
     }
 
+    /**
+     * Gets the list of found bonus words.
+     * @return The list of found bonus words.
+     */
     public ArrayList<String> getFoundBonusWords(){
         return words.getFoundBonusWords();
     }
 
+    /**
+     * Checks if a word is valid.
+     * @param word The word to check.
+     * @return The validity of the word.
+     */
     public int isValidWord (String word){
         return words.isValidWord(word);
     }
 
+    /**
+     * Adds a found word to the lists of found words.
+     * @param bonus True if the word is a bonus word, false otherwise.
+     * @param word The found word.
+     */
     public void addFoundWord(Boolean bonus, String word){
         words.addFoundWord(bonus, word);
     }
     
+    /**
+     * Gets the list of possible words.
+     * @return The list of possible words.
+     */
     public ArrayList<String> getPossibleWords(){
         return words.getPossibleWords();
     }

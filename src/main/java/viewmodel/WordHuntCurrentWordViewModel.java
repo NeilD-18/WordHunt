@@ -17,6 +17,5 @@ public class WordHuntCurrentWordViewModel {
 
     public void updateCurrentWord(String newWord) { 
         currentWord.set(newWord);
-        System.out.println(currentWord); 
     }
 }

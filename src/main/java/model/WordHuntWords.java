@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import javafx.util.Pair;
 
+/**
+ * WordHuntWords model
+ */
 public class WordHuntWords{
 
     private int COLUMNS = 4;
@@ -18,6 +21,11 @@ public class WordHuntWords{
     private ArrayList<String> FOUR_LETTER_WORDS;
     private ArrayList<String> BONUS_WORDS;
 
+    
+    /**
+     * Constructs a new WordHuntWords object with the specified WordHuntGame object.
+     * @param g The WordHuntGame object to associate with this WordHuntWords object.
+     */
     public WordHuntWords(WordHuntGame g){
         game = g;
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
@@ -25,6 +33,10 @@ public class WordHuntWords{
         FOUND_BONUS_WORDS = new ArrayList<String>();
     }
 
+    
+    /**
+     * Finds possible words on the game board.
+     */
     public void findWords(){
         ArrayList<ArrayList<String>> tmpBoard = game.getBoard();
         for (int i = 0; i < ROWS; i++){
@@ -33,9 +45,19 @@ public class WordHuntWords{
                 this.findWordsHelper(i, j, "", 0, tmpBoard, visited);
             }
         }
-        // System.out.println(POSSIBLE_4_LETTER_WORDS);
+        System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
+
+     /**
+     * Recursively finds possible words on the game board.
+     * @param row The current row index.
+     * @param col The current column index.
+     * @param word The current word being formed.
+     * @param length The length of the current word.
+     * @param grid The game board.
+     * @param visited The list of visited cells.
+     */
     private void findWordsHelper(int row, int col, String word, int length, ArrayList<ArrayList<String>> grid, ArrayList<Pair<Integer, Integer>> visited){
         word = word + grid.get(row).get(col);
         length++;
@@ -64,12 +86,19 @@ public class WordHuntWords{
         }
     }
 
+    
+    /**
+     * Add possible word
+     */
     private void addPossibleWord(String word){
         if (!POSSIBLE_4_LETTER_WORDS.contains(word)){
             POSSIBLE_4_LETTER_WORDS.add(word);
         }
     }
 
+    /**
+     * Initializes word lists from text files.
+     */
     public void initializeWordLists(){
 
         FOUR_LETTER_WORDS = new ArrayList<String>();
@@ -96,10 +125,21 @@ public class WordHuntWords{
         }
     }
 
+
+    /**
+     * Gets the list of possible words found on the game board.
+     * @return The list of possible words.
+     */
     public ArrayList<String> getPossibleWords(){
         return POSSIBLE_4_LETTER_WORDS;
     }
 
+    
+    /**
+     * Checks if a word is valid.
+     * @param word The word to check.
+     * @return 1 if the word is a valid 4-letter word, 2 if it's a bonus word, and 0 if it's invalid.
+     */
     public int isValidWord (String word){
         if (FOUR_LETTER_WORDS.contains(word)){
             return 1;
@@ -110,6 +150,12 @@ public class WordHuntWords{
         return 0;
     }
 
+    
+    /**
+     * Adds a found word to the appropriate list of found words.
+     * @param bonus True if the word is a bonus word, false otherwise.
+     * @param word The found word.
+     */
     public void addFoundWord(Boolean bonus, String word){
         if (bonus){
             FOUND_BONUS_WORDS.add(word);
@@ -119,18 +165,36 @@ public class WordHuntWords{
         }
     }
 
+    
+    /**
+     * Gets the number of found 4-letter words.
+     * @return The number of found 4-letter words.
+     */
     public int getNumFoundWords(){
         return FOUND_4_LETTER_WORDS.size();
     }
 
+    
+    /**
+     * Gets the list of found 4-letter words.
+     * @return The list of found 4-letter words.
+     */ 
     public ArrayList<String> getFoundWords(){
         return FOUND_4_LETTER_WORDS;
     }
 
+    /**
+     * Gets the list of found bonus words.
+     * @return The list of found bonus words.
+     */
     public ArrayList<String> getFoundBonusWords(){
         return FOUND_BONUS_WORDS;
     }
 
+    
+    /**
+     * Clears the word lists.
+     */
     public void tearDown(){
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();

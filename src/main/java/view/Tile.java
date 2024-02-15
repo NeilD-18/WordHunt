@@ -17,6 +17,10 @@ public class Tile extends Button {
         setYellowState();
     }
 
+    public Tile(String letter) { 
+        super(letter);
+    }
+
     public void setNeutralState() {
         getStyleClass().clear();
         getStyleClass().add("button-neutral-state");
@@ -33,6 +37,11 @@ public class Tile extends Button {
         getStyleClass().clear();
         getStyleClass().add("button-green-state");
         currentState = "green-state";
+    
+    public void setBlueState() {
+        getStyleClass().clear();
+        getStyleClass().add("button-blue-state");
+        currentState = "blue-state";
     }
 
     public int getRow() {

@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.geometry.Insets; 
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class WordHuntNewGame extends Pane {
     private WordHuntScoreView scoreLabel;
     private WordHuntWordsFoundView foundWords;
     private WordHuntBoardView gameBoard;
+    private WordHuntCurrentWordView currentWord; 
 
     public WordHuntNewGame() {
         initializeComponents();
@@ -40,9 +42,13 @@ public class WordHuntNewGame extends Pane {
         int possibleWords = gameBoard.getNumPossibleWords();
         scoreLabel.initilaizeScores(possibleWords);
 
+        
+
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(scoreLabel, gameBoard);
+        //vBox.setMargin(currentWord, new Insets(10));
+        vBox.getChildren().add(currentWord); 
 
         HBox hBox = new HBox(50);
         hBox.setTranslateX(435);

@@ -61,3 +61,19 @@
     -fx-pref-height: 65px; 
     -fx-pref-width: 65px;
 }
+
+.button-blue-state {
+    -fx-background-color: linear-gradient(to bottom , rgb(37, 37, 133), rgb(15, 72, 110), rgb(31, 144, 255));
+    -fx-text-fill: rgb(255, 255, 255); 
+    -fx-font-size: 25px;
+    -fx-font-weight: bolder;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2, 2 , 0 , 0 );
+    -fx-background-radius: 12px; 
+    -fx-alignment: center; 
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+    -fx-pref-height: 65px; 
+    -fx-pref-width: 65px;
+}
+    

@@ -127,6 +127,10 @@ public class WordHuntWords{
         return FOUND_4_LETTER_WORDS;
     }
 
+    public ArrayList<String> getFoundBonusWords(){
+        return FOUND_BONUS_WORDS;
+    }
+
     public void tearDown(){
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();

@@ -116,6 +116,10 @@ public class WordHuntGame {
         return words.getFoundWords();
     }
 
+    public ArrayList<String> getFoundBonusWords(){
+        return words.getFoundBonusWords();
+    }
+
     public int isValidWord (String word){
         return words.isValidWord(word);
     }

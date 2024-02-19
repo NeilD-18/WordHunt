@@ -51,7 +51,7 @@ public class WordHuntGameMain extends Application {
         });
 
         Scene scene = new Scene(wordHuntMenu, WIDTH, HEIGHT);
-        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm()); // Set scene size as desired
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         
         primaryStage.setScene(scene);
         primaryStage.setTitle("WordHunt Game");
@@ -69,7 +69,7 @@ public class WordHuntGameMain extends Application {
         
         
         Scene newGameScene = new Scene(root, WIDTH, HEIGHT); 
-        newGameScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm()); // Adjust size as needed
+        newGameScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         Stage primaryStage = (Stage) wordHuntMenu.getScene().getWindow();
         primaryStage.setScene(newGameScene);
     }
@@ -81,7 +81,6 @@ public class WordHuntGameMain extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
 
-        // Show open dialog
         List<File> selectedFiles = fileChooser.showOpenMultipleDialog(new Stage());
         String fileString = "";
         if (selectedFiles != null) {
@@ -100,7 +99,7 @@ public class WordHuntGameMain extends Application {
         
         
         Scene newGameScene = new Scene(root, WIDTH, HEIGHT); 
-        newGameScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm()); // Adjust size as needed
+        newGameScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         Stage primaryStage = (Stage) wordHuntMenu.getScene().getWindow();
         primaryStage.setScene(newGameScene);
 

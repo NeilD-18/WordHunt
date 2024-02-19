@@ -68,7 +68,6 @@ public class WordHuntGameAppTests {
     @Test
     public void testGetPossibleWords() {
         assertNotNull("Possible words list should not be null", wordHuntGame.getPossibleWords());
-        // You may want to add additional assertions based on your implementation
     }
 
 

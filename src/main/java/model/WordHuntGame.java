@@ -9,11 +9,12 @@ import java.util.*;
 
 /**
  * WordHuntGame model class. 
- * 
+ *
  */
 public class WordHuntGame {
 
     private ArrayList<ArrayList<String>> board;
+    private ArrayList<ArrayList<Integer>> usedLetters;
     private int COLUMNS = 4;
     private int ROWS = 4;
     private WordHuntScore score;
@@ -27,18 +28,20 @@ public class WordHuntGame {
         score = new WordHuntScore(words);
         words.initializeWordLists();
         board = new ArrayList<ArrayList<String>>();
+        usedLetters = new ArrayList<ArrayList<Integer>>();
     }
 
-    
+
     /**
-     *  
+     *
      * Generates a random game board filled with letters and finds words on the board.
      */
-     
+
     public void generateRandomBoard(){
         Random r = new Random();
         for (int i = 0; i < ROWS; i++){
             ArrayList<String> temp = new ArrayList<>();
+            ArrayList<Integer> tempInt = new ArrayList<>();
             for (int j = 0; j < COLUMNS; j++){
                 char c = (char)(r.nextInt(26) + 'A');
                 while (c == 'X' || c == 'Z' || c == 'V' || c == 'Q'){
@@ -46,13 +49,15 @@ public class WordHuntGame {
                 }
                 String letter = String.valueOf(c);
                 temp.add(letter);
+                tempInt.add(0);
             }
             board.add(temp);
+            usedLetters.add(tempInt);
         }
         words.findWords();
     }
 
-     /**
+    /**
      * Clears the game board and tears down associated objects.
      */
     public void tearDown(){
@@ -61,13 +66,52 @@ public class WordHuntGame {
         score.tearDown();
     }
 
-    
-     /**
+
+    /**
+     * Increments the uses of a tile, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     */
+    public void incrementLetterUse(int row, int col){
+        int tmp = usedLetters.get(row).get(col);
+        usedLetters.get(row).set(col, tmp + 1);
+    }
+
+    /**
+     * Decrements the uses of a tile, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     */
+    public void decrementLetterUse(int row, int col){
+        int tmp = usedLetters.get(row).get(col);
+        usedLetters.get(row).set(col, tmp - 1);
+    }
+
+    /**
+     * Gets the uses of a tile, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     * @return int number of times tile is used in basic words
+     */
+    public int getLetterUse(int row, int col){
+        return usedLetters.get(row).get(col);
+    }
+
+
+    /**
      * Gets the current game board.
      * @return The game board as a 2D ArrayList of strings.
      */
     public ArrayList<ArrayList<String>> getBoard(){
         return board;
+    }
+
+    /**
+     * Gets the current game board's used tiles.
+     * @return The game board's used tiles as a 2D ArrayList of ints.
+     */
+    public ArrayList<ArrayList<Integer>> getUsedTiles(){
+        return usedLetters;
     }
 
 
@@ -97,7 +141,7 @@ public class WordHuntGame {
                         System.err.println("Error: File format does not match the expected format.");
                         break;
                     }
-                } 
+                }
                 else{
                     System.err.println("Error: File format does not match the expected format.");
                     break;
@@ -110,11 +154,12 @@ public class WordHuntGame {
         // System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
-     /**
+    /**
      * Saves the current game board to a file.
      * @param filePath The path to save the game board.
      */
     public void saveBoard(String filePath) {
+        // System.out.println(filePath);
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (ArrayList<String> row : board) {
                 for (String letter : row) {
@@ -128,7 +173,7 @@ public class WordHuntGame {
     }
 
 
-     /**
+    /**
      * Checks if a move is valid on the game board.
      * @param prevRow The previous row index.
      * @param prevCol The previous column index.
@@ -185,7 +230,7 @@ public class WordHuntGame {
     public void addFoundWord(Boolean bonus, String word){
         words.addFoundWord(bonus, word);
     }
-    
+
     /**
      * Gets the list of possible words.
      * @return The list of possible words.

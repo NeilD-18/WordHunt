@@ -33,7 +33,7 @@ public class WordHuntWords{
         FOUND_BONUS_WORDS = new ArrayList<String>();
     }
 
-    
+
     /**
      * Finds possible words on the game board.
      */
@@ -49,7 +49,7 @@ public class WordHuntWords{
     }
 
 
-     /**
+    /**
      * Recursively finds possible words on the game board.
      * @param row The current row index.
      * @param col The current column index.
@@ -65,6 +65,12 @@ public class WordHuntWords{
         if (length == 4){
             word = word.toLowerCase();
             if (this.isValidWord(word) == 1){
+                for (int a = 0; a < visited.size(); a++){
+                    Pair p = visited.get(a);
+                    int r = (int) p.getKey();
+                    int c = (int) p.getValue();
+                    game.incrementLetterUse(r, c);
+                }
                 this.addPossibleWord(word);
             }
         }
@@ -86,7 +92,7 @@ public class WordHuntWords{
         }
     }
 
-    
+
     /**
      * Add possible word
      */
@@ -134,7 +140,7 @@ public class WordHuntWords{
         return POSSIBLE_4_LETTER_WORDS;
     }
 
-    
+
     /**
      * Checks if a word is valid.
      * @param word The word to check.
@@ -150,7 +156,7 @@ public class WordHuntWords{
         return 0;
     }
 
-    
+
     /**
      * Adds a found word to the appropriate list of found words.
      * @param bonus True if the word is a bonus word, false otherwise.
@@ -165,7 +171,7 @@ public class WordHuntWords{
         }
     }
 
-    
+
     /**
      * Gets the number of found 4-letter words.
      * @return The number of found 4-letter words.
@@ -174,11 +180,11 @@ public class WordHuntWords{
         return FOUND_4_LETTER_WORDS.size();
     }
 
-    
+
     /**
      * Gets the list of found 4-letter words.
      * @return The list of found 4-letter words.
-     */ 
+     */
     public ArrayList<String> getFoundWords(){
         return FOUND_4_LETTER_WORDS;
     }
@@ -191,7 +197,7 @@ public class WordHuntWords{
         return FOUND_BONUS_WORDS;
     }
 
-    
+
     /**
      * Clears the word lists.
      */

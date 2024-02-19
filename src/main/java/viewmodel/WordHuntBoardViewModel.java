@@ -55,7 +55,9 @@ public class WordHuntBoardViewModel {
     public void wipeTiles(){
         for (int i = 0; i < GRID_SIZE; i++){
             for (int j = 0; j < GRID_SIZE; j++){
-                buttons[i][j].setYellowState();
+                if (buttons[i][j].isDisabled() == false){
+                    buttons[i][j].setYellowState();
+                }
             }
         }
     }
@@ -129,16 +131,28 @@ public class WordHuntBoardViewModel {
      * @param WordHuntWordsFoundView
      */
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
+        for (int j = 0; j < GRID_SIZE; j++){
+            for (int k = 0; k < GRID_SIZE; k++){
+                System.out.print("Letter use for " + j + ", " + k + ": ");
+                System.out.println(game.getLetterUse(j, k));
+            }
+        }
         foundWords = game.getFoundWords();
         foundBonusWords = game.getFoundBonusWords();
         String word = "";
+        Stack<Tile> temp = new Stack<Tile>();
         while (stack.isEmpty() == false){
-            word = stack.pop().getData() + word;
+            Tile tile = stack.pop();
+            word = tile.getData() + word;
+            temp.add(tile);
         }
         word = word.toLowerCase();
         int validity = this.game.isValidWord(word);
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
             if (validity == 1) {
+                for (int i = 0; i < temp.size(); i++){
+                    game.decrementLetterUse(temp.get(i).getRow(), temp.get(i).getCol());
+                }
                 this.game.addFoundWord(false, word);
                 wordsFound.wordList.add(wordsFound.createStyledText(word));
                 wordsFound.animateWordAddition();
@@ -149,6 +163,7 @@ public class WordHuntBoardViewModel {
                 wordsFound.animateWordAddition();
             }
         }
+        this.checkUsedTiles();
         this.wipeTiles();
     }
 
@@ -179,6 +194,21 @@ public class WordHuntBoardViewModel {
             for (int j = 0; j < GRID_SIZE; j++){
                 buttons[i][j].setGreenState();
                 buttons[i][j].setDisable(true); 
+            }
+        }
+    }
+
+    /**
+     * Checks the board for used up tiles, disables used up tiles
+     */
+    public void checkUsedTiles(){
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++){
+                int tmp = game.getLetterUse(i, j);
+                if (tmp == 0){
+                    buttons[i][j].setGreenState();
+                    buttons[i][j].setDisable(true);
+                }
             }
         }
     }

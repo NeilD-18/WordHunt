@@ -57,6 +57,7 @@ public class WordHuntBoardView extends GridPane {
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
+        wordHuntBoardVM.checkUsedTiles();
     }
 
     /**
@@ -76,6 +77,7 @@ public class WordHuntBoardView extends GridPane {
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
+        wordHuntBoardVM.checkUsedTiles();
     }
 
     /**

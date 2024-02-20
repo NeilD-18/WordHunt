@@ -95,7 +95,5 @@ public class WordHuntGameAppTests {
         assertNotNull("Board should not be null after generateRandomBoard", wordHuntGame.getBoard());
     }
    
+   
 }
-
-
-

@@ -27,22 +27,22 @@ public class WordHuntScoreTests {
     public void testGetFoundWords() {
         assertNotNull("Found words list should not be null", wordHuntScore.getFoundWords());
         assertTrue("Found words list should be initially empty", wordHuntScore.getFoundWords().isEmpty());
-        wordHuntWords.addFoundWord(true, "BONUS");
-        assertTrue("Found words list should contain added word", wordHuntWords.getFoundWords().contains("WORD"));
+        wordHuntWords.addFoundWord(false, "WORD");
+        assertTrue("Found words list should contain added word", wordHuntScore.getFoundWords().contains("WORD"));
     }
 
 
     @Test
     public void testGetNumFoundWords() {
-        assertEquals("There is one found word once one is added", 1,  wordHuntScore.getNumFoundWords());
+        assertEquals("There is one found word once one is added", 1,  wordHuntScore.getNumFoundWords().size());
     }
 
 
     @Test
     public void testTearDown() {
         wordHuntScore.tearDown();
-        assertTrue("Found words list should be empty after teardown", wordHuntWords.getFoundWords().isEmpty());
-        assertEquals("There should be zero found words after tearDown", 1, wordHuntScore.getNumFoundWords());
+        assertTrue("Found words list should be empty after teardown", wordHuntScore.getFoundWords().isEmpty());
+        assertEquals("There should be zero found words after tearDown", 0, wordHuntScore.getNumFoundWords());
     }
 
 

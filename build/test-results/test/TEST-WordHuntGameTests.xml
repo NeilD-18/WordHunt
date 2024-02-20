@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="WordHuntGameTests" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-02-20T13:23:38" hostname="Jacobs-MacBook-Pro-2.local" time="0.178">
+  <properties/>
+  <testcase name="testGetFoundBonusWords" classname="WordHuntGameTests" time="0.014"/>
+  <testcase name="testFoundWordBonusFlag" classname="WordHuntGameTests" time="0.005"/>
+  <testcase name="testTearDown" classname="WordHuntGameTests" time="0.073"/>
+  <testcase name="testIsValidMove" classname="WordHuntGameTests" time="0.003"/>
+  <testcase name="testIsValidWord" classname="WordHuntGameTests" time="0.002"/>
+  <testcase name="testGetFoundWords" classname="WordHuntGameTests" time="0.003"/>
+  <testcase name="testGetBoardAfterGenerateRandomBoard" classname="WordHuntGameTests" time="0.036"/>
+  <testcase name="testAddFoundWord" classname="WordHuntGameTests" time="0.003"/>
+  <testcase name="testGetPossibleWords" classname="WordHuntGameTests" time="0.002"/>
+  <testcase name="testGenerateRandomBoard" classname="WordHuntGameTests" time="0.032"/>
+  <system-out><![CDATA[[doug, dont, font, hugo, info]
+[cure, pure, peru]
+[nike, flip, inns, pike, pink, like, link, life, lips, sink, silk, spin, skin, skip]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

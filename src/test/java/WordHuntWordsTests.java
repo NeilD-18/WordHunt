@@ -74,10 +74,10 @@ public class WordHuntWordsTests {
     public void testTearDown() {
         wordHuntGame.generateRandomBoard();
         wordHuntWords.findWords();
-        wordHuntGame.tearDown();
+        wordHuntWords.tearDown();
         assertTrue("Possible words list should be empty after tearDown", wordHuntWords.getPossibleWords().isEmpty());
         assertTrue("Found words list should be empty after tearDown", wordHuntWords.getFoundWords().isEmpty());
-        assertTrue("Bonus words list should be empty after tearDown", wordHuntWords.getBonusWords().isEmpty());
+        assertTrue("Bonus words list should be empty after tearDown", wordHuntWords.getFoundBonusWords().isEmpty());
     }
 
 

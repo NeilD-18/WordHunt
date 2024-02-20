@@ -167,8 +167,6 @@ public class WordHuntInGameMenuView extends VBox {
         vm.quitGame();
     }
     
-
-
     /**
      * Set background
      */
@@ -177,8 +175,6 @@ public class WordHuntInGameMenuView extends VBox {
                 new Stop(0, Color.web("#7EC8E3")),
                 new Stop(0.5, Color.web("#5EA4C2")),
                 new Stop(1, Color.web("#3B7FA1")));
-
-
         return new Background(new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY));
     }
 }

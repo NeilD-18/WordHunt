@@ -57,6 +57,7 @@ public class WordHuntBoardView extends GridPane {
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
+        wordHuntBoardVM.checkUsedTiles();
     }
 
     /**
@@ -76,6 +77,7 @@ public class WordHuntBoardView extends GridPane {
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
+        wordHuntBoardVM.checkUsedTiles();
     }
 
     /**
@@ -109,18 +111,20 @@ public class WordHuntBoardView extends GridPane {
      * @param tile The tile that was clicked.
      */
     private void handleMouseClick(Tile tile) {
-        if (selectedTilesStack.isEmpty()) {
-            wordHuntBoardVM.toggleTileState(tile);
-            wordHuntBoardVM.setLastClickedTile(tile);
-            selectedTilesStack.push(tile);
-        } else if (!selectedTilesStack.contains(tile) && wordHuntBoardVM.getLastClicked() != null && tile != wordHuntBoardVM.getLastClicked() && wordHuntBoardVM.isAdjacent(tile, selectedTilesStack.peek(), selectedTilesStack)) {
-            wordHuntBoardVM.toggleTileState(tile);
-            wordHuntBoardVM.setLastClickedTile(tile);
-            selectedTilesStack.push(tile);
-        } else if (wordHuntBoardVM.getLastClicked() != null && tile == selectedTilesStack.peek()) {
-            selectedTilesStack.pop();
-            wordHuntBoardVM.toggleTileState(tile);
-            wordHuntBoardVM.setLastClickedTile(selectedTilesStack.isEmpty() ? null : selectedTilesStack.peek());
+        if (!tile.isDisabled()) { 
+            if (selectedTilesStack.isEmpty()) {
+                wordHuntBoardVM.toggleTileState(tile);
+                wordHuntBoardVM.setLastClickedTile(tile);
+                selectedTilesStack.push(tile);
+            } else if (!selectedTilesStack.contains(tile) && wordHuntBoardVM.getLastClicked() != null && tile != wordHuntBoardVM.getLastClicked() && wordHuntBoardVM.isAdjacent(tile, selectedTilesStack.peek(), selectedTilesStack)) {
+                wordHuntBoardVM.toggleTileState(tile);
+                wordHuntBoardVM.setLastClickedTile(tile);
+                selectedTilesStack.push(tile);
+            } else if (wordHuntBoardVM.getLastClicked() != null && tile == selectedTilesStack.peek()) {
+                selectedTilesStack.pop();
+                wordHuntBoardVM.toggleTileState(tile);
+                wordHuntBoardVM.setLastClickedTile(selectedTilesStack.isEmpty() ? null : selectedTilesStack.peek());
+            }
         }
     }
 

@@ -152,9 +152,7 @@ public class WordHuntBoardViewModel {
         int validity = this.game.isValidWord(word);
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
             if (validity == 1) {
-                for (int i = 0; i < temp.size(); i++){
-                    game.decrementLetterUse(temp.get(i).getRow(), temp.get(i).getCol());
-                }
+                game.decrementLetterUse(word);
                 this.game.addFoundWord(false, word);
                 wordsFound.wordList.add(wordsFound.createStyledText(word));
                 wordsFound.animateWordAddition();

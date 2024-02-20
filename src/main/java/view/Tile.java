@@ -73,6 +73,9 @@ public class Tile extends Button {
         currentState = "blue-state";
     }
 
+    /**
+     * Sets the tile state to unavailable.
+     */
     public void setUnavailableState() {
         getStyleClass().clear();
         getStyleClass().add("button-unavailable-state");

@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses
 ({
-    WordHuntGameAppTests.class
+    WordHuntGameTests.class
     WordHuntScoreTests.class
     WordHuntWordsTests.class
 })

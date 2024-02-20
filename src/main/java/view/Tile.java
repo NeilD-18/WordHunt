@@ -73,6 +73,12 @@ public class Tile extends Button {
         currentState = "blue-state";
     }
 
+    public void setUnavailableState() {
+        getStyleClass().clear();
+        getStyleClass().add("button-unavailable-state");
+        currentState = "blue-state";
+    }
+
     /**
      * Gets the row index of the tile.
      * @return The row index of the tile.

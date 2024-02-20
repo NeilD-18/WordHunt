@@ -67,10 +67,12 @@ public class WordHuntBoardViewModel {
      * @param Tile
      */
     public void toggleTileState(Tile tile) {
-        if (tile.getCurrentState().equals("yellow-state")) {
+        if (tile.getCurrentState().equals("yellow-state") && !tile.isDisabled()) {
             tile.setNeutralState();
         } else {
-            tile.setYellowState();
+            if (!tile.isDisabled()) {
+                tile.setYellowState();
+            }
         }
     }
 
@@ -206,7 +208,7 @@ public class WordHuntBoardViewModel {
             for (int j = 0; j < GRID_SIZE; j++){
                 int tmp = game.getLetterUse(i, j);
                 if (tmp == 0){
-                    buttons[i][j].setGreenState();
+                    buttons[i][j].setUnavailableState();
                     buttons[i][j].setDisable(true);
                 }
             }

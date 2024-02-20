@@ -1,18 +1,9 @@
 package viewmodel; 
 
 import javafx.application.Platform;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import model.*;
 import view.*;
 import java.util.*;
 import javafx.scene.control.TextInputDialog;
-
-
-import javafx.application.Platform;
-import model.WordHuntGame;
 
 /**
  * In game menu ViewModel

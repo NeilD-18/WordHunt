@@ -24,8 +24,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import viewmodel.*;
-import javafx.scene.control.TextInputDialog;
-import java.util.*;
 
 
 import java.io.FileInputStream;

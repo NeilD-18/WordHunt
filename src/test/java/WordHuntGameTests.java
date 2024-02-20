@@ -7,7 +7,7 @@ import java.beans.Transient;
 import org.junit.Before;
 import org.junit.Test;
 import model.*;
-public class WordHuntGameAppTests {
+public class WordHuntGameTests {
 
 
     private WordHuntGame wordHuntGame;
@@ -95,5 +95,5 @@ public class WordHuntGameAppTests {
         assertNotNull("Board should not be null after generateRandomBoard", wordHuntGame.getBoard());
     }
    
-   
+
 }

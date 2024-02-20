@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 
+
 import java.beans.Transient;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,15 +32,17 @@ public class WordHuntScoreTests {
     }
 
 
-    @Test testGetNumFoundWords() {
+    @Test
+    public void testGetNumFoundWords() {
         assertEquals("There is one found word once one is added", 1,  wordHuntScore.getNumFoundWords());
     }
 
 
-    @Test testTearDown() {
-        wordHuntGame.tearDown();
+    @Test
+    public void testTearDown() {
+        wordHuntScore.tearDown();
         assertTrue("Found words list should be empty after teardown", wordHuntWords.getFoundWords().isEmpty());
-        assertTrue("There should be zero  found words after tearDown", 1, wordHuntScore.getNumFoundWords());
+        assertEquals("There should be zero found words after tearDown", 1, wordHuntScore.getNumFoundWords());
     }
 
 

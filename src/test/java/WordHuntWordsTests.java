@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 
+
 import java.beans.Transient;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +63,7 @@ public class WordHuntWordsTests {
 
 
     @Test
-    public void testFoundWordBonus() {
+    public void testFoundWordBonusFlag() {
         wordHuntWords.addFoundWord(true, "BONUS");
         assertTrue("Found bonus words list should contain added bonus word", wordHuntWords.getFoundBonusWords().contains("BONUS"));
         assertFalse("Found words list should not contain bonus word", wordHuntWords.getFoundWords().contains("BONUS"));

@@ -150,7 +150,7 @@ public class WordHuntGame {
      * Gets the current game board's start tiles.
      * @return The game board's start tiles as a 2D ArrayList of ints.
      */
-    public ArrayList<ArrayList<Integer>> getUsedTiles(){
+    public ArrayList<ArrayList<Integer>> getStartTiles(){
         return startLetters;
     }
 

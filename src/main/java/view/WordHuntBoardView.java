@@ -18,6 +18,7 @@ public class WordHuntBoardView extends GridPane {
     public Stack<Tile> selectedTilesStack;
     private static final int GRID_X_OFFSET = 435;
     private static final int GRID_Y_OFFSET = 196;
+    public int GRID_SIZE;
     public WordHuntScoreView scoreView;
     public WordHuntWordsFoundView wordsFound;
 
@@ -30,9 +31,10 @@ public class WordHuntBoardView extends GridPane {
      * @param scoreview The score view associated with the game.
      * @param wordsfound The view for displaying found words.
      */
-    public WordHuntBoardView(String file, WordHuntScoreView scoreview, WordHuntWordsFoundView wordsfound) {
+    public WordHuntBoardView(String file, WordHuntScoreView scoreview, WordHuntWordsFoundView wordsfound, int gridSize) {
         scoreView = scoreview;
         wordsFound = wordsfound;
+        GRID_SIZE = gridSize;
         if (file != "null"){
             initializeBoard(file);
         }
@@ -99,10 +101,14 @@ public class WordHuntBoardView extends GridPane {
         tile.setYellowState();
         tile.setMinSize(80, 80);
         tile.setOnMousePressed(event -> handleMouseClick(tile));
-        tile.addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener());
+        tile.addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener(this.getGridSize()));
         tile.setOnMouseReleased(event -> handleMouseReleased(tile));
         wordHuntBoardVM.addButton(tile, row, col);
         add(tile, col, row);
+    }
+
+    public int getGridSize(){
+        return GRID_SIZE;
     }
 
     
@@ -160,6 +166,17 @@ public class WordHuntBoardView extends GridPane {
      * A class implementing the button drag listener for tile dragging functionality.
      */
     private class ButtonDragListener implements javafx.event.EventHandler<MouseEvent> {
+
+        public int GRID_SIZE;
+
+        public ButtonDragListener(int gridSize){
+            GRID_SIZE = gridSize;
+        }
+
+        public int getGridSize(){
+            return GRID_SIZE;
+        }
+
         @Override
         public void handle(MouseEvent event){
             int row = getButtonRow(event);
@@ -188,7 +205,7 @@ public class WordHuntBoardView extends GridPane {
            
             String word = "";
             // System.out.println(selectedTilesStack.toString());
-            for (int i = 0; i< selectedTilesStack.size(); i++){
+            for (int i = 0; i < selectedTilesStack.size(); i++){
                 word += selectedTilesStack.get(i).getData();
             }
             wordHuntCurrentWordVM.updateCurrentWord(word);
@@ -201,25 +218,19 @@ public class WordHuntBoardView extends GridPane {
         private int getButtonRow(MouseEvent event){
             double y = event.getSceneY() - GRID_Y_OFFSET;
             double buttonHeight = wordHuntBoardVM.getButton(0, 0).getHeight();
-            double row0 = wordHuntBoardVM.getButton(0, 0).getLayoutY();
-            double row1 = wordHuntBoardVM.getButton(1, 0).getLayoutY();
-            double row2 = wordHuntBoardVM.getButton(2, 0).getLayoutY();
-            double row3 = wordHuntBoardVM.getButton(3, 0).getLayoutY();
+            double top = wordHuntBoardVM.getButton(0, 0).getLayoutY();
+            double bottom = wordHuntBoardVM.getButton(this.getGridSize() - 1, 0).getLayoutY();
+            // System.out.println(top);
+            // System.out.println(bottom);
             // System.out.println("Y Location: " + y);
-            if (y <= row3 + buttonHeight && y >= row0){
-                if (y >= row0 && y <= row0 + buttonHeight){
-                    return 0;
+            if (y >= top && y <= bottom + buttonHeight){
+                // System.out.println("true");
+                for (int i = 0; i < this.getGridSize(); i++){
+                    double buttonY = wordHuntBoardVM.getButton(i, 0).getLayoutY();
+                    if (y >= buttonY && y <= buttonY + buttonHeight){
+                        return i;
+                    }
                 }
-                if (y >= row1 && y <= row1 + buttonHeight){
-                    return 1;
-                }
-                if (y >= row2 && y <= row2 + buttonHeight){
-                    return 2;
-                }
-                if (y >= row3 && y <= row3 + buttonHeight){
-                    return 3;
-                }
-                return -1;
             }
             return -1;
         }
@@ -231,25 +242,16 @@ public class WordHuntBoardView extends GridPane {
         private int getButtonCol(MouseEvent event){
             double x = event.getSceneX() - GRID_X_OFFSET;
             double buttonWidth = wordHuntBoardVM.getButton(0, 0).getWidth();
-            double col0 = wordHuntBoardVM.getButton(0, 0).getLayoutX();
-            double col1 = wordHuntBoardVM.getButton(0, 1).getLayoutX();
-            double col2 = wordHuntBoardVM.getButton(0, 2).getLayoutX();
-            double col3 = wordHuntBoardVM.getButton(0, 3).getLayoutX();
-            // System.out.println("X Location: " + x);
-            if (x <= col3 + buttonWidth && x >= col0){
-                if (x >= col0 && x <= col0 + buttonWidth){
-                    return 0;
+            double left = wordHuntBoardVM.getButton(0, 0).getLayoutX();
+            double right = wordHuntBoardVM.getButton(0, this.getGridSize() - 1).getLayoutX();
+            if (x >= left && x <= right + buttonWidth){
+                // System.out.println("true");
+                for (int i = 0; i < this.getGridSize(); i++){
+                    double buttonX = wordHuntBoardVM.getButton(0, i).getLayoutX();
+                    if (x >= buttonX && x <= buttonX + buttonWidth){
+                        return i;
+                    }
                 }
-                if (x >= col1 && x <= col1 + buttonWidth){
-                    return 1;
-                }
-                if (x >= col2 && x <= col2 + buttonWidth){
-                    return 2;
-                }
-                if (x >= col3 && x <= col3 + buttonWidth){
-                    return 3;
-                }
-                return -1;
             }
             return -1;
         }

@@ -15,6 +15,7 @@ public class WordHuntGame {
 
     private ArrayList<ArrayList<String>> board;
     private ArrayList<ArrayList<Integer>> usedLetters;
+    private ArrayList<ArrayList<Integer>> startLetters;
     private int COLUMNS = 4;
     private int ROWS = 4;
     private WordHuntScore score;
@@ -29,6 +30,7 @@ public class WordHuntGame {
         words.initializeWordLists();
         board = new ArrayList<ArrayList<String>>();
         usedLetters = new ArrayList<ArrayList<Integer>>();
+        startLetters = new ArrayList<ArrayList<Integer>>();
     }
 
 
@@ -53,6 +55,7 @@ public class WordHuntGame {
             }
             board.add(temp);
             usedLetters.add(tempInt);
+            startLetters.add(tempInt);
         }
         words.findWords();
     }
@@ -97,6 +100,35 @@ public class WordHuntGame {
         return usedLetters.get(row).get(col);
     }
 
+    /**
+     * Increments the number of words a tile starts with, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     */
+    public void incrementLetterStart(int row, int col){
+        int tmp = startLetters.get(row).get(col);
+        startLetters.get(row).set(col, tmp + 1);
+    }
+
+    /**
+     * Decrements the number of words a tile starts with, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     */
+    public void decrementLetterStart(int row, int col){
+        int tmp = startLetters.get(row).get(col);
+        startLetters.get(row).set(col, tmp - 1);
+    }
+
+    /**
+     * Gets the number of words a tile starts with, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     * @return int number of times a basic word starts with tile
+     */
+    public int getLetterStart(int row, int col){
+        return startLetters.get(row).get(col);
+    }
 
     /**
      * Gets the current game board.
@@ -112,6 +144,14 @@ public class WordHuntGame {
      */
     public ArrayList<ArrayList<Integer>> getUsedTiles(){
         return usedLetters;
+    }
+
+    /**
+     * Gets the current game board's start tiles.
+     * @return The game board's start tiles as a 2D ArrayList of ints.
+     */
+    public ArrayList<ArrayList<Integer>> getUsedTiles(){
+        return startLetters;
     }
 
 

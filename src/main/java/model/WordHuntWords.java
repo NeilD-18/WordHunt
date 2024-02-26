@@ -71,7 +71,13 @@ public class WordHuntWords{
                     int c = (int) p.getValue();
                     game.incrementLetterUse(r, c);
                 }
+                Pair p = visited.get(0);
+                int r = (int) p.getKey();
+                int c = (int) p.getValue();
+                game.incrementLetterStart(r, c);
+
                 this.addPossibleWord(word);
+        
             }
         }
         else {

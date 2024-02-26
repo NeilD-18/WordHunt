@@ -26,8 +26,6 @@ import javafx.util.Duration;
 import viewmodel.*;
 import javafx.scene.control.TextInputDialog;
 import java.util.*;
-
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 

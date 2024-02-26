@@ -34,7 +34,9 @@ public class WordHuntScoreTests {
 
     @Test
     public void testGetNumFoundWords() {
-        assertEquals("There is one found word once one is added", 1,  wordHuntScore.getNumFoundWords().size());
+        assertEquals("Found words list should be initially empty", 0, wordHuntScore.getNumFoundWords());
+        wordHuntWords.addFoundWord(false, "WORD");
+        assertEquals("There is one found word once one is added", 1,  wordHuntScore.getNumFoundWords());
     }
 
 

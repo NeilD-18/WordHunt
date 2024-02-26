@@ -89,8 +89,10 @@ public class WordHuntBoardViewModel {
      * @param Tile to be added
      * @param int row
      * @param int col
+     * @param leftNumber left number
+     * @param rightNumber right number
      */
-    public void addButton(Tile tile, int row, int col){
+    public void addButton(Tile tile, int row, int col, int leftNumber, int rigthNumber){
         buttons[row][col] = tile;
     }
 
@@ -137,6 +139,8 @@ public class WordHuntBoardViewModel {
             for (int k = 0; k < GRID_SIZE; k++){
                 System.out.print("Letter use for " + j + ", " + k + ": ");
                 System.out.println(game.getLetterUse(j, k));
+                System.out.print("Letter start for " + j + ", " + k + ": ");
+                System.out.println(game.getLetterStart(j, k));
             }
         }
         foundWords = game.getFoundWords();
@@ -153,7 +157,11 @@ public class WordHuntBoardViewModel {
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
             if (validity == 1) {
                 for (int i = 0; i < temp.size(); i++){
-                    game.decrementLetterUse(temp.get(i).getRow(), temp.get(i).getCol());
+                    Tile top = temp.get(i);
+                    game.decrementLetterUse(top.getRow(), top.getCol());
+                    if (i == temp.size() - 1){
+                        game.decrementLetterStart(top.getRow(), top.getCol());
+                    }
                 }
                 this.game.addFoundWord(false, word);
                 wordsFound.wordList.add(wordsFound.createStyledText(word));
@@ -165,7 +173,7 @@ public class WordHuntBoardViewModel {
                 wordsFound.animateWordAddition();
             }
         }
-        this.checkUsedTiles();
+        this.checkTiles();
         this.wipeTiles();
     }
 
@@ -201,16 +209,18 @@ public class WordHuntBoardViewModel {
     }
 
     /**
-     * Checks the board for used up tiles, disables used up tiles
+     * Checks the number of uses and starts of a tile and updates the tile's value and state accordingly
      */
-    public void checkUsedTiles(){
+    public void checkTiles(){
         for (int i = 0; i < GRID_SIZE; i++){
             for (int j = 0; j < GRID_SIZE; j++){
-                int tmp = game.getLetterUse(i, j);
-                if (tmp == 0){
+                int uses = game.getLetterUse(i, j);
+                int starts = game.getLetterStart(i, j);
+                if (uses == 0){
                     buttons[i][j].setUnavailableState();
                     buttons[i][j].setDisable(true);
                 }
+                buttons[i][j].setNumbers(uses, starts);
             }
         }
     }

@@ -2,6 +2,10 @@ package view;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+
+import javafx.scene.text.Text;
+import javafx.scene.layout.StackPane;
+
 import viewmodel.WordHuntBoardViewModel;
 import viewmodel.WordHuntCurrentWordViewModel;
 
@@ -53,11 +57,11 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(false, "");    
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                createAndAddTile(tmp.get(i).get(j), i, j);
+                createAndAddTile(tmp.get(i).get(j), i, j, 0, 0);
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
-        wordHuntBoardVM.checkUsedTiles();
+        wordHuntBoardVM.checkTiles();
     }
 
     /**
@@ -73,11 +77,11 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(true, file);
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                createAndAddTile(tmp.get(i).get(j), i, j);
+                createAndAddTile(tmp.get(i).get(j), i, j, 0, 0);
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
-        wordHuntBoardVM.checkUsedTiles();
+        wordHuntBoardVM.checkTiles();
     }
 
     /**
@@ -93,15 +97,17 @@ public class WordHuntBoardView extends GridPane {
      * @param letter The letter to be displayed on the tile.
      * @param row The row index of the tile.
      * @param col The column index of the tile.
+     * @param leftNumber The left number of the tile.
+     * @param rightNumber The right number of the tile.
      */
-    private void createAndAddTile(String letter, int row, int col) {
-        Tile tile = new Tile(letter, row, col);
+    private void createAndAddTile(String letter, int row, int col, int leftNumber, int rightNumber) {
+        Tile tile = new Tile(letter, row, col, leftNumber, rightNumber);
         tile.setYellowState();
         tile.setMinSize(80, 80);
         tile.setOnMousePressed(event -> handleMouseClick(tile));
         tile.addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener());
         tile.setOnMouseReleased(event -> handleMouseReleased(tile));
-        wordHuntBoardVM.addButton(tile, row, col);
+        wordHuntBoardVM.addButton(tile, row, col, leftNumber, rightNumber);
         add(tile, col, row);
     }
 

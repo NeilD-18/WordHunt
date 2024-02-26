@@ -43,7 +43,8 @@ public class WordHuntGame {
         Random r = new Random();
         for (int i = 0; i < ROWS; i++){
             ArrayList<String> temp = new ArrayList<>();
-            ArrayList<Integer> tempInt = new ArrayList<>();
+            ArrayList<Integer> tempUsed = new ArrayList<>();
+            ArrayList<Integer> tempStart = new ArrayList<>();
             for (int j = 0; j < COLUMNS; j++){
                 char c = (char)(r.nextInt(26) + 'A');
                 while (c == 'X' || c == 'Z' || c == 'V' || c == 'Q'){
@@ -51,11 +52,12 @@ public class WordHuntGame {
                 }
                 String letter = String.valueOf(c);
                 temp.add(letter);
-                tempInt.add(0);
+                tempUsed.add(0);
+                tempStart.add(0);
             }
             board.add(temp);
-            usedLetters.add(tempInt);
-            startLetters.add(tempInt);
+            usedLetters.add(tempUsed);
+            startLetters.add(tempStart);
         }
         words.findWords();
     }

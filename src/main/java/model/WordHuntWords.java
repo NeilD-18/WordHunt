@@ -16,6 +16,7 @@ public class WordHuntWords{
     private int ROWS = 4;
     private WordHuntGame game;
     private ArrayList<String> POSSIBLE_4_LETTER_WORDS;
+    private ArrayList<ArrayList<Pair<Integer, Integer>>> POSSIBLE_4_LETTER_WORDS_TILES;
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
@@ -31,6 +32,7 @@ public class WordHuntWords{
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
+        POSSIBLE_4_LETTER_WORDS_TILES = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
     }
 
 
@@ -76,7 +78,7 @@ public class WordHuntWords{
                 int c = (int) p.getValue();
                 game.incrementLetterStart(r, c);
 
-                this.addPossibleWord(word);
+                this.addPossibleWord(word, visited);
         
             }
         }
@@ -102,11 +104,17 @@ public class WordHuntWords{
     /**
      * Add possible word
      */
-    private void addPossibleWord(String word){
+    private void addPossibleWord(String word, ArrayList<Pair<Integer, Integer>> visited){
         if (!POSSIBLE_4_LETTER_WORDS.contains(word)){
             POSSIBLE_4_LETTER_WORDS.add(word);
+            POSSIBLE_4_LETTER_WORDS_TILES.add(visited);
+            for (int i = 0; i < visited.size(); i++){
+                Pair<Integer, Integer> p = visited.get(i);
+                game.incrementLetterUse(p.getKey(), p.getValue());
+            }
         }
     }
+
 
     /**
      * Initializes word lists from text files.
@@ -135,6 +143,12 @@ public class WordHuntWords{
         catch (IOException exception){
             exception.printStackTrace();
         }
+    }
+
+
+    public ArrayList<Pair<Integer, Integer>> getTilesForWord(String word){
+        int index = POSSIBLE_4_LETTER_WORDS.indexOf(word);
+        return POSSIBLE_4_LETTER_WORDS_TILES.get(index);
     }
 
 

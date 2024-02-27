@@ -27,7 +27,7 @@ public class Tile extends Button {
      * @param rightNumber The left number of the tile.
      */
     public Tile(String letter, int row, int col, int leftNumber, int rightNumber) {
-        super(String.valueOf(leftNumber) + letter + String.valueOf(rightNumber));
+        super(String.valueOf(leftNumber) + " " + letter + " " + String.valueOf(rightNumber));
         data = letter;
         this.row = row;
         this.col = col;
@@ -53,7 +53,7 @@ public class Tile extends Button {
     public void setNumbers(int leftNumber, int rightNumber) {
         this.leftNumber = leftNumber;
         this.rightNumber = rightNumber;
-        setText(String.valueOf(leftNumber) + data + String.valueOf(rightNumber));   
+        setText(String.valueOf(leftNumber) + " " + data + " " + String.valueOf(rightNumber));   
     }
 
     /**

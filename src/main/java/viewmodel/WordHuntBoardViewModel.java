@@ -12,7 +12,7 @@ public class WordHuntBoardViewModel {
 
     private WordHuntGame game;
     private Tile[][] buttons;
-    private static final int GRID_SIZE = 4;
+    private int GRID_SIZE;
     private Tile lastClickedTile;
     private ArrayList<String> foundWords;
     private ArrayList<String> foundBonusWords;
@@ -20,8 +20,9 @@ public class WordHuntBoardViewModel {
     /**
      * Constructor, initializes viewmodel
      */
-    public WordHuntBoardViewModel(){
-        this.game = new WordHuntGame();
+    public WordHuntBoardViewModel(int grid){
+        GRID_SIZE = grid;
+        this.game = new WordHuntGame(grid);
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
     }
 

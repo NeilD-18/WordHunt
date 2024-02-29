@@ -10,6 +10,7 @@ public class Tile extends Button {
     private int row;
     private int col;
     private String data;
+    private int totalStarts;
     private String currentState;
 
     
@@ -25,6 +26,7 @@ public class Tile extends Button {
         data = letter;
         this.row = row;
         this.col = col;
+        
         setYellowState();
     }
 

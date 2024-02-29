@@ -15,7 +15,7 @@ public class WordHuntGameAppTests {
 
     @Before
     public void setUp() {
-        wordHuntGame = new WordHuntGame();
+        wordHuntGame = new WordHuntGame(4);
     }
 
 

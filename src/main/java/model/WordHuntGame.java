@@ -16,18 +16,20 @@ public class WordHuntGame {
 
     private ArrayList<ArrayList<String>> board;
     private ArrayList<ArrayList<Integer>> usedLetters;
-    private int COLUMNS = 4;
-    private int ROWS = 4;
+    private int COLUMNS;
+    private int ROWS;
     private WordHuntScore score;
     private WordHuntWords words;
 
     /**
      * Default constructor
      */
-    public WordHuntGame(){
+    public WordHuntGame(int grid){
         words = new WordHuntWords(this);
         score = new WordHuntScore(words);
         words.initializeWordLists();
+        COLUMNS = grid;
+        ROWS = grid;
         board = new ArrayList<ArrayList<String>>();
         usedLetters = new ArrayList<ArrayList<Integer>>();
     }
@@ -188,7 +190,7 @@ public class WordHuntGame {
      * @return True if the move is valid, false otherwise.
      */
     public boolean isValidMove (int prevRow, int prevCol, int nextRow, int nextCol){
-        if (nextRow >= 0 && nextRow <= 3 && nextCol >= 0 && nextCol <= 3){
+        if (nextRow >= 0 && nextRow <= (ROWS - 1) && nextCol >= 0 && nextCol <= (COLUMNS - 1)){
             int vCheck = prevRow - nextRow;
             int hCheck = prevCol - nextCol;
 

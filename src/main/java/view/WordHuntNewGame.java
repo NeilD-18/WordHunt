@@ -31,7 +31,7 @@ public class WordHuntNewGame extends Pane {
     public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        int gridSize = 4;
+        int gridSize = 6;
         gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
@@ -44,14 +44,14 @@ public class WordHuntNewGame extends Pane {
      */
     public void setupLayout() {
         getChildren().clear();
-        scoreLabel.setAlignment(Pos.CENTER);
-        foundWords.setAlignment(Pos.CENTER);
-        gameBoard.setAlignment(Pos.CENTER);
         int possibleWords = gameBoard.getNumPossibleWords();
-        while (possibleWords == 0){
+        while (possibleWords <= 5){
             this.initializeComponents("null");
             possibleWords = gameBoard.getNumPossibleWords();
         }
+        scoreLabel.setAlignment(Pos.CENTER);
+        foundWords.setAlignment(Pos.CENTER);
+        gameBoard.setAlignment(Pos.CENTER);
         scoreLabel.initilaizeScores(possibleWords);
 
         

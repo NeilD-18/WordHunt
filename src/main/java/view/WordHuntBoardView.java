@@ -47,7 +47,7 @@ public class WordHuntBoardView extends GridPane {
      * Initializes the game board.
      */
     private void initializeBoard() {
-        wordHuntBoardVM = new WordHuntBoardViewModel();
+        wordHuntBoardVM = new WordHuntBoardViewModel(GRID_SIZE);
         wordHuntCurrentWordVM = new WordHuntCurrentWordViewModel();
         selectedTilesStack = new Stack<>();
         setHgap(10);
@@ -67,7 +67,7 @@ public class WordHuntBoardView extends GridPane {
      * @param file The file to initialize the board from.
      */
     private void initializeBoard(String file) {
-        wordHuntBoardVM = new WordHuntBoardViewModel();
+        wordHuntBoardVM = new WordHuntBoardViewModel(GRID_SIZE);
         wordHuntCurrentWordVM = new WordHuntCurrentWordViewModel();
         selectedTilesStack = new Stack<>();
         setHgap(10);
@@ -181,8 +181,8 @@ public class WordHuntBoardView extends GridPane {
         public void handle(MouseEvent event){
             int row = getButtonRow(event);
             int col = getButtonCol(event);
-            // System.out.println("Row: " + row);
-            // System.out.println("Column: " + col);
+            System.out.println("Row: " + row);
+            System.out.println("Column: " + col);
             if (row >= 0 && col >=0){
                 if (selectedTilesStack.contains(wordHuntBoardVM.getButton(row, col))){
                     if (wordHuntBoardVM.getButton(row, col) != selectedTilesStack.peek()){

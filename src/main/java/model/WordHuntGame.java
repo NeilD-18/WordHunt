@@ -89,10 +89,9 @@ public class WordHuntGame {
      */
     public void decrementLetterUse(String word){
         ArrayList<Pair<Integer, Integer>> tiles = words.getTilesForWord(word);
-        for (int i = 0; i < word.length(); i++){
-            Pair<Integer, Integer> p = tiles.get(i);
-            int r = p.getKey();
-            int c = p.getValue();
+        for (Pair<Integer, Integer> pair : tiles){
+            int r = pair.getKey();
+            int c = pair.getValue();
             int tmp = usedLetters.get(r).get(c);
             usedLetters.get(r).set(c, tmp - 1);
         }
@@ -120,25 +119,16 @@ public class WordHuntGame {
 
     /**
      * Decrements the number of words a tile starts with, given row and column index.
-     * @param row Row of tile location.
-     * @param col Col of tile location.
-     */
-    public void decrementLetterStart(int row, int col){
-        int tmp = startLetters.get(row).get(col);
-        startLetters.get(row).set(col, tmp - 1);
-    }
-
-    /**
-     * Decrements the number of words a tile starts with, given row and column index.
      * @param Word to decrement tiles of
      */
     public void decrementLetterStart(String word){
-        ArrayList<Pair<Integer, Integer>> tiles = words.getTilesForWord(word);
-        Pair<Integer, Integer> p = tiles.get(0);
-        int r = p.getKey();
-        int c = p.getValue();
-        int tmp = usedLetters.get(r).get(c);
-        usedLetters.get(r).set(c, tmp - 1);
+        ArrayList<Pair<Integer, Integer>> startTiles = words.getStartTilesForWord(word);
+        for (Pair<Integer, Integer> pair : startTiles){
+            int r = pair.getKey();
+            int c = pair.getValue();
+            int tmp = startLetters.get(r).get(c);
+            startLetters.get(r).set(c, tmp - 1);
+        }
     }
 
     /**

@@ -137,10 +137,10 @@ public class WordHuntBoardViewModel {
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
         for (int j = 0; j < GRID_SIZE; j++){
             for (int k = 0; k < GRID_SIZE; k++){
+                /**
                 System.out.print("Letter use for " + j + ", " + k + ": ");
                 System.out.println(game.getLetterUse(j, k));
-                System.out.print("Letter start for " + j + ", " + k + ": ");
-                System.out.println(game.getLetterStart(j, k));
+                */
             }
         }
         foundWords = game.getFoundWords();

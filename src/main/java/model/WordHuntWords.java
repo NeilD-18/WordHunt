@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javafx.util.Pair;
 
+import java.util.HashMap;
+
 /**
  * WordHuntWords model
  */
@@ -15,8 +17,10 @@ public class WordHuntWords{
     private int COLUMNS = 4;
     private int ROWS = 4;
     private WordHuntGame game;
-    private ArrayList<String> POSSIBLE_4_LETTER_WORDS;
-    private ArrayList<ArrayList<Pair<Integer, Integer>>> POSSIBLE_4_LETTER_WORDS_TILES;
+
+    private HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>> POSSIBLE_4_LETTER_WORDS;
+
+    
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
@@ -29,10 +33,11 @@ public class WordHuntWords{
      */
     public WordHuntWords(WordHuntGame g){
         game = g;
-        POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
+
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
-        POSSIBLE_4_LETTER_WORDS_TILES = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+
+        POSSIBLE_4_LETTER_WORDS = new HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>>();
     }
 
 
@@ -47,7 +52,7 @@ public class WordHuntWords{
                 this.findWordsHelper(i, j, "", 0, tmpBoard, visited);
             }
         }
-        System.out.println(POSSIBLE_4_LETTER_WORDS);
+        System.out.println(getPossibleWords());
     }
 
 
@@ -67,19 +72,7 @@ public class WordHuntWords{
         if (length == 4){
             word = word.toLowerCase();
             if (this.isValidWord(word) == 1){
-                for (int a = 0; a < visited.size(); a++){
-                    Pair p = visited.get(a);
-                    int r = (int) p.getKey();
-                    int c = (int) p.getValue();
-                    game.incrementLetterUse(r, c);
-                }
-                Pair p = visited.get(0);
-                int r = (int) p.getKey();
-                int c = (int) p.getValue();
-                game.incrementLetterStart(r, c);
-
                 this.addPossibleWord(word, visited);
-        
             }
         }
         else {
@@ -105,12 +98,25 @@ public class WordHuntWords{
      * Add possible word
      */
     private void addPossibleWord(String word, ArrayList<Pair<Integer, Integer>> visited){
-        if (!POSSIBLE_4_LETTER_WORDS.contains(word)){
-            POSSIBLE_4_LETTER_WORDS.add(word);
-            POSSIBLE_4_LETTER_WORDS_TILES.add(visited);
-            for (int i = 0; i < visited.size(); i++){
-                Pair<Integer, Integer> p = visited.get(i);
-                game.incrementLetterUse(p.getKey(), p.getValue());
+        ArrayList<Pair<Integer, Integer>> emptyList1 = new ArrayList();
+        ArrayList<Pair<Integer, Integer>> emptyList2 = new ArrayList();
+        Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>> emptyPair = new Pair<>(emptyList1, emptyList2);
+        POSSIBLE_4_LETTER_WORDS.putIfAbsent(word, emptyPair);
+        Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>> wordPair = POSSIBLE_4_LETTER_WORDS.get(word);
+        ArrayList<Pair<Integer, Integer>> wordTiles = (ArrayList<Pair<Integer, Integer>>) wordPair.getKey();
+        ArrayList<Pair<Integer, Integer>> wordStartTiles = (ArrayList<Pair<Integer, Integer>>) wordPair.getValue();
+
+        for (int i = 0; i < visited.size(); i++){
+            Pair<Integer, Integer> p = visited.get(i);
+            int r = (int) p.getKey();
+            int c = (int) p.getValue();
+            if (!wordTiles.contains(p)){
+                wordTiles.add(p);
+                game.incrementLetterUse(r, c);
+                    if (i == 0) {
+                        wordStartTiles.add(p);
+                        game.incrementLetterStart(r, c);
+                    }
             }
         }
     }
@@ -145,19 +151,21 @@ public class WordHuntWords{
         }
     }
 
-
     public ArrayList<Pair<Integer, Integer>> getTilesForWord(String word){
-        int index = POSSIBLE_4_LETTER_WORDS.indexOf(word);
-        return POSSIBLE_4_LETTER_WORDS_TILES.get(index);
+        return POSSIBLE_4_LETTER_WORDS.get(word).getKey();
     }
 
+    public ArrayList<Pair<Integer, Integer>> getStartTilesForWord(String word){
+        return POSSIBLE_4_LETTER_WORDS.get(word).getValue();
+    }
 
     /**
      * Gets the list of possible words found on the game board.
      * @return The list of possible words.
      */
     public ArrayList<String> getPossibleWords(){
-        return POSSIBLE_4_LETTER_WORDS;
+        ArrayList<String> possibleWords = new ArrayList<String>(POSSIBLE_4_LETTER_WORDS.keySet());
+        return possibleWords;
     }
 
 
@@ -222,7 +230,7 @@ public class WordHuntWords{
      * Clears the word lists.
      */
     public void tearDown(){
-        POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
+        POSSIBLE_4_LETTER_WORDS = new HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
     }

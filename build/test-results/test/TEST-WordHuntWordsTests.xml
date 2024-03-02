@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordHuntWordsTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-02-26T20:19:31" hostname="Jacobs-MacBook-Pro-2.local" time="0.082">
+<testsuite name="WordHuntWordsTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-03-02T13:48:09" hostname="Jacobs-MacBook-Pro-2.local" time="0.081">
   <properties/>
   <testcase name="testGetFoundBonusWords" classname="WordHuntWordsTests" time="0.002"/>
-  <testcase name="testFoundWordBonusFlag" classname="WordHuntWordsTests" time="0.003"/>
-  <testcase name="testTearDown" classname="WordHuntWordsTests" time="0.065"/>
+  <testcase name="testFoundWordBonusFlag" classname="WordHuntWordsTests" time="0.002"/>
+  <testcase name="testTearDown" classname="WordHuntWordsTests" time="0.066"/>
   <testcase name="testIsValidWord" classname="WordHuntWordsTests" time="0.002"/>
-  <testcase name="testGetNumFoundWords" classname="WordHuntWordsTests" time="0.002"/>
+  <testcase name="testGetNumFoundWords" classname="WordHuntWordsTests" time="0.003"/>
   <testcase name="testGetFoundWords" classname="WordHuntWordsTests" time="0.002"/>
   <testcase name="testAddFoundWord" classname="WordHuntWordsTests" time="0.002"/>
   <testcase name="testGetPossibleWords" classname="WordHuntWordsTests" time="0.002"/>
-  <system-out><![CDATA[[pike, bike]
-[pike, bike]
+  <system-out><![CDATA[[gary, mali, mail, tail, rail, mary, jail, park]
+[gary, mali, mail, tail, rail, mary, jail, park]
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

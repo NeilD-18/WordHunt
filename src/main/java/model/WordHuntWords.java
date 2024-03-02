@@ -17,10 +17,7 @@ public class WordHuntWords{
     private int COLUMNS = 4;
     private int ROWS = 4;
     private WordHuntGame game;
-
     private HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>> POSSIBLE_4_LETTER_WORDS;
-
-    
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
@@ -33,10 +30,8 @@ public class WordHuntWords{
      */
     public WordHuntWords(WordHuntGame g){
         game = g;
-
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
-
         POSSIBLE_4_LETTER_WORDS = new HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>>();
     }
 

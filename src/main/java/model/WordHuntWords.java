@@ -3,7 +3,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 import javafx.util.Pair;
 
@@ -88,9 +88,10 @@ public class WordHuntWords{
         visited.add(new Pair<> (row, col));
         if (length == 4){
             word = word.toLowerCase();
-            if (this.isValidWord(word) == 1){
-                this.addPossibleWord(word, visited);
-            }
+            Object[] isValid = isValidWord(word);
+                    if ((int)isValid[0] == 1){
+                        this.addPossibleWord(word, visited);
+                    }
         }
         else {
             for (int i = -1; i < 2; i++){
@@ -173,7 +174,7 @@ public class WordHuntWords{
      * @return the dictionary with emoji unicode
      */
 
-    public ArrayList<String> getEmojis(){
+    public HashMap<String,String> getEmojis(){
         return POSSIBLE_EMOJI_WORDS;
     }
 
@@ -182,15 +183,18 @@ public class WordHuntWords{
      * @param word The word to check.
      * @return 1 if the word is a valid 4-letter word, 2 if it's a bonus word, and 0 if it's invalid.
      */
-    public int isValidWord (String word){
+    public Object[] isValidWord (String word){
         if (FOUR_LETTER_WORDS.contains(word)){
-            return 1;
+            return new Object[]{1, ""}; // valid word, empty emoji unicode string
         }
         if (BONUS_WORDS.contains(word)){
-            return 2;
+            return new Object[]{2, ""};  // bonus word, empty emoji word strng
         }
-        if ()
-        return 0;
+        if (POSSIBLE_EMOJI_WORDS.containsKey(word))
+        {
+            return new Object[]{3, POSSIBLE_EMOJI_WORDS.get(word)}; // found in emoji dictionary
+        }
+        return new Object[]{0, ""}; // invalid word, empty emoji unicode string
     }
 
 

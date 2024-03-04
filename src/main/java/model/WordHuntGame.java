@@ -227,7 +227,8 @@ public class WordHuntGame {
      * @return The validity of the word.
      */
     public int isValidWord (String word){
-        return words.isValidWord(word);
+        Object[] isValid = words.isValidWord(word);
+        return (int)isValid[0];
     }
 
     /**

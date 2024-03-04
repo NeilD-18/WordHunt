@@ -21,6 +21,7 @@ public class WordHuntWords{
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
     private ArrayList<String> BONUS_WORDS;
+    private HashMap<String, String> POSSIBLE_EMOJI_WORDS;
 
     
     /**
@@ -33,6 +34,8 @@ public class WordHuntWords{
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
         POSSIBLE_4_LETTER_WORDS_TILES = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+        POSSIBLE_EMOJI_WORDS = new HashMap<String, String>();
+        initializeEmojiWords();
     }
 
 
@@ -50,6 +53,25 @@ public class WordHuntWords{
         System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
+
+
+    /**
+     * Initializing a dictionary with the emojis unicode
+     */
+    private void initializeEmojiWords() {
+        // Add 4-letter words along with their corresponding emoji Unicode
+        POSSIBLE_EMOJI_WORDS.put("able", "\uD83D\uDE00");
+        POSSIBLE_EMOJI_WORDS.put("acid", "\uD83D\uDE21");
+        POSSIBLE_EMOJI_WORDS.put("adam", "\uD83D\uDE42");
+        POSSIBLE_EMOJI_WORDS.put("anti", "\uD83D\uDE08");
+        POSSIBLE_EMOJI_WORDS.put("arch", "\uD83C\uDFDB");
+        POSSIBLE_EMOJI_WORDS.put("arms", "\uD83D\uDC89");
+        POSSIBLE_EMOJI_WORDS.put("atom", "\u269B");
+        POSSIBLE_EMOJI_WORDS.put("away", "\uD83D\uDE4B");
+        POSSIBLE_EMOJI_WORDS.put("babe", "\uD83D\uDC69\u200D\uD83D\uDCBB");
+        POSSIBLE_EMOJI_WORDS.put("back", "\uD83D\uDD19");
+        // Add more words and their emojis as needed
+    }
 
     /**
      * Recursively finds possible words on the game board.
@@ -146,6 +168,14 @@ public class WordHuntWords{
         return POSSIBLE_4_LETTER_WORDS;
     }
 
+    /**
+     * returning the emoji dictionary
+     * @return the dictionary with emoji unicode
+     */
+
+    public ArrayList<String> getEmojis(){
+        return POSSIBLE_EMOJI_WORDS;
+    }
 
     /**
      * Checks if a word is valid.
@@ -159,6 +189,7 @@ public class WordHuntWords{
         if (BONUS_WORDS.contains(word)){
             return 2;
         }
+        if ()
         return 0;
     }
 

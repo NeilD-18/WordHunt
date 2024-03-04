@@ -31,7 +31,7 @@ public class WordHuntNewGame extends Pane {
     public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        int gridSize = 6;
+        int gridSize = 5;
         gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 

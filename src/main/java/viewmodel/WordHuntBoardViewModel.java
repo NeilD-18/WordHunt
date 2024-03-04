@@ -183,7 +183,7 @@ public class WordHuntBoardViewModel {
      * @return int
      */
     public int getNumPossibleWords(){
-        System.out.println(game.getPossibleWords().size());
+        System.out.println(game.getPossibleWords());
         return game.getPossibleWords().size();
     }
 

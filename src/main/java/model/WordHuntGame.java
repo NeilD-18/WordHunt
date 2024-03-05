@@ -232,6 +232,16 @@ public class WordHuntGame {
     }
 
     /**
+     * returns the unicode for the specific word from the HashMap
+     * @param word the word for which the unicode should be searched
+     * @return the unicode
+     */
+    public String getUnicode (String word){
+        Object[] isValid = words.isValidWord(word);
+        return (String)isValid[1];
+    }
+
+    /**
      * Adds a found word to the lists of found words.
      * @param bonus True if the word is a bonus word, false otherwise.
      * @param word The found word.

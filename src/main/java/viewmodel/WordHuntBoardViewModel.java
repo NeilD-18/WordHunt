@@ -162,7 +162,34 @@ public class WordHuntBoardViewModel {
                 this.game.addFoundWord(true, word);
                 wordsFound.wordList.add(wordsFound.bonusStyledText(word));
                 wordsFound.animateWordAddition();
+                // bonus word point increment should go here "scoreView.incrementTotalWordsFound()"<-------
             }
+            else if (validity == 3){
+                String unicode = this.game.getUnicode(word);
+                if (WordHuntWords.getFourLetterWords().contains(word)){ // need to find some way to call FOUR_LETTER_WORDS and make that check
+                    this.game.addFoundWord(false, word); 
+                    wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
+                    wordsFound.animateWordAddition();
+                    scoreView.incrementTotalWordsFound();
+                }
+                if (WordHuntWords.getBonusWords().contains(word)){  // need to find some way to call BONUS_WORDS and make that check for word
+                    this.game.addFoundWord(true,word);
+                    wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
+                    wordsFound.animateWordAddition();
+
+                }
+                this.game.addFoundWord("", word);
+            }
+
+            // new validity should go here !
+// documentation: 
+/**
+ * Up to this point, I made a dictionary and changed handleWords and all the method that handleWords calls according to the HashMap data strucutre. 
+ * Next, I need to find a way on how I can implement the above two comments. Specifically, I need to be able to call FOUR_LETTER_WORDS and BONUS_WORDS from WordHuntWord here or make a method in that class such that is uses that method for this check
+ * Then, I should fill emojiPopUp with the graphic that I want to implement. 
+ * Finally, I should make a custom board and custom word list for that board such that I can make custom HashMap to test this. It'll be done!
+ */
+
         }
         this.checkUsedTiles();
         this.wipeTiles();

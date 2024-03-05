@@ -111,7 +111,6 @@ public class WordHuntWords{
         }
     }
 
-
     /**
      * Add possible word
      */

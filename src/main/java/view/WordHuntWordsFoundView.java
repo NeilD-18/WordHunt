@@ -111,6 +111,17 @@ public class WordHuntWordsFoundView extends VBox {
         styledText.setFill(rainbowGradient);
         return styledText;
     }
+
+    /**
+     * This function is the view for the word with emoji pop up
+     * @param text the word that should be printed
+     * @param unicode the unicode of the emoji to be printed
+     * @return
+     */
+    public Text emojiPopUp(String text, String unicode)
+    {
+        System.out.println("Function to be printed");
+    }
     
     /**
      * Set background

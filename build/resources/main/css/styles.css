@@ -63,7 +63,7 @@
 }
 
 .button-blue-state {
-    -fx-background-color: linear-gradient(to bottom , rgb(37, 37, 133), rgb(15, 72, 110), rgb(31, 144, 255));
+    -fx-background-color: linear-gradient(to bottom , rgba(37, 37, 133), rgba(15, 72, 110), rgba(31, 144, 255));
     -fx-text-fill: rgb(255, 255, 255); 
     -fx-font-size: 25px;
     -fx-font-weight: bolder;
@@ -78,7 +78,7 @@
 }
 
 .button-unavailable-state {
-    -fx-background-color: linear-gradient(to bottom , rgb(29, 29, 40), rrgb(43, 72, 92) rrgb(95, 146, 197));
+    -fx-background-color: transparent;
     -fx-text-fill: rgb(255, 255, 255); 
     -fx-font-size: 25px;
     -fx-font-weight: bolder;

@@ -14,6 +14,7 @@ public class WordHuntNewGame extends Pane {
     private WordHuntCurrentWordView currentWord; 
     private WordHuntInGameMenuView inGameMenu; 
     private WordHuntInGameMenuViewModel inGameMenuVM; 
+    private int gridSize = 6;
     
     /**
      * Initialize a new game given a filepath
@@ -31,7 +32,7 @@ public class WordHuntNewGame extends Pane {
     public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        int gridSize = 6;
+        gridSize = 6;
         gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
@@ -63,9 +64,20 @@ public class WordHuntNewGame extends Pane {
         vBox.getChildren().add(currentWord); 
 
         HBox hBox = new HBox(50);
-        hBox.setTranslateX(435);
-        hBox.setTranslateY(150);
+        // hBox.setTranslateX(435);
+        // hBox.setTranslateY(150);
         hBox.getChildren().addAll(vBox, foundWords);
+        int tmp = gridSize - 4;
+        int x = 435;
+        int y = 150;
+        while (tmp > 0){
+            x -= 80;
+            y -= 50;
+            tmp--;
+        }
+
+        hBox.setTranslateX(x);
+        hBox.setTranslateY(y);
 
         getChildren().addAll(hBox, inGameMenu);
     }

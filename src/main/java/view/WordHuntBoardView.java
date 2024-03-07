@@ -16,8 +16,6 @@ public class WordHuntBoardView extends GridPane {
     WordHuntBoardViewModel wordHuntBoardVM;
     WordHuntCurrentWordViewModel wordHuntCurrentWordVM; 
     public Stack<Tile> selectedTilesStack;
-    private static final int GRID_X_OFFSET = 435;
-    private static final int GRID_Y_OFFSET = 196;
     public int GRID_SIZE;
     public WordHuntScoreView scoreView;
     public WordHuntWordsFoundView wordsFound;
@@ -216,13 +214,16 @@ public class WordHuntBoardView extends GridPane {
          * @param MouseEvent event
          */
         private int getButtonRow(MouseEvent event){
+            double GRID_Y_OFFSET = wordHuntBoardVM.getButton(0, 0).getLayoutY();
+            System.out.println("Layout Y: " + GRID_Y_OFFSET);
+            System.out.println("Event scene Y: " + event.getSceneY());
             double y = event.getSceneY() - GRID_Y_OFFSET;
             double buttonHeight = wordHuntBoardVM.getButton(0, 0).getHeight();
             double top = wordHuntBoardVM.getButton(0, 0).getLayoutY();
             double bottom = wordHuntBoardVM.getButton(this.getGridSize() - 1, 0).getLayoutY();
             // System.out.println(top);
             // System.out.println(bottom);
-            // System.out.println("Y Location: " + y);
+            System.out.println("Y Location: " + y);
             if (y >= top && y <= bottom + buttonHeight){
                 // System.out.println("true");
                 for (int i = 0; i < this.getGridSize(); i++){
@@ -240,10 +241,14 @@ public class WordHuntBoardView extends GridPane {
          * @param MouseEvent event
          */
         private int getButtonCol(MouseEvent event){
+            double GRID_X_OFFSET = wordHuntBoardVM.getButton(0, 0).getLayoutX();
+            System.out.println("Layout X: " + GRID_X_OFFSET);
+            System.out.println("Event scene X: " + event.getSceneX());
             double x = event.getSceneX() - GRID_X_OFFSET;
             double buttonWidth = wordHuntBoardVM.getButton(0, 0).getWidth();
             double left = wordHuntBoardVM.getButton(0, 0).getLayoutX();
             double right = wordHuntBoardVM.getButton(0, this.getGridSize() - 1).getLayoutX();
+            System.out.println("X Location: " + x);
             if (x >= left && x <= right + buttonWidth){
                 // System.out.println("true");
                 for (int i = 0; i < this.getGridSize(); i++){

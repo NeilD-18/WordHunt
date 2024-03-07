@@ -55,7 +55,10 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(false, "");    
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                if (wordHuntBoardVM.getStartingValueForTile(i,j) != null) { 
+                    if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                }
+                
                 else { createAndAddTile(tmp.get(i).get(j), i, j, false); } 
             }
         }
@@ -76,7 +79,9 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(true, file);
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                if (wordHuntBoardVM.getStartingValueForTile(i,j) != null) { 
+                    if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                }
                 else { createAndAddTile(tmp.get(i).get(j), i, j, false); } 
             }
         }
@@ -99,8 +104,10 @@ public class WordHuntBoardView extends GridPane {
      * @param col The column index of the tile.
      */
     private void createAndAddTile(String letter, int row, int col, Boolean startingValue) {
-        if (startingValue) { Tile tile = new Tile(letter, row, col, 0); }
-        else { Tile tile = new Tile(letter, row, col); } 
+        Tile tile; 
+        
+        if (startingValue) { tile = new Tile(letter, row, col, wordHuntBoardVM.getStartingCountForTile(row,col)); }
+        else { tile = new Tile(letter, row, col); } 
         tile.setYellowState();
         tile.setMinSize(80, 80);
         tile.setOnMousePressed(event -> handleMouseClick(tile));
@@ -184,8 +191,8 @@ public class WordHuntBoardView extends GridPane {
         public void handle(MouseEvent event){
             int row = getButtonRow(event);
             int col = getButtonCol(event);
-            System.out.println("Row: " + row);
-            System.out.println("Column: " + col);
+            //System.out.println("Row: " + row);
+            //System.out.println("Column: " + col);
             if (row >= 0 && col >=0){
                 if (selectedTilesStack.contains(wordHuntBoardVM.getButton(row, col))){
                     if (wordHuntBoardVM.getButton(row, col) != selectedTilesStack.peek()){

@@ -103,6 +103,9 @@ public class WordHuntWords{
             STARTING_VALUE_FOR_TILES.put(visited.get(0), true); 
             for (int i = 0; i < visited.size(); i++){
                 Pair<Integer, Integer> p = visited.get(i);
+                if (i == 0) { 
+                    game.incrementStartingCountForLetter(p.getKey(), p.getValue());
+                }
                 game.incrementLetterUse(p.getKey(), p.getValue());
             }
         }

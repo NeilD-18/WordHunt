@@ -66,9 +66,12 @@ public class WordHuntBoardViewModel {
     public void updateTiles() { 
         for (int i = 0; i < GRID_SIZE; i++){
             for (int j = 0; j < GRID_SIZE; j++) { 
-                if (game.getStartingValueForTile(i,j)) { 
-                    buttons[i][j].updateCount(game.getLetterUse(i,j)); 
+                if (game.getStartingValueForTile(i,j) != null) { 
+                    if (game.getStartingValueForTile(i,j)) { 
+                        buttons[i][j].updateCount(game.getStartingCountLetterUse(i,j)); 
+                    }
                 }
+                
             }
         }
     }
@@ -144,12 +147,14 @@ public class WordHuntBoardViewModel {
      * @param WordHuntWordsFoundView
      */
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
+        /* 
         for (int j = 0; j < GRID_SIZE; j++){
             for (int k = 0; k < GRID_SIZE; k++){
                 System.out.print("Letter use for " + j + ", " + k + ": ");
                 System.out.println(game.getLetterUse(j, k));
             }
         }
+        */
         foundWords = game.getFoundWords();
         foundBonusWords = game.getFoundBonusWords();
         String word = "";
@@ -236,5 +241,9 @@ public class WordHuntBoardViewModel {
 
     public Boolean getStartingValueForTile(int row, int col) { 
         return game.getStartingValueForTile(row,col); 
+    }
+
+    public int getStartingCountForTile(int row, int col) { 
+        return game.getStartingCountLetterUse(row, col);
     }
 }

@@ -10,7 +10,6 @@ public class Tile extends Button {
     private int row;
     private int col;
     private String data;
-    private int totalStarts;
     private String currentState;
     private int startingCount; 
 
@@ -136,7 +135,19 @@ public class Tile extends Button {
         return currentState;
     }
 
-    public void updateCount(int count) { 
+    /**
+     * 
+     * @return The amount of words that start with this tile. 
+     */
+    public int getStartingLetterCount(){ 
+        return startingCount; 
+    }
 
+    /**
+     * Update the starting letter count given a new count. 
+     * @param count
+     */
+    public void updateCount(int count) { 
+        setText(data + " " + String.valueOf(count));
     }
 }

@@ -16,6 +16,8 @@ public class WordHuntGame {
 
     private ArrayList<ArrayList<String>> board;
     private ArrayList<ArrayList<Integer>> usedLetters;
+    private ArrayList<ArrayList<Integer>> startingCountOfLetters; 
+
     private int COLUMNS;
     private int ROWS;
     private WordHuntScore score;
@@ -32,6 +34,7 @@ public class WordHuntGame {
         ROWS = grid;
         board = new ArrayList<ArrayList<String>>();
         usedLetters = new ArrayList<ArrayList<Integer>>();
+        startingCountOfLetters = new ArrayList<ArrayList<Integer>>();
     }
 
 
@@ -45,6 +48,7 @@ public class WordHuntGame {
         for (int i = 0; i < ROWS; i++){
             ArrayList<String> temp = new ArrayList<>();
             ArrayList<Integer> tempInt = new ArrayList<>();
+            ArrayList<Integer> tempInt1 = new ArrayList<>();
             for (int j = 0; j < COLUMNS; j++){
                 char c = (char)(r.nextInt(26) + 'A');
                 while (c == 'X' || c == 'Z' || c == 'V' || c == 'Q'){
@@ -53,9 +57,11 @@ public class WordHuntGame {
                 String letter = String.valueOf(c);
                 temp.add(letter);
                 tempInt.add(0);
+                tempInt1.add(0);
             }
             board.add(temp);
             usedLetters.add(tempInt);
+            startingCountOfLetters.add(tempInt1); 
         }
         words.findWords();
     }
@@ -80,6 +86,16 @@ public class WordHuntGame {
         usedLetters.get(row).set(col, tmp + 1);
     }
 
+    public void incrementStartingCountForLetter(int row, int col) { 
+        int tmp = startingCountOfLetters.get(row).get(col);
+        startingCountOfLetters.get(row).set(col, tmp + 1);
+    }
+
+    public void decrementStartingCountForLetter(int row, int col) { 
+        int tmp = startingCountOfLetters.get(row).get(col);
+        startingCountOfLetters.get(row).set(col, tmp - 1);
+    }
+
     /**
      * Decrements the uses of a tile, given a word.
      * @param Word to decrement tiles of
@@ -92,6 +108,12 @@ public class WordHuntGame {
             int c = p.getValue();
             int tmp = usedLetters.get(r).get(c);
             usedLetters.get(r).set(c, tmp - 1);
+            if (i == 0) { 
+                System.out.println(String.valueOf(startingCountOfLetters.get(r).get(c)) + " before ");
+                decrementStartingCountForLetter(r, c);
+                System.out.println(String.valueOf(startingCountOfLetters.get(r).get(c)) + " after ");
+            }
+            
         }
     }
 
@@ -104,6 +126,11 @@ public class WordHuntGame {
     public int getLetterUse(int row, int col){
         return usedLetters.get(row).get(col);
     }
+
+    public int getStartingCountLetterUse(int row, int col) { 
+        return startingCountOfLetters.get(row).get(col);
+    }
+    
 
 
     /**

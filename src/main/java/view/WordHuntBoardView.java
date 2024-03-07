@@ -55,7 +55,8 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(false, "");    
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                createAndAddTile(tmp.get(i).get(j), i, j);
+                if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                else { createAndAddTile(tmp.get(i).get(j), i, j, false); } 
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
@@ -75,7 +76,8 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(true, file);
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                createAndAddTile(tmp.get(i).get(j), i, j);
+                if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                else { createAndAddTile(tmp.get(i).get(j), i, j, false); } 
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
@@ -96,8 +98,9 @@ public class WordHuntBoardView extends GridPane {
      * @param row The row index of the tile.
      * @param col The column index of the tile.
      */
-    private void createAndAddTile(String letter, int row, int col) {
-        Tile tile = new Tile(letter, row, col);
+    private void createAndAddTile(String letter, int row, int col, Boolean startingValue) {
+        if (startingValue) { Tile tile = new Tile(letter, row, col, 0); }
+        else { Tile tile = new Tile(letter, row, col); } 
         tile.setYellowState();
         tile.setMinSize(80, 80);
         tile.setOnMousePressed(event -> handleMouseClick(tile));

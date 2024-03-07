@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.util.Pair;
 
@@ -21,6 +22,8 @@ public class WordHuntWords{
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
     private ArrayList<String> BONUS_WORDS;
+    private HashMap<Pair<Integer,Integer>, Boolean> STARTING_VALUE_FOR_TILES;
+    
 
     
     /**
@@ -33,6 +36,7 @@ public class WordHuntWords{
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
         POSSIBLE_4_LETTER_WORDS_TILES = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+        STARTING_VALUE_FOR_TILES = new HashMap<>();
     }
 
 
@@ -96,6 +100,7 @@ public class WordHuntWords{
         if (!POSSIBLE_4_LETTER_WORDS.contains(word)){
             POSSIBLE_4_LETTER_WORDS.add(word);
             POSSIBLE_4_LETTER_WORDS_TILES.add(visited);
+            STARTING_VALUE_FOR_TILES.put(visited.get(0), true); 
             for (int i = 0; i < visited.size(); i++){
                 Pair<Integer, Integer> p = visited.get(i);
                 game.incrementLetterUse(p.getKey(), p.getValue());
@@ -211,6 +216,10 @@ public class WordHuntWords{
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
+    }
+
+    public Boolean getStartingValueForTile(int row, int col) { 
+        return STARTING_VALUE_FOR_TILES.get(new Pair<>(row,col)); 
     }
 
 }

@@ -63,6 +63,16 @@ public class WordHuntBoardViewModel {
         }
     }
 
+    public void updateTiles() { 
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++) { 
+                if (game.getStartingValueForTile(i,j)) { 
+                    buttons[i][j].updateCount(game.getLetterUse(i,j)); 
+                }
+            }
+        }
+    }
+
     /**
      * Toggle the tile state
      * @param Tile
@@ -158,6 +168,7 @@ public class WordHuntBoardViewModel {
                 wordsFound.wordList.add(wordsFound.createStyledText(word));
                 wordsFound.animateWordAddition();
                 scoreView.incrementTotalWordsFound();
+                this.updateTiles(); 
             } else if (validity == 2) {
                 this.game.addFoundWord(true, word);
                 wordsFound.wordList.add(wordsFound.bonusStyledText(word));
@@ -166,6 +177,7 @@ public class WordHuntBoardViewModel {
         }
         this.checkUsedTiles();
         this.wipeTiles();
+        
     }
 
     /**
@@ -220,5 +232,9 @@ public class WordHuntBoardViewModel {
      */
     public void saveGame(String file) { 
         game.saveBoard(file); 
+    }
+
+    public Boolean getStartingValueForTile(int row, int col) { 
+        return game.getStartingValueForTile(row,col); 
     }
 }

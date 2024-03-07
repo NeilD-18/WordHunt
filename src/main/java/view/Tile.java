@@ -12,9 +12,28 @@ public class Tile extends Button {
     private String data;
     private int totalStarts;
     private String currentState;
+    private int startingCount; 
 
     
     
+    /**
+     * Constructs a new Tile object with the specified letter, row, and column indices.
+     * @param letter The letter to be displayed on the tile.
+     * @param row The row index of the tile.
+     * @param col The column index of the tile.
+     * @param startingCount starting count of the tile. 
+     */
+    public Tile(String letter, int row, int col, int startingCount) {
+        super(letter + " " + String.valueOf(startingCount));
+        data = letter;
+        this.row = row;
+        this.col = col;
+        this.startingCount = startingCount;
+        //add text property
+        setYellowState();
+    }
+
+
     /**
      * Constructs a new Tile object with the specified letter, row, and column indices.
      * @param letter The letter to be displayed on the tile.
@@ -26,7 +45,7 @@ public class Tile extends Button {
         data = letter;
         this.row = row;
         this.col = col;
-        
+
         setYellowState();
     }
 
@@ -115,5 +134,9 @@ public class Tile extends Button {
      */
     public String getCurrentState() {
         return currentState;
+    }
+
+    public void updateCount(int count) { 
+
     }
 }

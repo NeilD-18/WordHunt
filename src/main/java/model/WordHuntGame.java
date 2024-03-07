@@ -246,4 +246,8 @@ public class WordHuntGame {
     public ArrayList<String> getPossibleWords(){
         return words.getPossibleWords();
     }
+
+    public Boolean getStartingValueForTile(int row, int col) { 
+        return words.getStartingValueForTile(row,col); 
+    }
 }

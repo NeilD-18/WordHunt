@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordHuntScoreTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-03-02T13:48:09" hostname="Jacobs-MacBook-Pro-2.local" time="0.008">
+<testsuite name="WordHuntScoreTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-03-06T22:37:18" hostname="Jacobs-MacBook-Pro-2.local" time="0.009">
   <properties/>
-  <testcase name="testTearDown" classname="WordHuntScoreTests" time="0.005"/>
+  <testcase name="testTearDown" classname="WordHuntScoreTests" time="0.006"/>
   <testcase name="testGetNumFoundWords" classname="WordHuntScoreTests" time="0.001"/>
   <testcase name="testGetFoundWords" classname="WordHuntScoreTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

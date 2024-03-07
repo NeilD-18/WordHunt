@@ -46,17 +46,6 @@ public class Tile extends Button {
     }
 
     /**
-     * Sets the left and right number of the tile.
-     * @param leftNumber The left number of the tile.
-     * @param rightNumber The right number of the tile.
-     */
-    public void setNumbers(int leftNumber, int rightNumber) {
-        this.leftNumber = leftNumber;
-        this.rightNumber = rightNumber;
-        setText(String.valueOf(leftNumber) + " " + data + " " + String.valueOf(rightNumber));   
-    }
-
-    /**
      * Sets the tile state to neutral.
      */
     public void setNeutralState() {
@@ -129,6 +118,24 @@ public class Tile extends Button {
      */
     public String getCurrentState() {
         return currentState;
+    }
+
+    /**
+     * Sets the left number of the tile.
+     * @param leftNumber The left number of the tile.
+     */
+    public void setLeftNumber(int leftNumber) {
+        this.leftNumber = leftNumber;
+        setText(String.valueOf(leftNumber) + " " + data + " " + String.valueOf(rightNumber));
+    }
+
+    /**
+     * Sets the right number of the tile.
+     * @param rightNumber The right number of the tile.
+     */
+    public void setRightNumber(int rightNumber) {
+        this.rightNumber = rightNumber;
+        setText(String.valueOf(leftNumber) + " " + data + " " + String.valueOf(rightNumber));
     }
 
     /**

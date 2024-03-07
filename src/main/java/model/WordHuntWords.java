@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.util.Pair;
-
 import java.util.HashMap;
 
 /**
@@ -14,10 +13,18 @@ import java.util.HashMap;
  */
 public class WordHuntWords{
 
+
     private int COLUMNS = 4;
     private int ROWS = 4;
     private WordHuntGame game;
+
+    /**
+     * POSSIBLE_4_LETTER_WORDS has the possible 4 letter words as its keys and assigns to each key a pair
+      with first element the list of indices that can be used to spell that word and the second element the
+      same but the index has to start the word.
+     */
     private HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>> POSSIBLE_4_LETTER_WORDS;
+   
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
@@ -35,7 +42,6 @@ public class WordHuntWords{
         POSSIBLE_4_LETTER_WORDS = new HashMap<String, Pair<ArrayList<Pair<Integer, Integer>>, ArrayList<Pair<Integer, Integer>>>>();
     }
 
-
     /**
      * Finds possible words on the game board.
      */
@@ -49,7 +55,6 @@ public class WordHuntWords{
         }
         System.out.println(getPossibleWords());
     }
-
 
     /**
      * Recursively finds possible words on the game board.
@@ -90,7 +95,7 @@ public class WordHuntWords{
 
 
     /**
-     * Add possible word
+     * Adds possible word
      */
     private void addPossibleWord(String word, ArrayList<Pair<Integer, Integer>> visited){
         ArrayList<Pair<Integer, Integer>> emptyList1 = new ArrayList();
@@ -153,6 +158,7 @@ public class WordHuntWords{
     public ArrayList<Pair<Integer, Integer>> getStartTilesForWord(String word){
         return POSSIBLE_4_LETTER_WORDS.get(word).getValue();
     }
+
 
     /**
      * Gets the list of possible words found on the game board.

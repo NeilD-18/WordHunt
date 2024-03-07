@@ -215,7 +215,8 @@ public class WordHuntBoardViewModel {
                     buttons[i][j].setUnavailableState();
                     buttons[i][j].setDisable(true);
                 }
-                buttons[i][j].setNumbers(uses, starts);
+                buttons[i][j].setLeftNumber(uses);
+                buttons[i][j].setRightNumber(starts);
             }
         }
     }

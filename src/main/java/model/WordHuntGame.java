@@ -42,7 +42,6 @@ public class WordHuntGame {
      *
      * Generates a random game board filled with letters and finds words on the board.
      */
-
     public void generateRandomBoard(){
         Random r = new Random();
         for (int i = 0; i < ROWS; i++){
@@ -86,11 +85,21 @@ public class WordHuntGame {
         usedLetters.get(row).set(col, tmp + 1);
     }
 
+     /**
+     * Increments the starting word uses of a tile, given row and column index.
+     * @param row Row of tile location.
+     * @param col Col of tile location.
+     */
     public void incrementStartingCountForLetter(int row, int col) { 
         int tmp = startingCountOfLetters.get(row).get(col);
         startingCountOfLetters.get(row).set(col, tmp + 1);
     }
 
+    /**
+     * Decrease the starting count given a row and col
+     * @param row
+     * @param col
+     */
     public void decrementStartingCountForLetter(int row, int col) { 
         int tmp = startingCountOfLetters.get(row).get(col);
         startingCountOfLetters.get(row).set(col, tmp - 1);
@@ -109,9 +118,9 @@ public class WordHuntGame {
             int tmp = usedLetters.get(r).get(c);
             usedLetters.get(r).set(c, tmp - 1);
             if (i == 0) { 
-                System.out.println(String.valueOf(startingCountOfLetters.get(r).get(c)) + " before ");
+                //System.out.println(String.valueOf(startingCountOfLetters.get(r).get(c)) + " before ");
                 decrementStartingCountForLetter(r, c);
-                System.out.println(String.valueOf(startingCountOfLetters.get(r).get(c)) + " after ");
+                //System.out.println(String.valueOf(startingCountOfLetters.get(r).get(c)) + " after ");
             }
             
         }
@@ -127,6 +136,12 @@ public class WordHuntGame {
         return usedLetters.get(row).get(col);
     }
 
+    /**
+     * Get the count of words that can be made starting from the tile
+     * @param row
+     * @param col
+     * @return number of words. 
+     */
     public int getStartingCountLetterUse(int row, int col) { 
         return startingCountOfLetters.get(row).get(col);
     }
@@ -159,6 +174,9 @@ public class WordHuntGame {
         try (Scanner scanner = new Scanner(new File(filePath))) {
             board = new ArrayList<>();
             for (int i = 0; i < ROWS; i++) {
+                ArrayList<Integer> tempInt = new ArrayList<>();
+                ArrayList<Integer> tempInt1 = new ArrayList<>();
+                
                 if (scanner.hasNextLine()) {
                     String[] rowElements = scanner.nextLine().split("\\s+");
                     int size = 0;
@@ -169,6 +187,8 @@ public class WordHuntGame {
                         ArrayList<String> row = new ArrayList<>();
                         for (String element : rowElements) {
                             row.add(element);
+                            tempInt.add(0);
+                            tempInt1.add(0);
                         }
                         board.add(row);
                     }
@@ -181,6 +201,9 @@ public class WordHuntGame {
                     System.err.println("Error: File format does not match the expected format.");
                     break;
                 }
+                usedLetters.add(tempInt);
+                startingCountOfLetters.add(tempInt1); 
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -274,6 +297,12 @@ public class WordHuntGame {
         return words.getPossibleWords();
     }
 
+    /**
+     * Returns whether or not a tile has a starting value, i.e can a word be made starting from this tile
+     * @param row
+     * @param col
+     * @return
+     */
     public Boolean getStartingValueForTile(int row, int col) { 
         return words.getStartingValueForTile(row,col); 
     }

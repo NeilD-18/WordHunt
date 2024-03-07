@@ -221,6 +221,12 @@ public class WordHuntWords{
         FOUND_BONUS_WORDS = new ArrayList<String>();
     }
 
+    /**
+     * Returns whether or not a tile has a starting value, i.e can a word be made starting from this tile
+     * @param row
+     * @param col
+     * @return
+     */
     public Boolean getStartingValueForTile(int row, int col) { 
         return STARTING_VALUE_FOR_TILES.get(new Pair<>(row,col)); 
     }

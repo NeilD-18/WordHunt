@@ -60,7 +60,7 @@ public class WordHuntWords{
      */
     private void initializeEmojiWords() {
         // Add 4-letter words along with their corresponding emoji Unicode
-        POSSIBLE_EMOJI_WORDS.put("bath", "\uD83D\uDE00");
+        POSSIBLE_EMOJI_WORDS.put("grin", "\uD83D\uDE00");
         // Add more words and their emojis as needed
     }
 
@@ -80,7 +80,7 @@ public class WordHuntWords{
         if (length == 4){
             word = word.toLowerCase();
             Object[] isValid = isValidWord(word);
-                    if ((int)isValid[0] == 1){
+                    if ((int)isValid[0] == 1 || (int)isValid[0] == 3){
                         this.addPossibleWord(word, visited);
                     }
         }
@@ -156,7 +156,7 @@ public class WordHuntWords{
      * @return The list of possible words.
      */
     public ArrayList<String> getPossibleWords(){
-        return POSSIBLE_4_LETTER_WORDS;
+        return FOUR_LETTER_WORDS;
     }
 
         /**
@@ -180,18 +180,23 @@ public class WordHuntWords{
     /**
      * Checks if a word is valid.
      * @param word The word to check.
-     * @return 1 if the word is a valid 4-letter word, 2 if it's a bonus word, and 0 if it's invalid.
+     * @return 1 if the word is a valid 4-letter word, 2 if it's a bonus word, 3 if it's bonus and 0 if it's invalid.
      */
     public Object[] isValidWord (String word){
         if (FOUR_LETTER_WORDS.contains(word)){
-            return new Object[]{1, ""}; // valid word, empty emoji unicode string
+            if (POSSIBLE_EMOJI_WORDS.containsKey(word))
+            {
+                System.out.println("In Possible Emoji Word");
+                return new Object[]{3, POSSIBLE_EMOJI_WORDS.get(word)}; // found in emoji dictionary
+            }
+            else{
+                System.out.println("In four letter word");
+                return new Object[]{1, ""}; // valid word, empty emoji unicode string
+            }  
         }
         if (BONUS_WORDS.contains(word)){
+            System.out.println("In Bonus Words");
             return new Object[]{2, ""};  // bonus word, empty emoji word strng
-        }
-        if (POSSIBLE_EMOJI_WORDS.containsKey(word))
-        {
-            return new Object[]{3, POSSIBLE_EMOJI_WORDS.get(word)}; // found in emoji dictionary
         }
         return new Object[]{0, ""}; // invalid word, empty emoji unicode string
     }

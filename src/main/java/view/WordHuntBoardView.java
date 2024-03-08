@@ -181,8 +181,8 @@ public class WordHuntBoardView extends GridPane {
         public void handle(MouseEvent event){
             int row = getButtonRow(event);
             int col = getButtonCol(event);
-            System.out.println("Row: " + row);
-            System.out.println("Column: " + col);
+           // System.out.println("Row: " + row);
+           // System.out.println("Column: " + col);
             if (row >= 0 && col >=0){
                 if (selectedTilesStack.contains(wordHuntBoardVM.getButton(row, col))){
                     if (wordHuntBoardVM.getButton(row, col) != selectedTilesStack.peek()){

@@ -138,8 +138,8 @@ public class WordHuntBoardViewModel {
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
         for (int j = 0; j < GRID_SIZE; j++){
             for (int k = 0; k < GRID_SIZE; k++){
-                System.out.print("Letter use for " + j + ", " + k + ": ");
-                System.out.println(game.getLetterUse(j, k));
+                // System.out.print("Letter use for " + j + ", " + k + ": ");
+                // System.out.println(game.getLetterUse(j, k));
             }
         }
         foundWords = game.getFoundWords();
@@ -153,6 +153,9 @@ public class WordHuntBoardViewModel {
         }
         word = word.toLowerCase();
         int validity = this.game.isValidWord(word);
+        System.out.println(words.getPossibleWords().size()); // this is fucking things up !
+        System.out.println(words.getBonusWords().size());
+        words.initializeWordLists(); // this initialize word is fucking everything!
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
             if (validity == 1) {
                 game.decrementLetterUse(word);
@@ -168,11 +171,15 @@ public class WordHuntBoardViewModel {
             }
             else if (validity == 3){
                 String unicode = this.game.getUnicode(word);
-                if (words.getPossibleWords().contains(word)){ // need to find some way to call FOUR_LETTER_WORDS and make that check
+                System.out.println(words.getPossibleWords().size());
+                System.out.println(words.getBonusWords().size());
+
+                if (words.getPossibleWords().contains(word)){ // need to find some way to call POSSIBLE_FOUR_LETTER_WORDS and make that check
                     this.game.addFoundWord(false, word); 
                     wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
                     wordsFound.animateWordAddition();
                     scoreView.incrementTotalWordsFound();
+    
                 }
                 if (words.getBonusWords().contains(word)){  // need to find some way to call BONUS_WORDS and make that check for word
                     this.game.addFoundWord(true,word);
@@ -182,16 +189,6 @@ public class WordHuntBoardViewModel {
                 }
                 this.game.addFoundWord(false, word);
             }
-
-            // new validity should go here !
-// documentation: 
-/**
- * Up to this point, I made a dictionary and changed handleWords and all the method that handleWords calls according to the HashMap data strucutre. 
- * Next, I need to find a way on how I can implement the above two comments. Specifically, I need to be able to call FOUR_LETTER_WORDS and BONUS_WORDS from WordHuntWord here or make a method in that class such that is uses that method for this check
- * Then, I should fill emojiPopUp with the graphic that I want to implement. 
- * Finally, I should make a custom board and custom word list for that board such that I can make custom HashMap to test this. It'll be done!
- */
-
         }
         this.checkUsedTiles();
         this.wipeTiles();
@@ -212,7 +209,7 @@ public class WordHuntBoardViewModel {
      * @return int
      */
     public int getNumPossibleWords(){
-        System.out.println(game.getPossibleWords());
+       //  System.out.println(game.getPossibleWords());
         return game.getPossibleWords().size();
     }
 

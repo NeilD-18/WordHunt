@@ -86,10 +86,10 @@ public class WordHuntGameMain extends Application {
         if (selectedFiles != null) {
             for (File file : selectedFiles) {
                 fileString = "" + file.getAbsolutePath(); 
-                System.out.println(fileString);
+                // (fileString);
             }
         } else {
-            System.out.println("No file selected.");
+           //  System.out.println("No file selected.");
         } 
 
         WordHuntNewGame wordHuntNewGame = new WordHuntNewGame(fileString);

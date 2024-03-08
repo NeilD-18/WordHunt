@@ -141,7 +141,7 @@ public class WordHuntGame {
                     for (String x : rowElements) {
                         size++;
                     }
-                    System.out.println(size);
+                   //System.out.println(size);
                     if (size == 4){
                         ArrayList<String> row = new ArrayList<>();
                         for (String element : rowElements) {

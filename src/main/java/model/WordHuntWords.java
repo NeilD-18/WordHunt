@@ -60,16 +60,7 @@ public class WordHuntWords{
      */
     private void initializeEmojiWords() {
         // Add 4-letter words along with their corresponding emoji Unicode
-        POSSIBLE_EMOJI_WORDS.put("able", "\uD83D\uDE00");
-        POSSIBLE_EMOJI_WORDS.put("acid", "\uD83D\uDE21");
-        POSSIBLE_EMOJI_WORDS.put("adam", "\uD83D\uDE42");
-        POSSIBLE_EMOJI_WORDS.put("anti", "\uD83D\uDE08");
-        POSSIBLE_EMOJI_WORDS.put("arch", "\uD83C\uDFDB");
-        POSSIBLE_EMOJI_WORDS.put("arms", "\uD83D\uDC89");
-        POSSIBLE_EMOJI_WORDS.put("atom", "\u269B");
-        POSSIBLE_EMOJI_WORDS.put("away", "\uD83D\uDE4B");
-        POSSIBLE_EMOJI_WORDS.put("babe", "\uD83D\uDC69\u200D\uD83D\uDCBB");
-        POSSIBLE_EMOJI_WORDS.put("back", "\uD83D\uDD19");
+        POSSIBLE_EMOJI_WORDS.put("bath", "\uD83D\uDE00");
         // Add more words and their emojis as needed
     }
 
@@ -167,6 +158,15 @@ public class WordHuntWords{
     public ArrayList<String> getPossibleWords(){
         return POSSIBLE_4_LETTER_WORDS;
     }
+
+        /**
+     * Gets the list of possible bonus found on the game board.
+     * @return The list of possible words.
+     */
+    public ArrayList<String> getBonusWords(){
+        return BONUS_WORDS;
+    }
+
 
     /**
      * returning the emoji dictionary

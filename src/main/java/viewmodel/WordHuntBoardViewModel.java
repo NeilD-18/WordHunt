@@ -16,6 +16,7 @@ public class WordHuntBoardViewModel {
     private Tile lastClickedTile;
     private ArrayList<String> foundWords;
     private ArrayList<String> foundBonusWords;
+    private WordHuntWords words; 
 
     /**
      * Constructor, initializes viewmodel
@@ -24,6 +25,7 @@ public class WordHuntBoardViewModel {
         GRID_SIZE = grid;
         this.game = new WordHuntGame(grid);
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
+        words = new WordHuntWords(game);
     }
 
     /**
@@ -166,19 +168,19 @@ public class WordHuntBoardViewModel {
             }
             else if (validity == 3){
                 String unicode = this.game.getUnicode(word);
-                if (WordHuntWords.getFourLetterWords().contains(word)){ // need to find some way to call FOUR_LETTER_WORDS and make that check
+                if (words.getPossibleWords().contains(word)){ // need to find some way to call FOUR_LETTER_WORDS and make that check
                     this.game.addFoundWord(false, word); 
                     wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
                     wordsFound.animateWordAddition();
                     scoreView.incrementTotalWordsFound();
                 }
-                if (WordHuntWords.getBonusWords().contains(word)){  // need to find some way to call BONUS_WORDS and make that check for word
+                if (words.getBonusWords().contains(word)){  // need to find some way to call BONUS_WORDS and make that check for word
                     this.game.addFoundWord(true,word);
                     wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
                     wordsFound.animateWordAddition();
 
                 }
-                this.game.addFoundWord("", word);
+                this.game.addFoundWord(false, word);
             }
 
             // new validity should go here !

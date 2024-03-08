@@ -118,9 +118,21 @@ public class WordHuntWordsFoundView extends VBox {
      * @param unicode the unicode of the emoji to be printed
      * @return
      */
-    public Text emojiPopUp(String text, String unicode)
-    {
-        System.out.println("Function to be printed");
+    public Text emojiPopUp(String text, String unicode) {
+        Text styledText = new Text(text);
+        LinearGradient rainbowGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, new Stop(0, Color.RED), new Stop(0.25, Color.ORANGE), new Stop(0.5, Color.YELLOW), new Stop(0.75, Color.GREEN), new Stop(1, Color.BLUE));
+        styledText.setFill(rainbowGradient);
+
+        Text emojiText = new Text(" " + unicode); // Add a space before the emoji
+        emojiText.setFill(Color.BLACK);
+        emojiText.setFont(Font.font(20)); // Set the font size as needed
+
+        // Combine the text and emoji into one Text object
+        Text combinedText = new Text();
+        combinedText.setText(styledText.getText() + emojiText.getText());
+        combinedText.setFill(styledText.getFill()); // Use the fill color of the word
+
+        return combinedText;
     }
     
     /**

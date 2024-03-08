@@ -1,5 +1,8 @@
 package viewmodel;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 import view.*;
@@ -153,9 +156,7 @@ public class WordHuntBoardViewModel {
         }
         word = word.toLowerCase();
         int validity = this.game.isValidWord(word);
-        System.out.println(words.getPossibleWords().size()); // this is fucking things up !
-        System.out.println(words.getBonusWords().size());
-        words.initializeWordLists(); // this initialize word is fucking everything!
+
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
             if (validity == 1) {
                 game.decrementLetterUse(word);
@@ -171,17 +172,16 @@ public class WordHuntBoardViewModel {
             }
             else if (validity == 3){
                 String unicode = this.game.getUnicode(word);
-                System.out.println(words.getPossibleWords().size());
-                System.out.println(words.getBonusWords().size());
 
-                if (words.getPossibleWords().contains(word)){ // need to find some way to call POSSIBLE_FOUR_LETTER_WORDS and make that check
+                
+                if (getFourLetterWords().contains(word)){ // need to find some way to call POSSIBLE_FOUR_LETTER_WORDS and make that check
                     this.game.addFoundWord(false, word); 
                     wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
                     wordsFound.animateWordAddition();
                     scoreView.incrementTotalWordsFound();
     
                 }
-                if (words.getBonusWords().contains(word)){  // need to find some way to call BONUS_WORDS and make that check for word
+                if (getBonusWords().contains(word)){  // need to find some way to call BONUS_WORDS and make that check for word
                     this.game.addFoundWord(true,word);
                     wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
                     wordsFound.animateWordAddition();
@@ -193,6 +193,44 @@ public class WordHuntBoardViewModel {
         this.checkUsedTiles();
         this.wipeTiles();
     }
+
+    /**
+     * initialize four letter word
+     * @return
+     */
+    public ArrayList<String> getFourLetterWords() {
+        ArrayList<String> fourLetterWords = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/WordLists/4LetterWordList.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                fourLetterWords.add(line);
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return fourLetterWords;
+    }
+
+    /**
+     * Initializes bonus word list.
+     */
+    public ArrayList<String> getBonusWords() {
+        ArrayList<String> bonusWords = new ArrayList<>();
+        
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/WordLists/BonusWordListFinal.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                bonusWords.add(line);
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return bonusWords;
+    }
+
+
 
     /**
      * Check win
@@ -209,7 +247,6 @@ public class WordHuntBoardViewModel {
      * @return int
      */
     public int getNumPossibleWords(){
-       //  System.out.println(game.getPossibleWords());
         return game.getPossibleWords().size();
     }
 

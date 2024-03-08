@@ -76,5 +76,4 @@ public class WordHuntScoreViewModel {
         totalPossibleWords = possibleWords;
         totalPossibleWordsLabel.setText("Total Possible Words: " + totalPossibleWords);
     }
-
 }

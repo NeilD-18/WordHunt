@@ -156,26 +156,9 @@ public class WordHuntWords{
      * @return The list of possible words.
      */
     public ArrayList<String> getPossibleWords(){
-        return FOUR_LETTER_WORDS;
+        return POSSIBLE_4_LETTER_WORDS;
     }
 
-        /**
-     * Gets the list of possible bonus found on the game board.
-     * @return The list of possible words.
-     */
-    public ArrayList<String> getBonusWords(){
-        return BONUS_WORDS;
-    }
-
-
-    /**
-     * returning the emoji dictionary
-     * @return the dictionary with emoji unicode
-     */
-
-    public HashMap<String,String> getEmojis(){
-        return POSSIBLE_EMOJI_WORDS;
-    }
 
     /**
      * Checks if a word is valid.
@@ -186,16 +169,13 @@ public class WordHuntWords{
         if (FOUR_LETTER_WORDS.contains(word)){
             if (POSSIBLE_EMOJI_WORDS.containsKey(word))
             {
-                System.out.println("In Possible Emoji Word");
                 return new Object[]{3, POSSIBLE_EMOJI_WORDS.get(word)}; // found in emoji dictionary
             }
             else{
-                System.out.println("In four letter word");
                 return new Object[]{1, ""}; // valid word, empty emoji unicode string
             }  
         }
         if (BONUS_WORDS.contains(word)){
-            System.out.println("In Bonus Words");
             return new Object[]{2, ""};  // bonus word, empty emoji word strng
         }
         return new Object[]{0, ""}; // invalid word, empty emoji unicode string

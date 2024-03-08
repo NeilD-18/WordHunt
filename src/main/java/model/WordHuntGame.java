@@ -123,7 +123,7 @@ public class WordHuntGame {
     }
 
 
-    /**
+      /**
      * Loads a game board from a file.
      * @param filePath The path to the file containing the game board.
      */
@@ -132,16 +132,22 @@ public class WordHuntGame {
         try (Scanner scanner = new Scanner(new File(filePath))) {
             board = new ArrayList<>();
             for (int i = 0; i < ROWS; i++) {
+                ArrayList<Integer> tempInt = new ArrayList<>();
+               
+                
                 if (scanner.hasNextLine()) {
                     String[] rowElements = scanner.nextLine().split("\\s+");
                     int size = 0;
                     for (String x : rowElements) {
                         size++;
                     }
+                    System.out.println(size);
                     if (size == 4){
                         ArrayList<String> row = new ArrayList<>();
                         for (String element : rowElements) {
                             row.add(element);
+                            tempInt.add(0);
+        
                         }
                         board.add(row);
                     }
@@ -154,6 +160,9 @@ public class WordHuntGame {
                     System.err.println("Error: File format does not match the expected format.");
                     break;
                 }
+                usedLetters.add(tempInt);
+              
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,6 +170,7 @@ public class WordHuntGame {
         words.findWords();
         // System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
+
 
     /**
      * Saves the current game board to a file.

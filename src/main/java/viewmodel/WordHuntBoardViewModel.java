@@ -164,17 +164,19 @@ public class WordHuntBoardViewModel {
                 wordsFound.wordList.add(wordsFound.createStyledText(word));
                 wordsFound.animateWordAddition();
                 scoreView.incrementTotalWordsFound();
+
+
             } else if (validity == 2) {
                 this.game.addFoundWord(true, word);
                 wordsFound.wordList.add(wordsFound.bonusStyledText(word));
                 wordsFound.animateWordAddition();
-                // bonus word point increment should go here "scoreView.incrementTotalWordsFound()"<-------
+
+
             }
             else if (validity == 3){
                 String unicode = this.game.getUnicode(word);
-
-                
                 if (getFourLetterWords().contains(word)){ // need to find some way to call POSSIBLE_FOUR_LETTER_WORDS and make that check
+                    game.decrementLetterUse(word);
                     this.game.addFoundWord(false, word); 
                     wordsFound.wordList.add(wordsFound.emojiPopUp(word, unicode));
                     wordsFound.animateWordAddition();
@@ -193,6 +195,7 @@ public class WordHuntBoardViewModel {
         this.checkUsedTiles();
         this.wipeTiles();
     }
+
 
     /**
      * initialize four letter word

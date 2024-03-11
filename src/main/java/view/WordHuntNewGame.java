@@ -45,7 +45,7 @@ public class WordHuntNewGame extends Pane {
     public void setupLayout() {
         getChildren().clear();
         int possibleWords = gameBoard.getNumPossibleWords();
-        while (possibleWords <= 5){
+        while (possibleWords <= 2){
             this.initializeComponents("null");
             possibleWords = gameBoard.getNumPossibleWords();
         }

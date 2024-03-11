@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
+
+
+import net.fellbaum.jemoji.*;
 
 import javafx.util.Pair;
 
@@ -160,7 +164,7 @@ public class WordHuntWords{
      * @param word The word to check.
      * @return 1 if the word is a valid 4-letter word, 2 if it's a bonus word, and 0 if it's invalid.
      */
-    public int isValidWord (String word){
+    public int isValidWord(String word){
         if (FOUR_LETTER_WORDS.contains(word)){
             return 1;
         }
@@ -170,6 +174,29 @@ public class WordHuntWords{
         return 0;
     }
 
+    /**
+     * Private helper to see if a given word has an emoji
+     */
+    private boolean hasEmoji(String word) { 
+        Optional<Emoji> testEmoji = EmojiManager.getByAlias(word);
+        return testEmoji.isEmpty(); 
+    }
+
+    /**
+     * 
+     * @param word
+     * @return The emoji of a word if present
+     * Will return "No Emoji" if there is no emoji present. 
+     */
+    public String getEmoji(String word) { 
+        if (!hasEmoji(word)) { 
+            Optional<Emoji> testEmoji = EmojiManager.getByAlias(word);
+            return testEmoji.get().getEmoji().toString(); 
+        }
+        else { 
+            return "No Emoji"; 
+        }
+    }
 
     /**
      * Adds a found word to the appropriate list of found words.

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordHuntGameAppTests" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-02-15T10:57:35" hostname="Neils-MacBook-Pro.local" time="0.092">
+<testsuite name="WordHuntGameAppTests" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-03-11T20:15:19" hostname="tortellini" time="0.086">
   <properties/>
-  <testcase name="testGetFoundBonusWords" classname="WordHuntGameAppTests" time="0.007"/>
+  <testcase name="testGetFoundBonusWords" classname="WordHuntGameAppTests" time="0.006"/>
   <testcase name="testFoundWordBonusFlag" classname="WordHuntGameAppTests" time="0.002"/>
-  <testcase name="testTearDown" classname="WordHuntGameAppTests" time="0.036"/>
+  <testcase name="testTearDown" classname="WordHuntGameAppTests" time="0.03"/>
   <testcase name="testIsValidMove" classname="WordHuntGameAppTests" time="0.003"/>
   <testcase name="testIsValidWord" classname="WordHuntGameAppTests" time="0.002"/>
-  <testcase name="testGetFoundWords" classname="WordHuntGameAppTests" time="0.001"/>
-  <testcase name="testGetBoardAfterGenerateRandomBoard" classname="WordHuntGameAppTests" time="0.019"/>
-  <testcase name="testAddFoundWord" classname="WordHuntGameAppTests" time="0.0"/>
+  <testcase name="testGetFoundWords" classname="WordHuntGameAppTests" time="0.002"/>
+  <testcase name="testGetBoardAfterGenerateRandomBoard" classname="WordHuntGameAppTests" time="0.017"/>
+  <testcase name="testAddFoundWord" classname="WordHuntGameAppTests" time="0.002"/>
   <testcase name="testGetPossibleWords" classname="WordHuntGameAppTests" time="0.001"/>
-  <testcase name="testGenerateRandomBoard" classname="WordHuntGameAppTests" time="0.019"/>
-  <system-out><![CDATA[[tour, worm, auto, more, iowa, rome, euro, time, true, trim, trio, wear, ware]
-[]
-[june, hung, huge]
+  <testcase name="testGenerateRandomBoard" classname="WordHuntGameAppTests" time="0.021"/>
+  <system-out><![CDATA[[]
+[cats, cast, fact, fast, tank, acts, ryan, stay, stan, sand]
+[path, palm, bath, ball, mats, math, mall, tabs, tall, smtp, labs, lamp, hats, hall, myth, what]
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

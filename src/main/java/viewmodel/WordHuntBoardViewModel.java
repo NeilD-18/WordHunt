@@ -167,16 +167,22 @@ public class WordHuntBoardViewModel {
         word = word.toLowerCase();
         int validity = this.game.isValidWord(word);
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
+            
+            
+            String EmojiWord = game.getEmoji(word);
+            
             if (validity == 1) {
                 game.decrementLetterUse(word);
                 this.game.addFoundWord(false, word);
-                wordsFound.wordList.add(wordsFound.createStyledText(word));
+                if (!EmojiWord.equals("No Emoji")) { wordsFound.wordList.add(wordsFound.createStyledText(word + EmojiWord)); }
+                else { wordsFound.wordList.add(wordsFound.createStyledText(word)); } 
                 wordsFound.animateWordAddition();
                 scoreView.incrementTotalWordsFound();
                 this.updateTiles(); 
             } else if (validity == 2) {
                 this.game.addFoundWord(true, word);
-                wordsFound.wordList.add(wordsFound.bonusStyledText(word));
+                if (!EmojiWord.equals("No Emoji")) { wordsFound.wordList.add(wordsFound.bonusStyledText(word + EmojiWord)); }
+                else { wordsFound.wordList.add(wordsFound.bonusStyledText(word)); } 
                 wordsFound.animateWordAddition();
             }
         }

@@ -280,6 +280,10 @@ public class WordHuntGame {
         return words.isValidWord(word);
     }
 
+    public String getEmoji(String word){
+        return words.getEmoji(word); 
+    }
+
     /**
      * Adds a found word to the lists of found words.
      * @param bonus True if the word is a bonus word, false otherwise.

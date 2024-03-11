@@ -12,8 +12,8 @@ import javafx.util.Pair;
  */
 public class WordHuntWords{
 
-    private int COLUMNS = 4;
-    private int ROWS = 4;
+    private int COLUMNS;
+    private int ROWS;
     private WordHuntGame game;
     private ArrayList<String> POSSIBLE_4_LETTER_WORDS;
     private ArrayList<ArrayList<Pair<Integer, Integer>>> POSSIBLE_4_LETTER_WORDS_TILES;
@@ -27,8 +27,10 @@ public class WordHuntWords{
      * Constructs a new WordHuntWords object with the specified WordHuntGame object.
      * @param g The WordHuntGame object to associate with this WordHuntWords object.
      */
-    public WordHuntWords(WordHuntGame g){
+    public WordHuntWords(WordHuntGame g, int SIZE){
         game = g;
+        COLUMNS = SIZE;
+        ROWS = SIZE;
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
@@ -47,7 +49,7 @@ public class WordHuntWords{
                 this.findWordsHelper(i, j, "", 0, tmpBoard, visited);
             }
         }
-        System.out.println(POSSIBLE_4_LETTER_WORDS);
+        // System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
 
@@ -73,7 +75,7 @@ public class WordHuntWords{
         else {
             for (int i = -1; i < 2; i++){
                 for (int j = -1; j < 2; j++){
-                    if (game.isValidMove(row, col, row + i, col+ j)){
+                    if (game.isValidMove(row, col, row + i, col + j)){
                         Pair<Integer, Integer> p = new Pair<> (row + i, col + j);
                         if (!visited.contains(p)){
                             ArrayList<Pair<Integer, Integer>> newVisited = new ArrayList<Pair<Integer, Integer>>();

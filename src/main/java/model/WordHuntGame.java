@@ -25,7 +25,7 @@ public class WordHuntGame {
      * Default constructor
      */
     public WordHuntGame(int grid){
-        words = new WordHuntWords(this);
+        words = new WordHuntWords(this, grid);
         score = new WordHuntScore(words);
         words.initializeWordLists();
         COLUMNS = grid;

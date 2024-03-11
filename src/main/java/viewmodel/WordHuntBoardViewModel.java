@@ -187,6 +187,18 @@ public class WordHuntBoardViewModel {
         return game.getPossibleWords().size();
     }
 
+    public boolean emptyCells(){
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++){
+                int tmp = game.getLetterUse(i, j);
+                if (tmp == 0){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * set win state
      */

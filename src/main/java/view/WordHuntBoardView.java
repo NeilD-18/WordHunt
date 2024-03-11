@@ -13,13 +13,15 @@ import java.util.Stack;
  */
 public class WordHuntBoardView extends GridPane {
 
-    WordHuntBoardViewModel wordHuntBoardVM;
+    public WordHuntBoardViewModel wordHuntBoardVM;
     WordHuntCurrentWordViewModel wordHuntCurrentWordVM; 
     public Stack<Tile> selectedTilesStack;
     public int GRID_SIZE;
     public WordHuntScoreView scoreView;
     public WordHuntWordsFoundView wordsFound;
-
+    public int BUTTON_SIZE;
+    public int WIDTH = 1280;
+    public int HEIGHT = 720;
     
     
 
@@ -33,6 +35,12 @@ public class WordHuntBoardView extends GridPane {
         scoreView = scoreview;
         wordsFound = wordsfound;
         GRID_SIZE = gridSize;
+        BUTTON_SIZE = 80;
+        int tmp = gridSize - 4;
+        while (tmp > 0){
+            BUTTON_SIZE -= 5;
+            tmp--;
+        }
         if (file != "null"){
             initializeBoard(file);
         }
@@ -53,7 +61,7 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(false, "");    
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                createAndAddTile(tmp.get(i).get(j), i, j);
+                createAndAddTile(tmp.get(i).get(j), i, j, BUTTON_SIZE);
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
@@ -73,7 +81,7 @@ public class WordHuntBoardView extends GridPane {
         ArrayList<ArrayList<String>> tmp = wordHuntBoardVM.initializeBoard(true, file);
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
-                createAndAddTile(tmp.get(i).get(j), i, j);
+                createAndAddTile(tmp.get(i).get(j), i, j, BUTTON_SIZE);
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
@@ -88,16 +96,20 @@ public class WordHuntBoardView extends GridPane {
         return wordHuntBoardVM.getNumPossibleWords();
     }
 
+    public boolean emptyCells(){
+        return wordHuntBoardVM.emptyCells();
+    }
+
     /**
      * Creates and adds a tile to the game board.
      * @param letter The letter to be displayed on the tile.
      * @param row The row index of the tile.
      * @param col The column index of the tile.
      */
-    private void createAndAddTile(String letter, int row, int col) {
+    private void createAndAddTile(String letter, int row, int col, int buttonSize) {
         Tile tile = new Tile(letter, row, col);
         tile.setYellowState();
-        tile.setMinSize(80, 80);
+        tile.setMinSize(buttonSize, buttonSize);
         tile.setOnMousePressed(event -> handleMouseClick(tile));
         tile.addEventHandler(MouseEvent.MOUSE_DRAGGED, new ButtonDragListener(this.getGridSize()));
         tile.setOnMouseReleased(event -> handleMouseReleased(tile));
@@ -166,9 +178,25 @@ public class WordHuntBoardView extends GridPane {
     private class ButtonDragListener implements javafx.event.EventHandler<MouseEvent> {
 
         public int GRID_SIZE;
+        public int xOffset;
+        public int yOffset;
 
         public ButtonDragListener(int gridSize){
             GRID_SIZE = gridSize;
+            xOffset = 622;
+            yOffset = 404;
+            int tmp = gridSize - 4;
+            while (tmp > 0){
+                if (tmp > 1){
+                    xOffset -= (tmp + 4) * 5;
+                    yOffset -= (tmp + 4) * 5;
+                }
+                xOffset += 90;
+                yOffset += 90;
+                tmp--;
+            }
+            xOffset = (WIDTH - xOffset) / 2;
+            yOffset = (HEIGHT - yOffset) / 2;
         }
 
         public int getGridSize(){
@@ -179,8 +207,8 @@ public class WordHuntBoardView extends GridPane {
         public void handle(MouseEvent event){
             int row = getButtonRow(event);
             int col = getButtonCol(event);
-            System.out.println("Row: " + row);
-            System.out.println("Column: " + col);
+            // System.out.println("Row: " + row);
+            // System.out.println("Column: " + col);
             if (row >= 0 && col >=0){
                 if (selectedTilesStack.contains(wordHuntBoardVM.getButton(row, col))){
                     if (wordHuntBoardVM.getButton(row, col) != selectedTilesStack.peek()){
@@ -214,16 +242,15 @@ public class WordHuntBoardView extends GridPane {
          * @param MouseEvent event
          */
         private int getButtonRow(MouseEvent event){
-            double GRID_Y_OFFSET = wordHuntBoardVM.getButton(0, 0).getLayoutY();
-            System.out.println("Layout Y: " + GRID_Y_OFFSET);
-            System.out.println("Event scene Y: " + event.getSceneY());
-            double y = event.getSceneY() - GRID_Y_OFFSET;
+            // System.out.println("Layout Y: " + GRID_Y_OFFSET);
+            // System.out.println("Event scene Y: " + event.getSceneY());
+            double y = event.getSceneY() - yOffset - 44;
             double buttonHeight = wordHuntBoardVM.getButton(0, 0).getHeight();
             double top = wordHuntBoardVM.getButton(0, 0).getLayoutY();
             double bottom = wordHuntBoardVM.getButton(this.getGridSize() - 1, 0).getLayoutY();
-            // System.out.println(top);
-            // System.out.println(bottom);
-            System.out.println("Y Location: " + y);
+            // System.out.println("Top: "+ top);
+            // System.out.println("Bottom: "+ bottom);
+            // System.out.println("Y Location: " + y);
             if (y >= top && y <= bottom + buttonHeight){
                 // System.out.println("true");
                 for (int i = 0; i < this.getGridSize(); i++){
@@ -241,14 +268,15 @@ public class WordHuntBoardView extends GridPane {
          * @param MouseEvent event
          */
         private int getButtonCol(MouseEvent event){
-            double GRID_X_OFFSET = wordHuntBoardVM.getButton(0, 0).getLayoutX();
-            System.out.println("Layout X: " + GRID_X_OFFSET);
-            System.out.println("Event scene X: " + event.getSceneX());
-            double x = event.getSceneX() - GRID_X_OFFSET;
+            // System.out.println("Layout X: " + GRID_X_OFFSET);
+            // System.out.println("Event scene X: " + event.getSceneX());
+            double x = event.getSceneX() - xOffset;
             double buttonWidth = wordHuntBoardVM.getButton(0, 0).getWidth();
             double left = wordHuntBoardVM.getButton(0, 0).getLayoutX();
             double right = wordHuntBoardVM.getButton(0, this.getGridSize() - 1).getLayoutX();
-            System.out.println("X Location: " + x);
+            // System.out.println("Left: "+ left);
+            // System.out.println("Right: "+ right);
+            // System.out.println("X Location: " + x);
             if (x >= left && x <= right + buttonWidth){
                 // System.out.println("true");
                 for (int i = 0; i < this.getGridSize(); i++){

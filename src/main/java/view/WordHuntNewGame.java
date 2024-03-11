@@ -13,8 +13,10 @@ public class WordHuntNewGame extends Pane {
     private WordHuntBoardView gameBoard;
     private WordHuntCurrentWordView currentWord; 
     private WordHuntInGameMenuView inGameMenu; 
-    private WordHuntInGameMenuViewModel inGameMenuVM; 
-    private int gridSize = 6;
+    private WordHuntInGameMenuViewModel inGameMenuVM;
+    private final int WIDTH = 1280;
+    private final int HEIGHT = 720;
+    private int gridSize = 4;
     
     /**
      * Initialize a new game given a filepath
@@ -32,7 +34,6 @@ public class WordHuntNewGame extends Pane {
     public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        gridSize = 6;
         gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
@@ -46,7 +47,7 @@ public class WordHuntNewGame extends Pane {
     public void setupLayout() {
         getChildren().clear();
         int possibleWords = gameBoard.getNumPossibleWords();
-        while (possibleWords <= 5){
+        while (possibleWords <= 5 || gameBoard.emptyCells()){
             this.initializeComponents("null");
             possibleWords = gameBoard.getNumPossibleWords();
         }
@@ -64,20 +65,26 @@ public class WordHuntNewGame extends Pane {
         vBox.getChildren().add(currentWord); 
 
         HBox hBox = new HBox(50);
-        // hBox.setTranslateX(435);
-        // hBox.setTranslateY(150);
         hBox.getChildren().addAll(vBox, foundWords);
+        hBox.setAlignment(Pos.CENTER);
+        int xOffset = 622;
+        int yOffset = 404;
         int tmp = gridSize - 4;
-        int x = 435;
-        int y = 150;
         while (tmp > 0){
-            x -= 80;
-            y -= 50;
+            if (tmp > 1){
+                xOffset -= (tmp + 4) * 5;
+                yOffset -= (tmp + 4) * 5;
+            }
+            xOffset += 90;
+            yOffset += 90;
             tmp--;
         }
 
-        hBox.setTranslateX(x);
-        hBox.setTranslateY(y);
+        xOffset = WIDTH - xOffset;
+        yOffset = HEIGHT - yOffset;
+
+        hBox.setTranslateX(xOffset / 2);
+        hBox.setTranslateY(yOffset / 2);
 
         getChildren().addAll(hBox, inGameMenu);
     }

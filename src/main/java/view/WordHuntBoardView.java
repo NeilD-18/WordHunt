@@ -62,10 +62,10 @@ public class WordHuntBoardView extends GridPane {
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
                 if (wordHuntBoardVM.getStartingValueForTile(i,j) != null) { 
-                    if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                    if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true, BUTTON_SIZE); }
                 }
                 
-                else { createAndAddTile(tmp.get(i).get(j), i, j, false); } 
+                else { createAndAddTile(tmp.get(i).get(j), i, j, false, BUTTON_SIZE); } 
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
@@ -86,9 +86,9 @@ public class WordHuntBoardView extends GridPane {
         for (int i = 0; i < tmp.size(); i++){
             for (int j = 0; j < tmp.get(i).size(); j++){
                 if (wordHuntBoardVM.getStartingValueForTile(i,j) != null) { 
-                    if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true); }
+                    if (wordHuntBoardVM.getStartingValueForTile(i,j)) { createAndAddTile(tmp.get(i).get(j), i, j, true, BUTTON_SIZE); }
                 }
-                else { createAndAddTile(tmp.get(i).get(j), i, j, false); } 
+                else { createAndAddTile(tmp.get(i).get(j), i, j, false, BUTTON_SIZE); } 
             }
         }
         wordHuntBoardVM.setLastClickedTile(null);
@@ -113,7 +113,7 @@ public class WordHuntBoardView extends GridPane {
      * @param row The row index of the tile.
      * @param col The column index of the tile.
      */
-    private void createAndAddTile(String letter, int row, int col, Boolean startingValue) {
+    private void createAndAddTile(String letter, int row, int col, Boolean startingValue, int buttonSize) {
         Tile tile; 
         
         if (startingValue) { tile = new Tile(letter, row, col, wordHuntBoardVM.getStartingCountForTile(row,col)); }

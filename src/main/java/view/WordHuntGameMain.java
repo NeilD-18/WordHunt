@@ -9,6 +9,7 @@ import viewmodel.*;
 import java.util.*;
 import javafx.stage.FileChooser;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Main Application class, launches application
@@ -19,6 +20,7 @@ public class WordHuntGameMain extends Application {
     private WordHuntMenuViewModel menuViewModel;
     private WordHuntMenu wordHuntMenu;
     public WordHuntBoardViewModel boardViewModel;
+    public int GRID_SIZE = 6;
     
 
     /**
@@ -61,8 +63,10 @@ public class WordHuntGameMain extends Application {
      * Start a new game
      */
     private void startNewGame() {
+
+
        
-        WordHuntNewGame wordHuntNewGame = new WordHuntNewGame("null");
+        WordHuntNewGame wordHuntNewGame = new WordHuntNewGame("null", GRID_SIZE);
         StackPane root = new StackPane(wordHuntNewGame);
         StackPane.setAlignment(wordHuntNewGame, Pos.CENTER);
         root.setId("game-root");
@@ -90,9 +94,21 @@ public class WordHuntGameMain extends Application {
             }
         } else {
             System.out.println("No file selected.");
-        } 
+        }
 
-        WordHuntNewGame wordHuntNewGame = new WordHuntNewGame(fileString);
+        try (Scanner scanner = new Scanner(new File(fileString))) {
+            int boardSize = Integer.valueOf(scanner.nextLine());
+            if (boardSize <= 7 && boardSize >= 4){
+                GRID_SIZE = boardSize;
+            }
+            else {
+                System.err.println("Error: File format does not match the expected format.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        WordHuntNewGame wordHuntNewGame = new WordHuntNewGame(fileString, GRID_SIZE);
         StackPane root = new StackPane(wordHuntNewGame);
         StackPane.setAlignment(wordHuntNewGame, Pos.CENTER);
         root.setId("game-root");

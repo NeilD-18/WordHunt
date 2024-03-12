@@ -16,13 +16,14 @@ public class WordHuntNewGame extends Pane {
     private WordHuntInGameMenuViewModel inGameMenuVM;
     private final int WIDTH = 1280;
     private final int HEIGHT = 720;
-    private int gridSize = 4;
+    private int GRID_SIZE = 4;
     
     /**
      * Initialize a new game given a filepath
      * @param String filePath
      */
-    public WordHuntNewGame(String filePath) {
+    public WordHuntNewGame(String filePath, int gridSize) {
+        GRID_SIZE = gridSize;
         initializeComponents(filePath);
         setupLayout();
     }
@@ -34,7 +35,7 @@ public class WordHuntNewGame extends Pane {
     public void initializeComponents(String filePath) {
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
+        gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, GRID_SIZE);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
         inGameMenu = new WordHuntInGameMenuView(inGameMenuVM, this);
@@ -47,7 +48,8 @@ public class WordHuntNewGame extends Pane {
     public void setupLayout() {
         getChildren().clear();
         int possibleWords = gameBoard.getNumPossibleWords();
-        while (possibleWords <= 5 || gameBoard.emptyCells()){
+        // while (possibleWords <= 5 || gameBoard.emptyCells()){
+        while (possibleWords <= 5){
             this.initializeComponents("null");
             possibleWords = gameBoard.getNumPossibleWords();
         }
@@ -69,7 +71,7 @@ public class WordHuntNewGame extends Pane {
         hBox.setAlignment(Pos.CENTER);
         int xOffset = 622;
         int yOffset = 404;
-        int tmp = gridSize - 4;
+        int tmp = GRID_SIZE - 4;
         while (tmp > 0){
             if (tmp > 1){
                 xOffset -= (tmp + 4) * 5;

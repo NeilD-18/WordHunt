@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+
+import javax.sql.RowSetEvent;
+
 import javafx.util.Pair;
 
 
@@ -30,6 +33,7 @@ public class WordHuntGame {
         words.initializeWordLists();
         COLUMNS = grid;
         ROWS = grid;
+        // System.out.println(grid);
         board = new ArrayList<ArrayList<String>>();
         usedLetters = new ArrayList<ArrayList<Integer>>();
     }
@@ -128,37 +132,50 @@ public class WordHuntGame {
      * @param filePath The path to the file containing the game board.
      */
     public void loadBoard(String filePath){
+        // System.out.println(filePath);
         this.tearDown();
         try (Scanner scanner = new Scanner(new File(filePath))) {
+            scanner.nextLine();
             board = new ArrayList<>();
-            for (int i = 0; i < ROWS; i++) {
-                if (scanner.hasNextLine()) {
-                    String[] rowElements = scanner.nextLine().split("\\s+");
-                    int size = 0;
-                    for (String x : rowElements) {
-                        size++;
-                    }
-                    if (size == 4){
-                        ArrayList<String> row = new ArrayList<>();
-                        for (String element : rowElements) {
-                            row.add(element);
+            if (ROWS <= 7 && ROWS >= 4){
+                for (int i = 0; i < ROWS; i++) {
+                    if (scanner.hasNextLine()) {
+                        String[] rowElements = scanner.nextLine().split("\\s+");
+                        int size = 0;
+                        for (String x : rowElements) {
+                            size++;
                         }
-                        board.add(row);
+                        // System.out.println("Size: " + size);
+                        // System.out.println("Rows: " + ROWS);
+                        if (size == ROWS){
+                            ArrayList<String> row = new ArrayList<>();
+                            ArrayList<Integer> tempInt = new ArrayList<>();
+                            for (String element : rowElements) {
+                                row.add(element);
+                                tempInt.add(0);
+                            }
+                            board.add(row);
+                            usedLetters.add(tempInt);
+                        }
+                        else{
+                            // System.out.println("Else clause");
+                            System.err.println("Error: File format does not match the expected format.");
+                            break;
+                        }
                     }
                     else{
                         System.err.println("Error: File format does not match the expected format.");
                         break;
                     }
                 }
-                else{
-                    System.err.println("Error: File format does not match the expected format.");
-                    break;
-                }
+            words.findWords();
+            }
+            else {
+                System.err.println("Error: File format does not match the expected format.");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        words.findWords();
         // System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
@@ -169,6 +186,7 @@ public class WordHuntGame {
     public void saveBoard(String filePath) {
         // System.out.println(filePath);
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            writer.println(ROWS);
             for (ArrayList<String> row : board) {
                 for (String letter : row) {
                     writer.print(letter + " ");

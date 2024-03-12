@@ -13,14 +13,17 @@ public class WordHuntNewGame extends Pane {
     private WordHuntBoardView gameBoard;
     private WordHuntCurrentWordView currentWord; 
     private WordHuntInGameMenuView inGameMenu; 
-    private WordHuntInGameMenuViewModel inGameMenuVM; 
+    private WordHuntInGameMenuViewModel inGameMenuVM;
+    private final int WIDTH = 1280;
+    private final int HEIGHT = 720;
+    private int GRID_SIZE = 4;
     
     /**
      * Initialize a new game given a filepath
      * @param String filePath
      */
-    public WordHuntNewGame(String filePath) {
-        initializeComponents(filePath);
+    public WordHuntNewGame(String filePath, int gridSize) {
+        initializeComponents(filePath, gridSize);
         setupLayout();
     }
 
@@ -28,10 +31,10 @@ public class WordHuntNewGame extends Pane {
      * Initialize componenets given a filePath
      * @param String filePath
      */
-    public void initializeComponents(String filePath) {
+    public void initializeComponents(String filePath, int gridSize) {
+        GRID_SIZE = gridSize;
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        int gridSize = 4;
         gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
@@ -45,8 +48,9 @@ public class WordHuntNewGame extends Pane {
     public void setupLayout() {
         getChildren().clear();
         int possibleWords = gameBoard.getNumPossibleWords();
-        while (possibleWords <= 2){
-            this.initializeComponents("null");
+        // while (possibleWords <= 5 || gameBoard.emptyCells()){
+        while (possibleWords <= 5){
+            this.initializeComponents("null", GRID_SIZE);
             possibleWords = gameBoard.getNumPossibleWords();
         }
         scoreLabel.setAlignment(Pos.CENTER);
@@ -63,9 +67,26 @@ public class WordHuntNewGame extends Pane {
         vBox.getChildren().add(currentWord); 
 
         HBox hBox = new HBox(50);
-        hBox.setTranslateX(435);
-        hBox.setTranslateY(150);
         hBox.getChildren().addAll(vBox, foundWords);
+        hBox.setAlignment(Pos.CENTER);
+        int xOffset = 622;
+        int yOffset = 404;
+        int tmp = GRID_SIZE - 4;
+        while (tmp > 0){
+            if (tmp > 1){
+                xOffset -= (tmp + 4) * 5;
+                yOffset -= (tmp + 4) * 5;
+            }
+            xOffset += 90;
+            yOffset += 90;
+            tmp--;
+        }
+
+        xOffset = WIDTH - xOffset;
+        yOffset = HEIGHT - yOffset;
+
+        hBox.setTranslateX(xOffset / 2);
+        hBox.setTranslateY(yOffset / 2);
 
         getChildren().addAll(hBox, inGameMenu);
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordHuntScoreTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-03-12T05:08:38" hostname="fusilli" time="0.003">
+<testsuite name="WordHuntScoreTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-03-12T06:49:37" hostname="Simons-MacBook-Air.local" time="0.003">
   <properties/>
   <testcase name="testTearDown" classname="WordHuntScoreTests" time="0.001"/>
   <testcase name="testGetNumFoundWords" classname="WordHuntScoreTests" time="0.001"/>

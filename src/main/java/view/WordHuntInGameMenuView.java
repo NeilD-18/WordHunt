@@ -77,7 +77,7 @@ public class WordHuntInGameMenuView extends VBox {
 
 
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(30); // Set the width as per your requirement
+        imageView.setFitWidth(30); 
         imageView.setPreserveRatio(true);
 
 
@@ -93,12 +93,12 @@ public class WordHuntInGameMenuView extends VBox {
      */
     private void handleMenuButtonClicked() {
         if (menuToggleButton.isSelected()) {
-            // Add menu options dynamically with fade-in effect
+           
             addButtonWithTransition("New Game", this::handleNewGame);
             addButtonWithTransition("Save Game", this::handleSaveGame);
             addButtonWithTransition("Quit Game", this::handleQuitGame);
         } else {
-            // Remove all menu options with fade-out effect
+            
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.3), getChildren().get(1));
             fadeOut.setToValue(0);
             fadeOut.setOnFinished(event -> getChildren().subList(1, getChildren().size()).clear());

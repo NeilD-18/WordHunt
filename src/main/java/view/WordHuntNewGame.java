@@ -23,8 +23,7 @@ public class WordHuntNewGame extends Pane {
      * @param String filePath
      */
     public WordHuntNewGame(String filePath, int gridSize) {
-        GRID_SIZE = gridSize;
-        initializeComponents(filePath);
+        initializeComponents(filePath, gridSize);
         setupLayout();
     }
 
@@ -32,10 +31,11 @@ public class WordHuntNewGame extends Pane {
      * Initialize componenets given a filePath
      * @param String filePath
      */
-    public void initializeComponents(String filePath) {
+    public void initializeComponents(String filePath, int gridSize) {
+        GRID_SIZE = gridSize;
         scoreLabel = new WordHuntScoreView();
         foundWords = new WordHuntWordsFoundView();
-        gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, GRID_SIZE);
+        gameBoard = new WordHuntBoardView(filePath, scoreLabel, foundWords, gridSize);
         currentWord = new WordHuntCurrentWordView(gameBoard.wordHuntCurrentWordVM);
         inGameMenuVM = new WordHuntInGameMenuViewModel(gameBoard.wordHuntBoardVM); 
         inGameMenu = new WordHuntInGameMenuView(inGameMenuVM, this);
@@ -50,7 +50,7 @@ public class WordHuntNewGame extends Pane {
         int possibleWords = gameBoard.getNumPossibleWords();
         // while (possibleWords <= 5 || gameBoard.emptyCells()){
         while (possibleWords <= 5){
-            this.initializeComponents("null");
+            this.initializeComponents("null", GRID_SIZE);
             possibleWords = gameBoard.getNumPossibleWords();
         }
         scoreLabel.setAlignment(Pos.CENTER);

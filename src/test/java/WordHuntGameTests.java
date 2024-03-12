@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
-
+import net.fellbaum.jemoji.*;
+import java.util.*;
 
 import java.beans.Transient;
 
@@ -15,7 +16,7 @@ public class WordHuntGameTests {
 
     @Before
     public void setUp() {
-        wordHuntGame = new WordHuntGame();
+        wordHuntGame = new WordHuntGame(4);
     }
 
 
@@ -30,6 +31,14 @@ public class WordHuntGameTests {
         }
     }
 
+    @Test
+    public void testGetEmoji() {
+        Optional<Emoji> testEmoji = EmojiManager.getByAlias("smile");
+        String expected = testEmoji.get().getEmoji().toString();
+        System.out.println("String" + testEmoji.get().getEmoji().toString());
+
+        assertEquals("The emoji for 'smile' should be 😊", expected, testEmoji.get().getEmoji().toString());
+    }
 
     @Test
     public void testIsValidMove() {

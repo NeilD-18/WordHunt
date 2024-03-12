@@ -12,7 +12,7 @@ public class WordHuntBoardViewModel {
 
     private WordHuntGame game;
     private Tile[][] buttons;
-    private static final int GRID_SIZE = 4;
+    private int GRID_SIZE;
     private Tile lastClickedTile;
     private ArrayList<String> foundWords;
     private ArrayList<String> foundBonusWords;
@@ -20,8 +20,9 @@ public class WordHuntBoardViewModel {
     /**
      * Constructor, initializes viewmodel
      */
-    public WordHuntBoardViewModel(){
-        this.game = new WordHuntGame();
+    public WordHuntBoardViewModel(int grid){
+        GRID_SIZE = grid;
+        this.game = new WordHuntGame(grid);
         buttons = new Tile[GRID_SIZE][GRID_SIZE];
     }
 
@@ -58,6 +59,19 @@ public class WordHuntBoardViewModel {
                 if (buttons[i][j].isDisabled() == false){
                     buttons[i][j].setYellowState();
                 }
+            }
+        }
+    }
+
+    public void updateTiles() { 
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++) { 
+                if (game.getStartingValueForTile(i,j) != null) { 
+                    if (game.getStartingValueForTile(i,j)) { 
+                        buttons[i][j].updateCount(game.getStartingCountLetterUse(i,j)); 
+                    }
+                }
+                
             }
         }
     }
@@ -133,12 +147,14 @@ public class WordHuntBoardViewModel {
      * @param WordHuntWordsFoundView
      */
     public void handleWord(Stack<Tile> stack, WordHuntScoreView scoreView, WordHuntWordsFoundView wordsFound){
+        /* 
         for (int j = 0; j < GRID_SIZE; j++){
             for (int k = 0; k < GRID_SIZE; k++){
                 System.out.print("Letter use for " + j + ", " + k + ": ");
                 System.out.println(game.getLetterUse(j, k));
             }
         }
+        */
         foundWords = game.getFoundWords();
         foundBonusWords = game.getFoundBonusWords();
         String word = "";
@@ -151,22 +167,28 @@ public class WordHuntBoardViewModel {
         word = word.toLowerCase();
         int validity = this.game.isValidWord(word);
         if (!foundWords.contains(word) && !foundBonusWords.contains(word)){
+            
+            
+            String EmojiWord = game.getEmoji(word);
+            
             if (validity == 1) {
-                for (int i = 0; i < temp.size(); i++){
-                    game.decrementLetterUse(temp.get(i).getRow(), temp.get(i).getCol());
-                }
+                game.decrementLetterUse(word);
                 this.game.addFoundWord(false, word);
-                wordsFound.wordList.add(wordsFound.createStyledText(word));
+                if (!EmojiWord.equals("No Emoji")) { wordsFound.wordList.add(wordsFound.createStyledText(word + EmojiWord)); }
+                else { wordsFound.wordList.add(wordsFound.createStyledText(word)); } 
                 wordsFound.animateWordAddition();
                 scoreView.incrementTotalWordsFound();
+                this.updateTiles(); 
             } else if (validity == 2) {
                 this.game.addFoundWord(true, word);
-                wordsFound.wordList.add(wordsFound.bonusStyledText(word));
+                if (!EmojiWord.equals("No Emoji")) { wordsFound.wordList.add(wordsFound.bonusStyledText(word + EmojiWord)); }
+                else { wordsFound.wordList.add(wordsFound.bonusStyledText(word)); } 
                 wordsFound.animateWordAddition();
             }
         }
         this.checkUsedTiles();
         this.wipeTiles();
+        
     }
 
     /**
@@ -186,6 +208,18 @@ public class WordHuntBoardViewModel {
     public int getNumPossibleWords(){
         System.out.println(game.getPossibleWords().size());
         return game.getPossibleWords().size();
+    }
+
+    public boolean emptyCells(){
+        for (int i = 0; i < GRID_SIZE; i++){
+            for (int j = 0; j < GRID_SIZE; j++){
+                int tmp = game.getLetterUse(i, j);
+                if (tmp == 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -221,5 +255,13 @@ public class WordHuntBoardViewModel {
      */
     public void saveGame(String file) { 
         game.saveBoard(file); 
+    }
+
+    public Boolean getStartingValueForTile(int row, int col) { 
+        return game.getStartingValueForTile(row,col); 
+    }
+
+    public int getStartingCountForTile(int row, int col) { 
+        return game.getStartingCountLetterUse(row, col);
     }
 }

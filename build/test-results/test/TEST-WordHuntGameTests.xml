@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="WordHuntGameTests" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-02-20T13:23:38" hostname="Jacobs-MacBook-Pro-2.local" time="0.178">
   <properties/>
   <testcase name="testGetFoundBonusWords" classname="WordHuntGameTests" time="0.014"/>
@@ -14,6 +15,22 @@
   <system-out><![CDATA[[doug, dont, font, hugo, info]
 [cure, pure, peru]
 [nike, flip, inns, pike, pink, like, link, life, lips, sink, silk, spin, skin, skip]
+=======
+<testsuite name="WordHuntGameTests" tests="11" skipped="0" failures="0" errors="0" timestamp="2024-03-12T06:49:36" hostname="Simons-MacBook-Air.local" time="0.22">
+  <properties/>
+  <testcase name="testGetFoundBonusWords" classname="WordHuntGameTests" time="0.006"/>
+  <testcase name="testGetEmoji" classname="WordHuntGameTests" time="0.137"/>
+  <testcase name="testFoundWordBonusFlag" classname="WordHuntGameTests" time="0.002"/>
+  <testcase name="testTearDown" classname="WordHuntGameTests" time="0.031"/>
+  <testcase name="testIsValidMove" classname="WordHuntGameTests" time="0.001"/>
+  <testcase name="testIsValidWord" classname="WordHuntGameTests" time="0.001"/>
+  <testcase name="testGetFoundWords" classname="WordHuntGameTests" time="0.001"/>
+  <testcase name="testGetBoardAfterGenerateRandomBoard" classname="WordHuntGameTests" time="0.019"/>
+  <testcase name="testAddFoundWord" classname="WordHuntGameTests" time="0.001"/>
+  <testcase name="testGetPossibleWords" classname="WordHuntGameTests" time="0.001"/>
+  <testcase name="testGenerateRandomBoard" classname="WordHuntGameTests" time="0.02"/>
+  <system-out><![CDATA[String]]>&#x1f604;<![CDATA[
+>>>>>>> testMerge
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

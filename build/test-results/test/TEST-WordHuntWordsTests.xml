@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="WordHuntWordsTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-02-20T13:23:38" hostname="Jacobs-MacBook-Pro-2.local" time="0.089">
   <properties/>
   <testcase name="testGetFoundBonusWords" classname="WordHuntWordsTests" time="0.002"/>
@@ -12,5 +13,18 @@
   <system-out><![CDATA[[]
 []
 ]]></system-out>
+=======
+<testsuite name="WordHuntWordsTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-03-12T06:49:37" hostname="Simons-MacBook-Air.local" time="0.049">
+  <properties/>
+  <testcase name="testGetFoundBonusWords" classname="WordHuntWordsTests" time="0.002"/>
+  <testcase name="testFoundWordBonusFlag" classname="WordHuntWordsTests" time="0.001"/>
+  <testcase name="testTearDown" classname="WordHuntWordsTests" time="0.038"/>
+  <testcase name="testIsValidWord" classname="WordHuntWordsTests" time="0.002"/>
+  <testcase name="testGetNumFoundWords" classname="WordHuntWordsTests" time="0.001"/>
+  <testcase name="testGetFoundWords" classname="WordHuntWordsTests" time="0.002"/>
+  <testcase name="testAddFoundWord" classname="WordHuntWordsTests" time="0.002"/>
+  <testcase name="testGetPossibleWords" classname="WordHuntWordsTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+>>>>>>> testMerge
   <system-err><![CDATA[]]></system-err>
 </testsuite>

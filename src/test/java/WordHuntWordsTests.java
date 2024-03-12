@@ -16,8 +16,13 @@ public class WordHuntWordsTests {
 
     @Before
     public void setUp() {
+<<<<<<< HEAD
         wordHuntGame = new WordHuntGame();
         wordHuntWords = new WordHuntWords(wordHuntGame);
+=======
+        wordHuntGame = new WordHuntGame(4);
+        wordHuntWords = new WordHuntWords(wordHuntGame, 4);
+>>>>>>> testMerge
         wordHuntWords.initializeWordLists();
     }
 

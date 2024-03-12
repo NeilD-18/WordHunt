@@ -68,7 +68,11 @@ goto fail
 :execute
 @rem Setup the command line
 
+<<<<<<< HEAD:build/scripts/csc260-w2024-project2-5.bat
 set CLASSPATH=%APP_HOME%\lib\csc260-w2024-project2-5.jar;%APP_HOME%\lib\javafx-controls-17.0.8-mac.jar;%APP_HOME%\lib\javafx-graphics-17.0.8-mac.jar;%APP_HOME%\lib\javafx-base-17.0.8-mac.jar
+=======
+set CLASSPATH=%APP_HOME%\lib\csc260-w2024-project2.jar;%APP_HOME%\lib\jemoji-1.4.0.jar;%APP_HOME%\lib\javafx-controls-17.0.8-mac-aarch64.jar;%APP_HOME%\lib\jackson-annotations-2.16.1.jar;%APP_HOME%\lib\jackson-core-2.16.1.jar;%APP_HOME%\lib\jackson-databind-2.16.1.jar;%APP_HOME%\lib\javafx-graphics-17.0.8-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-17.0.8-mac-aarch64.jar
+>>>>>>> testMerge:build/scripts/csc260-w2024-project2.bat
 
 
 @rem Execute csc260-w2024-project2-5

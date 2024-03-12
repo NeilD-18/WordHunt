@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Optional;
+
+
+import net.fellbaum.jemoji.*;
 
 import javafx.util.Pair;
 
@@ -12,25 +17,32 @@ import javafx.util.Pair;
  */
 public class WordHuntWords{
 
-    private int COLUMNS = 4;
-    private int ROWS = 4;
+    private int COLUMNS;
+    private int ROWS;
     private WordHuntGame game;
     private ArrayList<String> POSSIBLE_4_LETTER_WORDS;
+    private ArrayList<ArrayList<Pair<Integer, Integer>>> POSSIBLE_4_LETTER_WORDS_TILES;
     private ArrayList<String> FOUND_4_LETTER_WORDS;
     private ArrayList<String> FOUND_BONUS_WORDS;
     private ArrayList<String> FOUR_LETTER_WORDS;
     private ArrayList<String> BONUS_WORDS;
+    private HashMap<Pair<Integer,Integer>, Boolean> STARTING_VALUE_FOR_TILES;
+    
 
     
     /**
      * Constructs a new WordHuntWords object with the specified WordHuntGame object.
      * @param g The WordHuntGame object to associate with this WordHuntWords object.
      */
-    public WordHuntWords(WordHuntGame g){
+    public WordHuntWords(WordHuntGame g, int SIZE){
         game = g;
+        COLUMNS = SIZE;
+        ROWS = SIZE;
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
+        POSSIBLE_4_LETTER_WORDS_TILES = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+        STARTING_VALUE_FOR_TILES = new HashMap<>();
     }
 
 
@@ -45,7 +57,7 @@ public class WordHuntWords{
                 this.findWordsHelper(i, j, "", 0, tmpBoard, visited);
             }
         }
-        System.out.println(POSSIBLE_4_LETTER_WORDS);
+        // System.out.println(POSSIBLE_4_LETTER_WORDS);
     }
 
 
@@ -65,19 +77,13 @@ public class WordHuntWords{
         if (length == 4){
             word = word.toLowerCase();
             if (this.isValidWord(word) == 1){
-                for (int a = 0; a < visited.size(); a++){
-                    Pair p = visited.get(a);
-                    int r = (int) p.getKey();
-                    int c = (int) p.getValue();
-                    game.incrementLetterUse(r, c);
-                }
-                this.addPossibleWord(word);
+                this.addPossibleWord(word, visited);
             }
         }
         else {
             for (int i = -1; i < 2; i++){
                 for (int j = -1; j < 2; j++){
-                    if (game.isValidMove(row, col, row + i, col+ j)){
+                    if (game.isValidMove(row, col, row + i, col + j)){
                         Pair<Integer, Integer> p = new Pair<> (row + i, col + j);
                         if (!visited.contains(p)){
                             ArrayList<Pair<Integer, Integer>> newVisited = new ArrayList<Pair<Integer, Integer>>();
@@ -96,9 +102,18 @@ public class WordHuntWords{
     /**
      * Add possible word
      */
-    private void addPossibleWord(String word){
+    private void addPossibleWord(String word, ArrayList<Pair<Integer, Integer>> visited){
         if (!POSSIBLE_4_LETTER_WORDS.contains(word)){
             POSSIBLE_4_LETTER_WORDS.add(word);
+            POSSIBLE_4_LETTER_WORDS_TILES.add(visited);
+            STARTING_VALUE_FOR_TILES.put(visited.get(0), true); 
+            for (int i = 0; i < visited.size(); i++){
+                Pair<Integer, Integer> p = visited.get(i);
+                if (i == 0) { 
+                    game.incrementStartingCountForLetter(p.getKey(), p.getValue());
+                }
+                game.incrementLetterUse(p.getKey(), p.getValue());
+            }
         }
     }
 
@@ -131,6 +146,11 @@ public class WordHuntWords{
         }
     }
 
+    public ArrayList<Pair<Integer, Integer>> getTilesForWord(String word){
+        int index = POSSIBLE_4_LETTER_WORDS.indexOf(word);
+        return POSSIBLE_4_LETTER_WORDS_TILES.get(index);
+    }
+
 
     /**
      * Gets the list of possible words found on the game board.
@@ -146,7 +166,7 @@ public class WordHuntWords{
      * @param word The word to check.
      * @return 1 if the word is a valid 4-letter word, 2 if it's a bonus word, and 0 if it's invalid.
      */
-    public int isValidWord (String word){
+    public int isValidWord(String word){
         if (FOUR_LETTER_WORDS.contains(word)){
             return 1;
         }
@@ -156,6 +176,29 @@ public class WordHuntWords{
         return 0;
     }
 
+    /**
+     * Private helper to see if a given word has an emoji
+     */
+    private boolean hasEmoji(String word) { 
+        Optional<Emoji> testEmoji = EmojiManager.getByAlias(word);
+        return testEmoji.isEmpty(); 
+    }
+
+    /**
+     * 
+     * @param word
+     * @return The emoji of a word if present
+     * Will return "No Emoji" if there is no emoji present. 
+     */
+    public String getEmoji(String word) { 
+        if (!hasEmoji(word)) { 
+            Optional<Emoji> testEmoji = EmojiManager.getByAlias(word);
+            return testEmoji.get().getEmoji().toString(); 
+        }
+        else { 
+            return "No Emoji"; 
+        }
+    }
 
     /**
      * Adds a found word to the appropriate list of found words.
@@ -205,6 +248,16 @@ public class WordHuntWords{
         POSSIBLE_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_4_LETTER_WORDS = new ArrayList<String>();
         FOUND_BONUS_WORDS = new ArrayList<String>();
+    }
+
+    /**
+     * Returns whether or not a tile has a starting value, i.e can a word be made starting from this tile
+     * @param row
+     * @param col
+     * @return
+     */
+    public Boolean getStartingValueForTile(int row, int col) { 
+        return STARTING_VALUE_FOR_TILES.get(new Pair<>(row,col)); 
     }
 
 }

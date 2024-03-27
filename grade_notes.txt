@@ -1,0 +1,38 @@
+CSC 260 Winter 2024 Group Project
+
+Baibhav, Neil, Simon, Jacob
+
+Design Documentation (10/20)
+============================
+
+Missing interaction diagram (you have things you call interaction
+diagrams, but they don't look like the interaction diagrams we showed in
+class and that are used in the book).
+
+I assume your "Big Diagram" is intended to be a class diagram, but it
+doesn't show any of the relationships between classes, like a proper class
+diagram would.
+
+
+Software Design (20/30)
+=======================
+
+As you currently have it, a bonus word is any valid word that's longer than
+4 characters.  The intent was for bonus words to be "rare" words, not
+"long" words.  It's not clear how you'd be able to support this intent
+without a lot of changes.
+
+Related, it's not clear how you'd add different word kinds without a lot of
+changes. Currently separate word lists are initialized in
+initializeWordLists, and then those lists are hard-coded into isValidWord.
+
+Testing (10/10)
+===============
+
+Looks ok.
+
+Release C Planning (5/5)
+========================
+
+No Issues or Milestones on your repo, but otherwise looks like a pretty
+well-thought-out plan for the next release.
